@@ -1,0 +1,158 @@
+           <!-- Settings tabs -->
+          <div class="classic-tabs">
+
+            <ul class="nav tabs-info" id="site_settings_Tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link  waves-light {$tabs}" id="generate-tab-classic" data-toggle="tab" href="#generate-classic" role="tab" aria-controls="generate-classic" aria-selected="true">Rave Pay Settings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link waves-light {$tabs1}" id="premium-tab-classic" data-toggle="tab" href="#premium-classic" role="tab" aria-controls="premium-classic" aria-selected="false">Premium Settings</a>
+              </li> 
+            </ul>
+
+              <!-- Rave Settings tab -->
+            <div class="tab-content card" id="settingsTabContent"> 
+
+              <!-- Premium tab -->
+              <div class="tab-pane fade {$tabs}" id="generate-classic" role="tabpanel" aria-labelledby="generate-tab-classic"> 
+
+                <!-- Form -->
+                <form class="border border-danger p-2 form-text text-muted mb-2 text-justify" style="color: #757575;" method="post" action=""> 
+
+                  <div class="row"> 
+
+                    <div class="col-md-6 text-left">  
+                        <!-- Rave mode -->  
+                          <select name="mode" id="mode" class="text-left mdb-select md-form colorful-select dropdown-primary"> 
+                            <option disabled>{$lng->contest}</option>
+                            <option {$rave_sand} value="0">Sandbox</option>
+                            <option {$rave_live} value="1">Live</option>
+                          </select> 
+                          <label for="mode">Rave Mode</label>                     
+                    </div> 
+
+                    <div class="col-md-6">
+                        <!-- Rave public Key --> 
+                      <div class="md-form">
+                          <input name="public" type="text" id="public" class="form-control" value="{$rave_public}">
+                          <label for="public">Rave Public Key</label>
+                      </div>                     
+                    </div> 
+
+                    <div class="col-md-6">
+                        <!-- Rave private Key --> 
+                      <div class="md-form">
+                          <input name="private" type="text" id="private" class="form-control" value="{$rave_private}">
+                          <label for="private">Rave Private Key</label>
+                      </div>                     
+                    </div> 
+
+                    <div class="col-md-6">
+                        <!-- Rave Secrete Key --> 
+                      <div class="md-form">
+                          <input name="encryption" type="text" id="encryption" class="form-control" value="{$rave_enc}">
+                          <label for="encryption">Rave Encryption Key</label>
+                      </div>                     
+                    </div>   
+
+                  </div>
+ 
+                  
+                  <div class="text-center">
+                    <span id="msg">{$message}</span><span class="loading"></span>
+                    <button id="save_settings" name="save_settings" type="submit" class="mr-auto btn btn-sm btn-info my-2 waves-effect">Save Settings</button>      
+                  </div>  
+                              
+                </form> 
+
+              </div> 
+
+              <!-- Premium tab -->
+              <div class="tab-pane fade {$tabs1}" id="premium-classic" role="tabpanel" aria-labelledby="premium-tab-classic"> 
+
+                <div class="border border-danger p-2 form-text text-muted mb-2 text-justify">
+                  <!-- Form -->
+                  <form class="p-4 m-2 border mb-4" style="color: #757575;" method="post" action=""> 
+
+                    <div class="row"> 
+
+                      <div class="col-md-6">
+                          <!-- Currency --> 
+                        <div class="md-form ">
+                            <input name="currency" type="text" id="currency" class="form-control" value="{$currency}">
+                            <label for="currency">Currency (USD)</label>
+                        </div>                     
+                      </div> 
+
+                      <div class="col-md-6">
+                          <!-- Premium votes --> 
+                        <div class="md-form ">
+                            <input name="votes" type="text" id="votes" class="form-control" value="{$votes}">
+                            <label for="votes">Premium Vote Count</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- Premium Plan --> 
+                        <div class="md-form ">
+                            <input name="premium" type="text" id="premium" class="form-control" value="{$premium_vp}">
+                            <label for="premium">{$lng->premium_vp} Price</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- cmarx plan price--> 
+                        <div class="md-form ">
+                            <input name="clead" type="text" id="clead" class="form-control" value="{$clead_p}">
+                            <label for="clead">{$lng->clead_p} Price</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- cmarx plan price --> 
+                        <div class="md-form ">
+                            <input name="cmarx" type="text" id="cmarx" class="form-control" value="{$cmarx_p}">
+                            <label for="cmarx">{$lng->cmarx_p} Price</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- slight plan price --> 
+                        <div class="md-form ">
+                            <input name="slight" type="text" id="slight" class="form-control" value="{$slight_p}">
+                            <label for="slight">{$lng->slight_p} Price</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- lite plan price --> 
+                        <div class="md-form ">
+                            <input name="lite" type="text" id="lite" class="form-control" value="{$lite_p}">
+                            <label for="lite">{$lng->lite_p} Price</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- life plan price --> 
+                        <div class="md-form ">
+                            <input name="life" type="text" id="life" class="form-control" value="{$life_p}">
+                            <label for="life">{$lng->life_p} Price</label>
+                        </div>                     
+                      </div>
+
+                    </div>
+
+                    <div class="text-center">
+                    <span id="msg1">{$ret_resp}</span> 
+                      <button id="save" name="save" type="submit" class="mr-auto btn btn-sm btn-info my-2 waves-effect">Save Settings</button>       
+                    </div>  
+                                      
+                  </form>    
+              </div>
+
+              </div> 
+
+            </div>
+
+          </div>
+          <!-- Classic tabs -->

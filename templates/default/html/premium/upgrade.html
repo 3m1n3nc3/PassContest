@@ -1,0 +1,568 @@
+          <!-- Tab navigations -->
+          <ul class="nav nav-tabs nav-justified md-tabs info-color" id="myTabJust" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link  {$active_class}" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="home-just" aria-selected="true">{$lng->p_voter}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {$active_class1}" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="profile-just" aria-selected="false">{$lng->p_contestant}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {$active_class2}" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just" aria-selected="false">{$lng->p_agency}</a>
+            </li>
+          </ul>
+          <!-- Tab navigations -->
+
+          <!-- Premium Voter Tab -->
+          <div class="tab-content card pt-5" id="myTabContentJust">
+
+            <!-- profile form profile info tab-->
+            <div class="tab-pane fade {$show_class}" id="profile" role="tabpanel" aria-labelledby="home-tab-just"> 
+
+                  <div class="saving-load flex"></div>
+                  <div id="return-message" class="pt-2">{$error}</div>
+                  {$trusted_badge} 
+                  <span class="d-inline-flex justify-content-center border rounded p-3 m-2 z-depth-1"> 
+                      <form id="premium-voter-form" method="post" class="form-inline">
+                        <input type="hidden" name="plan" value="premium_plan">  
+
+                        <a onclick="{$premium_action}" class="btn btn-success btn-md"> {$lng->upgrade_now}
+                          <i class="fa fa-star ml-2 d-none d-inline-block"></i>
+                        </a>
+                        {$form_body}
+                      </form>
+                  </span>
+
+
+                    <!--Section Premium Voters-->
+                    <section class="mb-5 text-center">
+
+                      <h4 class="mb-2">
+                        <span class="font-weight-bold">{$lng->p_compare}</span>
+                      </h4>
+
+                      <!--Table-->
+                      <table class="table table-sm table-striped">
+
+                        <style>
+                          .fa-times {
+                            color: red;
+                          }
+
+                          .fa-check {
+                            color: green;
+                          }
+                        </style>
+
+                        <!--Table head-->
+                        <thead class="bg-info darken-3">
+                          <tr class="text-white">
+                            <th class="text-left">{$lng->p_features}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->free}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->premium_vp}</th>
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+
+                        <!--Table body-->
+                        <tbody>
+                          <tr>
+                            <td class="text-left">Price</td>
+                            <td>{$no_plan_price}</td>
+                            <td>{$premium_plan_price}</td>                        
+                          </tr>
+                          <tr>
+                            <td class="text-left">Premium Badge</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              {$voter_badge}
+                            </td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">{$vote_point} points per vote</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">Follow on Twitter</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                          </tr>
+                          <tr>     
+                            <td class="text-left">Like Facebook page</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="text-left">Turn of Email Notifications</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="text-left">Bounty Commission Program</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                          </tr> 
+                          <tr>
+                          </tr> 
+                        </tbody>
+                        <!--Table body-->
+                      </table>
+                      <!--Table-->
+
+                      <div class="container border rounded border-warning p-3">
+                        <div class="text-info text-left">* <span class="text-danger font-weight-bold">{$lng->premium_vp}</span> {$lng->1every_year}</div> 
+                      </div> 
+
+                    </section>
+                    <!--Section Premium Voters-->
+
+            </div>
+            <!-- Premium Voter tab-->
+
+            <!-- Premium Contestant tab-->
+            <div class="tab-pane fade {$show_class1}" id="basic" role="tabpanel" aria-labelledby="profile-tab-just">
+ 
+                  <div class="saving-load flex"></div>
+                  <div id="return-message" class="pt-2">{$error}</div>
+
+                  {$trusted_badge} 
+                  <span class="d-inline-flex justify-content-center border rounded px-4 m-2 z-depth-1"> 
+                      <form id="premium-contestant-form" method="post" class="form-inline">
+                        <select name="plan" class="mdb-select md-form colorful-select dropdown-primary">
+                          <option disabled>{$lng->choose_plan}</option>
+                          <option value="clead_plan">{$lng->clead}</option>
+                          <option value="cmarx_plan">{$lng->cmarx}</option> 
+                        </select> 
+
+                        <a onclick="{$contestant_action}" class="btn btn-success btn-md"> {$lng->upgrade_now}
+                          <i class="fa fa-star ml-2 d-none d-inline-block"></i>
+                        </a>
+                        {$form_body}
+                      </form>
+                  </span>
+
+                    <!--Section Premium Contestants-->
+                    <section class="mb-5 text-center">
+
+                      <h4 class="mb-2">
+                        <span class="font-weight-bold">{$lng->p_compare}</span>
+                      </h4>
+
+                      <!--Table-->
+                      <table class="table table-sm table-striped">
+
+                        <style>
+                          .fa-times {
+                            color: red;
+                          }
+
+                          .fa-check {
+                            color: green;
+                          }
+                        </style>
+
+                        <!--Table head-->
+                        <thead class="bg-info darken-3">
+                          <tr class="text-white">
+                            <th class="text-left">{$lng->p_features}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->free}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->clead}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->cmarx}</th>
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+
+                        <!--Table body-->
+                        <tbody>
+                          <tr>
+                            <td class="text-left">Price</td>
+                            <td>{$no_plan_price}</td>
+                            <td>{$clead_plan_price}</td> 
+                            <td>{$cmarx_plan_price}</td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">Premium Badge</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              {$clead_badge}
+                            </td> 
+                            <td>
+                              {$cmarx_badge}
+                            </td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">1 Free Contest</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">3 Free Contests</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">All contest are free</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Suggested to voters</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td> 
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>                       
+                          </tr>
+                          <tr>     
+                            <td class="text-left">In 3 Running Contests</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">In 5 Running Contests</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">All features of Premium Voter</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>   
+                        </tbody>
+                        <!--Table body-->
+                      </table>
+
+                      <div class="container border rounded border-warning p-3">
+                        <div class="text-info text-left">* <span class="text-danger font-weight-bold">{$lng->all}</span> {$lng->every_year}</div> 
+                      </div>
+                     
+                      <!--Table-->
+
+                    </section>
+                    <!--Section Premium Contestant-->
+  
+            </div>
+            <!-- Premium Contestant tab-->
+
+            <div class="tab-pane fade {$show_class2}" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
+ 
+                  <div id="return-message" class="pt-2">{$error}</div>
+
+                  {$trusted_badge} 
+                  <span class="d-inline-flex justify-content-center border rounded px-4 m-2 z-depth-1"> 
+                      <form id="premium-agent-form" method="post" class="form-inline text-center">
+                        <select name="plan" class="mdb-select md-form colorful-select dropdown-primary">
+                          <option disabled>{$lng->choose_plan}</option>
+                          <option value="slight_plan">{$lng->slight}</option>
+                          <option value="lite_plan">{$lng->lite}</option> 
+                          <option value="life_plan">{$lng->life}</option> 
+                        </select> 
+
+                        <a onclick="{$agent_action}" class="btn btn-success btn-md"> {$lng->upgrade_now}
+                          <i class="fa fa-star ml-2 d-none d-inline-block"></i> 
+                        </a>
+                        {$form_body}
+                      </form> 
+                  </span>
+
+                    <!--Section Agency-->
+                    <section class="mb-5 text-center">
+
+                      <h4 class="mb-2">
+                        <span class="font-weight-bold">{$lng->p_compare}</span>
+                      </h4>
+
+                      <!--Table-->
+                      <table class="table table-sm table-striped">
+
+                        <style>
+                          .fa-times {
+                            color: red;
+                          }
+
+                          .fa-check {
+                            color: green;
+                          }
+                        </style>
+
+                        <!--Table head-->
+                        <thead class="bg-info darken-3">
+                          <tr class="text-white">
+                            <th class="text-left">{$lng->p_features}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->slight}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->lite}</th>
+                            <th class="text-center">
+                              <span class="hidden-down"></span>{$lng->life}</th>
+                          </tr>
+                        </thead>
+                        <!--Table head-->
+
+                        <!--Table body-->
+                        <tbody>
+                          <tr>
+                            <td class="text-left">Price</td>
+                            <td>{$slight_plan_price}</td>
+                            <td>{$lite_plan_price}</td> 
+                            <td>{$life_plan_price}</td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">Premium Badge</td>
+                            <td>
+                              {$slight_badge}
+                            </td>
+                            <td>
+                              {$lite_badge}
+                            </td> 
+                            <td>
+                              {$life_badge}
+                            </td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">1 Active Contest</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">3 Active Contest</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Unlimited Active Contest</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Create 2 Contest</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>                       
+                          </tr>
+                          <tr>
+                            <td class="text-left">Create 5 Contest</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Create Unlimited Contest</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Up to 15 Contestants</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>     
+                            <td class="text-left">Up to 35 Contestants</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Unlimited Contestants</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr>
+                          <tr>
+                            <td class="text-left">Generate 10 contestant profiles</td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr> 
+                          <tr>
+                            <td class="text-left">Generate 30 contestant profiles</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr> 
+                          <tr>
+                            <td class="text-left">Generate 60 contestant profiles</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr> 
+                          <tr>
+                            <td class="text-left">All features of Premium Voter</td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-times"></i>
+                            </td>
+                            <td>
+                              <i class="fa fa-check"></i>
+                            </td> 
+                          </tr> 
+                        </tbody>
+                        <!--Table body-->
+                      </table>
+
+                      <div class="container border rounded border-warning p-3">
+                        <div class="text-info text-left">* <span class="text-danger font-weight-bold">{$lng->slight}</span> {$lng->every_month}</div>
+                        <div class="text-info text-left">* <span class="text-danger font-weight-bold">{$lng->lite}</span> {$lng->every_6month}</div>
+                        <div class="text-info text-left">* <span class="text-danger font-weight-bold">{$lng->life}</span> {$lng->every_lifetime}</div>
+                      </div>
+                    <!--Table-->
+
+                    </section>
+                    <!--Section Agency-->
+
+            </div>
+          </div>

@@ -1,0 +1,56 @@
+<section class="text-center team-section pt-5">
+
+    <!--Grid row-->
+    <div class="container" style="max-width: 75%;"> 
+      <span class="h4 d-flex justify-content-center blue-gradient white-text p-2">
+          <strong>{$lng->admin_login}</strong>
+      </span>
+
+        <div class="card">
+          <div class="card-header h6 d-flex justify-content-left winter-neva-gradient white-text p-2">{$this_title}</div>
+          <div class="card-body"> 
+         
+            <small id="possible_helper" class="border border-danger p-2 py-5 form-text text-muted mb-2 text-justify"> 
+              
+              <strong id="content">
+
+                <!-- Form -->
+                <form style="color: #757575;" action="" method="post"> 
+
+                  <div class="row"> 
+                    <div class="col-md-12">
+                        <!-- password --> 
+                      <div class="md-form"> 
+                          <input name="admin_username" type="password" id="admin_username" class="form-control" autocomplete="off">
+                          <label for="admin_username">Admin Username</label>
+                      </div>                     
+                    </div> 
+
+                    <div class="col-md-12">
+                        <!-- password --> 
+                      <div class="md-form"> 
+                          <input name="admin_password" type="password" id="admin_password" class="form-control" autocomplete="off">
+                          <label for="admin_password">Admin Password</label>
+                      </div>                     
+                    </div>   
+  
+                  </div>
+
+                  <span id="msg">{$message}</span>
+                  <span class="d-flex justify-content-center">
+                    <button name="admin_login" type="submit" class="btn btn-info my-2 waves-effect" id="change">{$lng->admin_login} <i class="fa fa-user-circle text-white"></i></button>
+                  </span>
+                  
+                </form>        
+
+              </strong>
+
+            </small> 
+          
+          </div>
+        </div> 
+    </div>
+  
+
+  </section>
+

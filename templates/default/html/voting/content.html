@@ -1,0 +1,78 @@
+<style type="text/css">
+ .chip.chip-lg {
+    height: 40px;
+    line-height: 40px;
+    border-radius: 26px;
+  }
+  .chip.chip-lg img {
+    height: 40px;
+    width: 40px;
+  }
+</style>  
+
+<div class="mt-4 container" style="min-width: 100%">
+  <div class="{$row}"> <div id="table_body"></div>
+    <div class="{$col_2}">
+      {$shared_menu} 
+      <span class="{$d_block}">{$recommended}</span>
+      {$user_menu} 
+    </div> 
+    <div class="{$col_1} mb-3">
+      <!-- Card -->
+      <div class="card">
+
+        <!-- Card content -->
+        <div class="card-body text-center">
+            <h6 class="peach-gradient white-text"> {$c_over} </h6>
+            <h3 class="display-5 unique-color white-text mb-3 wow fadeInDown" data-wow-delay="0.3s" id="top_title">
+              <i class="fa fa-thumbs-up"></i> {$c_title}
+            </h3> 
+            {$require_social}
+            {$contestant_cards} 
+        </div>
+
+      </div> 
+      <!-- Card -->
+    </div>
+    <div class="col-md-12">
+      {$adsbar}
+    </div>
+  </div>
+</div>
+<div class="mb-3">&nbsp;</div>
+
+<!-- Profile data modal container -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body" id="profile-container">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Comments modal container -->
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="height: 80%">
+      <div class="modal-content" style="height: 80%">
+        <div class="modal-header bg-light">
+          <h4 class="modal-title w-100" id="commentLabel">Comments for <span id="contestant_name"></span></h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <span class="saving-load" id="save-load"></span>
+        </div>
+        <div class="modal-body" style="max-height: calc(100% - 120px); overflow-y: scroll;" id="comments-container"> </div>
+        <div class="modal-footer justify-content-start my-2" id="comment_footer"></div>
+      </div>
+  </div>
+</div>
+
+<!-- Sharing modal will be appended here -->
+<div id="sharer"></div>
+<div id="follow_first"></div>
+
+ 

@@ -1,0 +1,116 @@
+<a href="#" data-toggle="modal" data-target="#uploadModal" id="upload-photo-btn"><span data-toggle="tooltip" data-placement="right" title="Change profile photo"><i class="fa fa-pencil-square one bg-white p-1 px-3"></i></span></a>
+
+<a href="#" data-toggle="modal" data-target="#uploadcoverModal" id="upload-cover-btn"><span data-toggle="tooltip" data-placement="right" title="Change cover photo"><i class="fa fa-pencil-square one bg-white py-1 px-3"></i></span></a>
+
+<!-- Add Profile picture upload modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadModalLongTitle">{$lng->uploadProfile}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="saving-load"></div> 
+                <div class="modal-body">  
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">         
+                                    <div class="col mx-auto"> 
+                                        <div id="preview-crop-profile"></div>
+                                        <div id="upload-profile" style="display: none;"></div> 
+                                    </div> 
+                                </div> 
+
+                                <div class="container" id="action-buttons">
+                                    <div class="row">  
+                                        <div class="col-md-12" style="padding:5%;">
+                                            <label for="prof-image" class="btn btn-outline-info">
+                                                {$lng->choose_image} <i class="fa fa-photo"></i>
+                                            </label>
+                                            <input type="file" id="prof-image" style="display: none;">
+
+                                            <button class="btn btn-info btn-upload-image" style="margin-top:2%" onclick="upload_action(0, 0)">
+                                                {$lng->upload_photo}
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">         
+                                    <div class="col mx-auto"> 
+                                         <div id="profile-photo-message"></div>
+                                    </div> 
+                                </div> 
+                            </div>          
+                        </div>
+                    </div>
+                <div class="modal-footer font-weight-bold">
+                    <span class="mx-auto">
+                        <button class="btn btn-info" onclick="location.reload()">{$lng->close}</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- Add Profile picture upload modal -->
+
+
+<!-- Add cover picture upload modal -->
+<div class="modal fade" id="uploadcoverModal" tabindex="-1" role="dialog" aria-labelledby="uploadcoverModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadcoverModalLongTitle">{$lng->uploadCover}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="saving-load"></div> 
+                <div class="modal-body">   
+                    <div class="container">
+                        <div class="panel panel-default">
+                            <div class="panel-body">   
+                                <div class="row">         
+                                    <div class="col mx-auto"> 
+                                        <div id="preview-crop-cover"></div>
+                                        <div id="upload-cover" style="display: none;"></div> 
+                                    </div> 
+                                </div> 
+
+                                <div class="container" id="action-buttons-2">
+                                    <div class="row"> 
+                                        <div class="col-md-12" style="padding:5%;">
+                                            <label for="cover-image" class="btn btn-outline-info">
+                                                {$lng->choose_image} <i class="fa fa-photo"></i>
+                                            </label>
+                                            <input type="file" id="cover-image" style="display: none;">
+
+                                            <button class="btn btn-info btn-upload-cover" style="margin-top:2%" onclick="upload_action(1, 0)">
+                                                {$lng->upload_cover}
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">         
+                                    <div class="col mx-auto"> 
+                                         <div id="cover-photo-message"></div>
+                                    </div> 
+                                </div> 
+                            </div>          
+                        </div>
+                    </div>
+                    <div class="modal-footer font-weight-bold">
+                        <span class="mx-auto"><button class="btn btn-info" onclick="location.reload()">{$lng->close}</button></span>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+ <!-- Add cover picture upload modal -->

@@ -1,0 +1,76 @@
+          <!-- General Settings tab -->
+            <div class="card">
+              <div class="card-header h6 d-flex justify-content-left winter-neva-gradient white-text p-2">{$this_title}</div>
+              <div class="card-body">
+                <small id="possible_helper" class="border border-danger p-2 form-text text-muted mb-2 text-justify">
+                    <strong>Possible arguments:</strong> Contest Title: <span class="text-info">{$em->contest}</span>, Username: <span class="text-info">{$em->username}</span><br> Password: <span class="text-info">{$em->password}</span>, Firstname: <span class="text-info">{$em->firstname}</span>, Lastname: <span class="text-info">{$em->lastname}</span><br> Activation or Recovery Key or Code: <span class="text-info">{$em->key}</span>, Email: <span class="text-info">{$em->email}</span>, [ Acting (Who is performing the action); Acting Username: <span class="text-info">{$em->act_username}</span>, Acting First Name: <span class="text-info">{$em->act_firstname}</span>, Acting Last Name: <span class="text-info">{$em->act_lastname}</span>, Action (like, comment, follow, vote): <span class="text-info">{$em->action}</span>, Action on (poll/post): <span class="text-info">{$em->action_on}</span> ]
+                </small>
+
+                <!-- Form -->
+                <form style="color: #757575;"> 
+
+                  <div class="row"> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="approved_temp" type="text" id="approved_temp" class="md-textarea form-control" rows="3">{$approved_temp}</textarea> 
+                          <label for="approved_temp">Approved Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="declined_temp" type="text" id="declined_temp" class="md-textarea form-control" rows="3">{$declined_temp}</textarea> 
+                          <label for="declined_temp">Declined Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="comment_temp" type="text" id="comment_temp" class="md-textarea form-control" rows="3">{$comment_temp}</textarea> 
+                          <label for="comment_temp">Comment Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="reply_temp" type="text" id="reply_temp" class="md-textarea form-control" rows="3">{$reply_temp}</textarea> 
+                          <label for="reply_temp">Comment Reply Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="vote_temp" type="text" id="vote_temp" class="md-textarea form-control" rows="3">{$vote_temp}</textarea> 
+                          <label for="vote_temp">Vote Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="apply_temp" type="text" id="apply_temp" class="md-textarea form-control" rows="3">{$apply_temp}</textarea> 
+                          <label for="apply_temp">Application Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="reg_temp" type="text" id="reg_temp" class="md-textarea form-control" rows="3">{$reg_temp}</textarea> 
+                          <label for="reg_temp">Registration Template</label>
+                      </div>                  
+                    </div> 
+
+                    <div class="col-md-12  text-left">  
+                      <div class="md-form form-sm  shadow-textareamt-2">    
+                          <textarea name="recover_temp" type="text" id="recover_temp" class="md-textarea form-control" rows="3">{$recover_temp}</textarea> 
+                          <label for="recover_temp">Recovery Template</label>
+                      </div>                  
+                    </div> 
+
+                  </div>
+
+                  <span id="msg4"></span><span class="loading"></span>
+                  <a id="save4" onclick="siteSettings(4)" class="btn btn-info btn-rounded my-2 waves-effect">Save</a>
+                </form>  
+              </div>
+            </div> 

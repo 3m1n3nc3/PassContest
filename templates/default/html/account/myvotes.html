@@ -1,0 +1,63 @@
+<script type="text/javascript">
+  $(document).ready(function() { 
+    loadAccountsTable(1, {$limit}, 1, 1);
+  });
+</script>
+
+<!--Section: Team v.1-->
+<section class="text-center team-section pt-4">
+
+    <!--Grid row-->
+    <div class="container" style="max-width: 100%;">
+      <div class="{$row}">
+
+        <!--Side navigation Menu -->
+        <div class="{$col_2}">
+          {$sidebar_menu}
+          {$recommended} 
+          {$adsbar}
+        </div> 
+
+        <div class="{$col_1} mb-3">
+
+          <!-- Tab content -->
+          <div class="card">
+            <div class="card-header info-color white-text py-1">
+              <h2>{$lng->my_votes}</h2>
+            </div>
+
+              <div class="card-body px-lg-2 pt-0 pb-5">
+
+                <!--Table-->
+                <table class="table table-responsive-sm">
+                  <div id="set-message" class="m-2"></div>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Contestant</th> 
+                      <th>Contest</th> 
+                      <th>Total Votes</th>
+                      <th>You voted</th>  
+                    </tr>
+                  </thead> 
+                  <tbody id="table_body"> </tbody>
+                </table>
+                <span id="loaders"></span>                 
+                <h2 class="text-warning" id="no_content"></h2>
+                <hr class="bg-warning">
+                <div class="pt-2" id="navigation"></div>
+                <!--Table-->
+                 
+              </div>
+          </div>
+
+        </div>
+
+      </div>
+ 
+    <!--Grid row-->
+
+  </section>
+<div class="clear-fix">&nbsp;</div> 
+ 
+

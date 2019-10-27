@@ -1,0 +1,425 @@
+ 
+<div class="p-3 blue-gradient"></div>
+ 
+ <div class="container" style="min-width: 100%;">
+  <div class="{$row}">
+
+    <div class="{$col_1} p-1 mb-3">
+      <div class="card card-cascade wider reverse">
+        <!-- Card content -->
+        <div class="card-body card-body-cascade">
+
+          <!-- entry form -->
+          <form class="border border-light p-2" method="post" action="{$site_url}/connection/enter_contest.php" id="needs-validation" novalidate>
+
+            <input name="contest_id" type="hidden" value="{$contest_id}">
+
+            <div class="mb-4 text-center"><div class="h4">{$contest_title}</div><br>
+              <span class="text-success">{$only_once}</span>
+            </div>
+            <p class="text-success text-center col-12">{$response}</p>
+            <div class="form-group">
+              <p class="h6 mb-2 text-left">Contact Information</p>
+              <div class="form-row align-items-center">
+                <div class="col-md-6 mb-4">
+                  <label for="firstname">First Name</label>
+                  <input name="firstname" type="text" id="firstname" class="form-control" value="{$firstname}" placeholder="First Name" required>
+                  <div class="invalid-feedback">
+                    Your First Name cant be empty.
+                  </div>                  
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label for="lastname">Last Name</label>
+                  <input name="lastname" type="text" id="lastname" class="form-control" value="{$lastname}" placeholder="Last Name" required>
+                  <div class="invalid-feedback">
+                    Your Last Name cant be empty.
+                  </div>                         
+                </div>
+              </div>
+                  
+                <!-- Gender -->
+              <div class="col-md-12 mb-4">
+                <select name="gender" id="gender" class="mdb-select md-form" value="{$gender}" required> 
+                  <option disabled>Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select> 
+                <div class="invalid-feedback">
+                 Gender cant be empty.
+                </div>                            
+              </div> 
+
+              <div class="form-row align-items-center">
+                <div class="col-md-6 mb-4">
+                  <label for="email1">Email Address</label>
+                  <input name="email" type="text" id="email1" class="form-control" value="{$email}" placeholder="email@mail.com">
+                </div>
+              <div class="col-md-6 mb-4">
+                  <label for="phone">Phone</label>
+                  <input name="phone" type="number" id="phone" class="form-control" value="{$phone}" placeholder="07060000000" required> 
+                  <div class="invalid-feedback">
+                    Please enter your phone number.
+                  </div>                  
+                       
+                </div>
+              </div>
+
+              <div class="form-row align-items-center">
+                <div class="col-md-6 mb-4">
+                  <label for="city">City</label>
+                  <input name="city" type="text" id="city" class="form-control" value="{$city}" placeholder="City" required>
+                  <div class="invalid-feedback">
+                    Your City cant be empty.
+                  </div>                  
+                
+                </div>
+              <div class="col-md-6 mb-4">
+                  <label for="zip">Zip/Postal Code</label>
+                  <input name="zip" type="number" id="zip" class="form-control" value="{$zip}" placeholder="Zip/Postal Code">    
+                </div>
+              </div>
+
+              <div class="form-row align-items-center">
+                <div class="col-md-6 mb-4">
+                  <label for="state">State</label>
+                  <input name="state" type="text" id="state" class="form-control" value="{$state}" placeholder="State/County" required>
+                  <div class="invalid-feedback">
+                    State/County cant be empty.
+                  </div>                  
+                </div>
+                  
+                <!-- Country -->
+                <div class="col-md-6">
+                  <select name="country" id="country" class="mdb-select md-form" searchable="Search.." value="{$country}"  required> 
+                    <option disabled>Country</option>
+                    {$countries}
+                  </select> 
+                  <label for="country">Country</label>
+                  <div class="invalid-feedback">
+                    Country cant be empty.
+                  </div>                            
+                </div> 
+              </div>
+
+              <div class="form-row align-items-center">
+                <div class="col-md-6 mb-4">
+                  <label for="address1">Address Line 1*</label>
+                  <input name="address1" type="text" id="address1" class="form-control" value="{$address1}" placeholder="Address Line 1" required>
+                  <div class="invalid-feedback">
+                    Please enter Address Line 1.
+                  </div>                  
+                
+                </div>
+              <div class="col-md-6 mb-4">
+                  <label for="address2">Address Line 2</label>
+                  <input name="address2" type="text" id="address2" class="form-control" value="{$address2}" placeholder="Address Line 2">    
+                </div>
+              </div>
+          <hr>
+              <div class="form-group">
+                <p class="h6 mb-2 text-left">Personal Information</p>
+
+                <div class="form-row align-items-center">
+                  <div class="col-md-6">
+                    <label for="dob">Date of Birth</label>
+                    <input name="dob" type="text" id="dob" class="form-control mb-4 datepicker" value="{$dob}" placeholder="Click to set Date of Birth">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="pob">Place of Birth</label>
+                    <input name="pob" type="text" id="pob" class="form-control mb-4" value="{$pob}" placeholder="Place of Birth">    
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row align-items-center mb-4">
+                <div class="col-md-12">
+                  <label for="height">Height (Feet/Inch)</label>
+                  <input name="height" type="number" id="height" class="form-control" value="{$height}" placeholder="Height">    
+                </div>      
+              </div>
+
+              <div class="form-row align-items-center">
+                <div class="col-md-3 mb-4">
+                  <label for="weight">Weight (Kg)</label>
+                  <input name="weight" type="number" id="weight" class="form-control" value="{$weight}" placeholder="Weight">    
+                </div>       
+                <div class="col-md-3 mb-4">
+                  <label for="swim">S. Suite size</label>
+                  <input name="swim" type="number" id="swim" class="form-control" value="{$swim}" placeholder="Swim Suite Size">    
+                </div>
+
+                <div class="col-md-3 mb-4">
+                  <label for="dress">Dress/Shirt Size</label>
+                  <input name="dress" type="number" id="dress" class="form-control" value="{$dress}" placeholder="Dress Size">    
+                </div> 
+                <div class="col-md-3 mb-4">
+                  <label for="shoe">Shoe Size</label>
+                  <input name="shoe" type="number" id="shoe" class="form-control" value="{$shoe}" placeholder="Shoe Size">    
+                </div>
+
+                <div class="col-md-12 mb-4">
+                  <label for="work">Current Place of work or School</label>
+                  <input name="work" type="text" id="work" class="form-control" value="{$work}" placeholder="Work or School">    
+                </div>   
+
+                <div class="col-md-12 mb-4">
+                  <label for="certificate">Certificates/Attainment/Awards</label>
+                  <textarea name="certificate" id="certificate" class="form-control" placeholder="Certificates/Attainment/Awards">{$certificate}</textarea>
+                </div>
+                <div class="col-md-12 mb-4">
+                  <label for="family">Interesting Facts About Your Family</label>
+                  <textarea name="family" id="family" class="form-control" placeholder="Interesting Facts About Your Family">{$family}</textarea>
+                </div>                  
+              </div>   
+
+          <hr>
+
+              <div class="form-group">
+                <p class="h6 mb-2 text-left">More about you</p> 
+                  <div class="form-row align-items-center">
+                    <div class="col-md-6  mb-4">
+                      <label for="twitter">Twitter</label>
+                      <input name="twitter" type="text" id="twitter" class="form-control" value="{$twitter}" placeholder="Passcontest">    
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <label for="instagram">Instagram</label>
+                      <input name="instagram" type="text" id="instagram" class="form-control" value="{$instagram}" placeholder="Passcontest">
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                      <label for="food">Favorite Food</label>
+                      <input name="food" type="text" id="food" class="form-control" value="{$food}" placeholder="Favorite Food">    
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <label for="color">Favorite Color</label>
+                      <input name="color" type="text" id="color" class="form-control" value="{$color}" placeholder="Favorite Color">
+                    </div>
+                    <div class="col-md-4 mb-4">
+                      <label for="sport">Favorite Sport</label>
+                      <input name="sport" type="text" id="sport" class="form-control" value="{$sport}" placeholder="Favorite Sport">
+                    </div>
+                  </div>      
+              </div>  
+
+          <hr>
+
+              <div class="form-group">
+                <p class="h6 mb-2 text-left">Personal Outlook</p> 
+                  <div class="form-row align-items-center">
+                    <div class="col-md-12">
+                      <label for="hobbies">Hobbies</label>
+                      <input name="hobbies" type="text" id="hobbies" class="form-control mb-4" value="{$hobbies}" placeholder="Hobbies">    
+
+                      <label for="activities">Sports and Activities you participate in</label>
+                      <textarea name="activities" id="activities" class="form-control mb-4" placeholder="Sports and Activities you participate in">{$activities}</textarea>
+
+                      <label for="ambition">Your Life Ambition</label>
+                      <textarea name="ambition" id="ambition" class="form-control mb-4" placeholder="Your Life Ambition">{$ambition}</textarea>
+
+                      <label for="performing">Performing Acts</label>
+                      <textarea name="performing" id="performing" class="form-control mb-4" placeholder="Performing Acts">{$performing}</textarea>
+
+                      <label for="awards">Titles and awards</label>
+                      <textarea name="awards" id="awards" class="form-control mb-4" placeholder="Titles and awards">{$awards}</textarea>
+
+                      <label for="training">Any Special Training in Music, Dance, Art, etc?</label>
+                      <textarea name="training" id="training" class="form-control mb-4" placeholder="Any Special Training in Music, Dance, Art, etc">{$training}</textarea>
+
+                      <label for="languages">Languages you speak and understand</label>
+                      <textarea name="languages" id="languages" class="form-control mb-4" placeholder="Languages you speak and understand">{$languages}</textarea>
+
+                      <label for="liketomeet">What Person Would You Most Like To Meet And Why?</label>
+                      <textarea name="liketomeet" id="liketomeet" class="form-control mb-4" placeholder="What Person Would You Most Like To Meet And Why?">{$liketomeet}</textarea>
+
+                      <label for="unusual">What Is The Most Unusual Thing You Have Ever Done?</label>
+                      <textarea name="unusual" id="unusual" class="form-control mb-4" placeholder="What Is The Most Unusual Thing You Have Ever Done?">{$unusual}</textarea>
+
+                      <label for="moment">Briefly Describe The Moment In Your Life You Are Most Proud Of</label>
+                      <textarea name="moment" id="moment" class="form-control mb-4" placeholder="Briefly Describe The Moment In Your Life You Are Most Proud Of">{$moment}</textarea>
+
+                      <label for="traveled">List All Of The Countries You Have Traveled To</label>
+                      <textarea name="traveled" id="traveled" class="form-control mb-4" placeholder="List All Of The Countries You Have Traveled To">{$traveled}</textarea>
+                    </div> 
+                  </div>      
+              </div>   
+
+          <hr>
+
+              <div class="form-group">
+                <p class="h6 mb-2 text-left">Personal Statement</p> 
+                  <div class="form-row align-items-center">
+                    <div class="col-md-12">  
+                      <label for="statement">Please give below any other interesting information about yourself, which has not been stated by preceding questions. Remember that this information may be used for press releases & television commentary as well as background material for the judges.</label>
+                      <textarea name="statement" id="statement" class="form-control mb-4">{$statement}</textarea>
+                    </div> 
+                  </div>      
+              </div>   
+
+          <hr>
+
+              <div class="form-group">
+                <p class="h6 mb-2 text-left">Verification</p> 
+                  <div class="form-row align-items-center">
+                    <div class="col-md-12">  
+                      <label>Please Upload Two Photos of Yourself (One Headshot, One Full Body). These Photos Need Not Be Professional As They Are For Reviewing Purposes Only And WILL NOT Be Published.</label>
+
+                      <div class="input-group mb-1">
+                          <button class="btn btn-info my-4 btn-block" type="button" data-toggle="modal" data-target="#headshooter">Upload Head Shot</button>
+                      </div>
+
+                      <div class="input-group mb-1">
+                        <button class="btn btn-warning my-4 btn-block" type="button" data-toggle="modal" data-target="#fullbodyshooter">Upload Full body shot</button>
+                      </div>
+
+                      <div class="custom-control custom-checkbox mb-4">
+                          <input name="agree" type="checkbox" value="{$agree}" class="custom-control-input" id="agree" required>
+                          <label class="custom-control-label" for="agree">I hereby agree that the information provided above is true and accurate and would like to included in Mr and Miss nature 2018 Pageant.</label>
+                          <div class="invalid-feedback">
+                            You have to agree first.
+                          </div>                           
+                      </div>
+
+                      <div class="custom-control custom-checkbox mb-4">
+                          <input name="agree2" type="checkbox" class="custom-control-input" id="agree2" required>
+                          <label class="custom-control-label" for="agree2">I hereby agree that at the time of the submission of this application, I am at least 17 years old, and not older than 25 years old.</label>
+                          <div class="invalid-feedback">
+                            You have to agree first.
+                          </div> 
+                      </div>
+
+                      <div class="custom-control custom-checkbox mb-4">
+                          <input name="agree3" type="checkbox" class="custom-control-input" id="agree3" required>
+                          <label class="custom-control-label" for="agree3">I hereby agree to be bound by the terms and conditions stated in the eligibility criteria for {$contest_title} {$type}.</label>
+                          <div class="invalid-feedback">
+                            You have to agree first.
+                          </div> 
+                      </div>
+                    </div> 
+                  </div>      
+              </div> 
+
+            </div>
+            
+            <div class="form-row align-items-center">
+              <div class="text-danger text-center col-12" id="some-errors" style="display: none;"><i class="fa fa-exclamation-circle"></i> Please check and correct the errors on this form</div>
+              <div class="text-success text-center col-12">{$response}</div>
+              {$buttons_action}
+            </div>
+            
+            <div class="text-center"> 
+                <hr>
+
+                <p>By clicking
+                    <em>Enter</em> you agree to our
+                    <a href="" target="_blank">terms of service</a> 
+                </p>
+            </div>
+          </form>
+          <!-- end of entry form -->
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="{$col_2}"> 
+      {$recommended}
+      {$adsbar}
+    </div>
+  </div>
+</div>
+  <div class="p-2">&nbsp;</div>
+ 
+<div class="modal fade" id="headshooter" tabindex="-1" role="dialog" aria-labelledby="headshooterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="headshooterTitle">{$lng->up_headshot}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <div class="saving-load"></div>  
+                    <div class="container">
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="row">         
+                                <div class="col mx-auto"> 
+                                    <form action="{$site_url}/connection/upload.php?d=headshot&id={$get_user_id}" class="dropzone" id="dropzoneUploader">
+                                      <div class="fallback"> <input name="file" type="file" multiple /> </div>
+                                    </form>
+                                </div> 
+                            </div> 
+                            <div class="row">         
+                                <div class="col mx-auto"> 
+                                     <div id="return-message"></div>
+                                </div> 
+                            </div> 
+                        </div>          
+                    </div>
+                </div>
+                <div class="modal-footer font-weight-bold">
+                    {$lng->drag_drop} &nbsp; <span class="mx-auto"><button class="btn btn-info" data-dismiss="modal" aria-label="Close">Save</button></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="fullbodyshooter" tabindex="-1" role="dialog" aria-labelledby="fullbodyshooterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fullbodyshooterTitle">{$lng->up_fullshot}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"> 
+                    <div class="saving-load"></div>  
+                    <div class="container">
+                        <div class="panel panel-default">
+                          <div class="panel-body">
+                            <div class="row">         
+                                <div class="col mx-auto"> 
+                                    <form action="{$site_url}/connection/upload.php?d=fullshot&id={$get_user_id}" class="dropzone" id="dropzoneUploader">
+                                      <div class="fallback"> <input name="file" type="file" multiple /> </div>
+                                    </form>
+                                </div> 
+                            </div> 
+                            <div class="row">         
+                                <div class="col mx-auto"> 
+                                     <div id="return-message"></div>
+                                </div> 
+                            </div> 
+                        </div>          
+                    </div>
+                </div>
+                <div class="modal-footer font-weight-bold">
+                    {$lng->drag_drop} &nbsp; <span class="mx-auto"><button class="btn btn-info" data-dismiss="modal" aria-label="Close">Save</button></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <script>
+// disable form submissions if there are invalid fields
+(function() {
+  'use strict';
+
+  window.addEventListener('load', function() {
+    var form = document.getElementById('needs-validation');
+    form.addEventListener('submit', function(event) {
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('#some-errors').show();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  }, false);
+})();
+</script>
+ 

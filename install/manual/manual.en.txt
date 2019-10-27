@@ -1,0 +1,113 @@
+<a name="top"></a>
+<h2>Manual Installation of Passcontest v1.3.0</h2>  
+<table border=0 width="100%">
+<tbody>
+<tr>
+	<td>
+		<ul>
+			<li><a href="#Step_1._Uncompressing_downloaded_file."><span>Step 1. Uncompressing downloaded file.</span></a> 
+			<li><a href="#Step_2._Uploading_files."><span>Step 2. Uploading files.</span></a> 
+			<li><a href="#Step_3._Creating_database."><span>Step 3. Creating database.</span></a>                        
+			<li><a href="#Step_4._Settings_and_access_rights."><span>Step 4. Settings and access rights.</span></a>                        
+			<li><a href="#Step_5._Final_Steps."><span>Step 5. Final Steps.</span></a>
+			<li><a href="#Step_6._important."><span>IMPORTANT.</span></a>
+		</ul>
+	</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>A new installation of Passcontest script is a very straight forward process: </p>
+
+<div style="float:right;">[<a href="#top">top</a>]</div>
+<a name="Step_1._Uncompressing_downloaded_file."></a>
+<h3><b>Step 1. Uncompressing downloaded file.</b></h3>
+<hr>
+<p>Press and hold (or right-click) the <b>Passcontest_1.3.0_Ready.zip</b> file you downloaded, select Extract All, and then follow the instructions, extract to your desktop to quickly locate.</p>
+<p><br /></p>
+
+<div style="float:right;">[<a href="#top">top</a>]</div>
+<a name="Step_2._Uploading_files."></a>
+<h3><b>Step 2. Uploading files.</b></h3>
+<hr>
+<p>We recommend FileZilla for FTP, but you can also use any other FTP client you are comfortable with. The instructions below reflect connecting via FTP with Filezilla.</p>
+
+<p>1. Download, install, and launch FileZilla.</p>
+
+<p>2. At the top of your Filezilla window, you will see a Quickconnect bar.</p>
+
+<p>3. In the Filezilla Quickconnect bar, fill in the following information and click Quickconnect:<br/></p>
+
+Host: &nbsp; &nbsp;	&nbsp; &nbsp; &nbsp; &nbsp;	Your domain name or IP address<br/>
+Username: &nbsp;	Your FTP/cPanel username<br/>
+Password: &nbsp;&nbsp;	Your FTP password<br/>
+Port: &nbsp; &nbsp;	&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  21</p>
+
+<p>4. In the Remote Site area on the right hand side of Filezilla, open your website's root directory (usually <b>public_html</b> folder when installing it on a domain.</p>
+
+<p>5. In the Local Site area on the left hand size of Filezilla, open the "<b>Source</b>" folder from the files you extracted earlier. This folder should contain the index file - like <b>index.php</b>.</p>
+
+<p>6. To upload your website, select all the files and folders in the "<b>Passcontest/Source</b>" folder, and then drag them from the Local Site area into the Remote Site area.</p>
+
+<p style="padding:5px; background-color:lightblue;">Note: How long it takes to upload your website depends on the size and your internet connection.</p>
+
+<p>7. Set the CHMOD to 777, 775 or 775 (depending on the server configuration) to the following folders and their sub folders: <b>uploads/</b> and <b>templates/<-templatename->/img/</b> </p>
+
+<p><br /></p>
+
+<div style="float:right;">[<a href="#top">top</a>]</div>
+<a name="Step_3._Creating_database."></a>
+<h3><b>Step 3. Creating database.</b></h3>
+<hr>
+<p style="padding:5px; background-color:lightblue;">RECOMENDATION: Use phpMyAdmin to manage all database functions</p>
+<p>1. Create a new database, and import the Passcontest_Create.sql if this is a new installation or Passcontest_Update.sql for an existing installation from the "<b>Passcontest_1.3.0_Ready</b>" folder into your MySQL database using the import function available in MySQL.</p>
+
+<p>2. (Optional) If you will be using a prefix for your database, open your database and rename all table entries with your prefix, and enter the prefix into the <span style="padding:1px; background-color:lightblue;">define('DB_PREFIX', '_prefix');</span> on the "<b>config.php</b> file.</p>
+<p><br /></p>
+
+<p>3. Change the values of the sql query below with the values you had received during purchase then run the query.</p>
+
+INSERT INTO `api` (`id`, `token`, `server`) VALUES</br>
+(1, '<LICENCE_KEY>', '<SITE_SERVER>');
+
+<p><br /></p>
+
+<div style="float:right; width:">[<a href="#top">top</a>]</div>
+<a name="Step_4._Settings_and_access_rights."></a>
+<h3><b>Step 4. Settings and access rights.</b></h3>
+<hr>
+
+<p>1. With a text editor open the includes/config.php file you just uploaded, and replace what's between the quotes (e.g: 'YOURDBNAME') with your Own parameters:</p>
+
+define('DB_PREFIX', '_YOURDBTABLEPREFX>');	<br/>
+$CONF['dbdriver'] = 'mysql'; <br/>
+$CONF['dbhost'] = 'YOURDBHOST>'; <br/>
+$CONF['dbuser'] = 'YOURDBUSERNAME>'; <br/>
+$CONF['dbpass'] = 'YOURDBPASSWORD';<br/> 
+$CONF['dbname'] = 'YOURDBNAME';<br/>
+$CONF['email'] = 'YOURSITE_EMAIL>';<br/>
+$CONF['copyrights'] = 'SITE_COPYRIGHTS_OWNER';<br/>
+$CONF['copyrights_url'] = 'SITE_COPYCOPYRIGHTS_OWNER_LINK';
+
+<p><br /></p>
+
+<div style="float:right;">[<a href="#top">top</a>]</div>
+<a name="Step_5._Final_Steps."></a>
+<h3><b>Step 5. Final Steps.</b></h3>
+<hr>
+<p>If you followed all the steps correctly, your website has been correctly installed, you can now visit your site's URL to run a test.</p>
+<p><br /></p>
+
+If everything is correct, go to "<b style="padding:1px; background-color:yellow;"><a href="http://yoursite.com/index.php?a=admin">http://yoursite.com/index.php?a=admin</a></b>" to start managing your site	
+
+<p><br /></p>
+
+<div style="float:right;">[<a href="#top">top</a>]</div>
+<a name="Step_6._important."></a>	
+<h3><b>IMPORTANT.</b></h3>
+<hr>
+
+<p>You need a TWILIO SID, TWILLO TOKEN, and a TWILLO Phone number to make sms function working. To do so :</p>
+First, create a TWILIO account if you do not have one.<br/>
+Follow this link to do so <a href="https://www.twilio.com">https://www.twilio.com</a><br/>  

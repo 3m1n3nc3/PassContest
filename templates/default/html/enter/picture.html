@@ -1,0 +1,202 @@
+<!--Section: Team v.1-->
+<section class="text-center team-section pt-5">
+
+    <!--Grid row-->
+    <div class="container" style="min-width: 100%">
+      <div class="{$row}">
+
+        <!--Side navigation Menu -->
+        <div class="{$col_2}">
+          {$sidebar_menu}
+          {$recommended}
+        </div> 
+        <div class="{$col_1} mb-3">
+
+          <!-- Tab navigations -->
+          <ul class="nav nav-tabs nav-justified md-tabs info-color" id="myTabJust" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" href="#profile" role="tab" aria-controls="home-just" aria-selected="true">{$lng->profile}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#basic" role="tab" aria-controls="profile-just" aria-selected="false">{$lng->basic}</a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link {$default_2}" id="photo-tab" data-toggle="tab" href="#photo" role="tab" aria-controls="photo-just" aria-selected="false">{$lng->p_photo}</a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link {$active_2}" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery-just" aria-selected="false">{$lng->gallery}</a>
+            </li>  
+          </ul>
+          <!-- Tab navigations -->
+
+          <!-- Tab content -->
+          <div class="tab-content card pt-5" id="myTabContentJust">
+                    <div id="saving-load"></div> 
+
+            <!-- profile form display info tab-->
+            <div class="tab-pane fade {$default}" id="photo" role="tabpanel" aria-labelledby="photo-just">
+              <!-- Material Basic Info -->
+                <div class="saving-load flex"></div>
+                <div class="return-message2" class="pt-2"></div>
+
+                <div class="row">
+
+                  <div class="col-md-12">
+                    <h5 class="info-color white-text py-2 mb-3"> <strong>{$lng->uploadProfile}</strong> </h5>
+                    
+                    <!-- Profile photo Upload Form -->
+                    <div class="card cloudy-knoxville-gradient mb-3">  
+                      <div class="container">
+                        <div class="panel panel-default">
+                          <div class="panel-body">  
+
+                            <div class="row text-center">    
+                              <div class="container pt-3">     
+                                <section class="text-center team-section"> 
+                                  <div class="col mx-auto d-flex justify-content-center"> 
+                                      <div class="avatar mx-auto" id="preview-crop-profile"></div>
+                                  </div>  
+                                </section> 
+                              </div>
+                              <div id="upload-profile" style="display: none;"></div> 
+                            </div>
+
+                            <div class="container" id="action-buttons">
+                              <div class="row">  
+                                <div class="col-md-12" style="padding:5%;">
+                                  <label for="prof-image" class="btn btn-outline-info">
+                                      {$lng->choose_image} <i class="fa fa-photo"></i>
+                                  </label>
+                                  <input type="file" id="prof-image" style="display: none;">
+
+                                  <button class="btn btn-info btn-upload-image" style="margin-top:2%" onclick="upload_action(0, {$contestant_id})">
+                                      {$lng->upload_photo}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">         
+                              <div class="col mx-auto"> 
+                                <div id="profile-photo-message"></div>
+                              </div> 
+                            </div> 
+
+                          </div>          
+                        </div>
+                      </div>  
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <h5 class="info-color white-text py-2 mb-3"> <strong>{$lng->uploadCover}</strong> </h5> 
+
+                    <!-- Cover photo Upload Form -->
+                    <div class="card cloudy-knoxville-gradient mb-3"> 
+                      <div class="container">
+                        <div class="panel panel-default">
+                          <div class="panel-body">  
+
+                            <div class="row text-center">    
+                              <div class="container pt-3">     
+                                <section class="text-center team-section"> 
+                                  <div class="col mx-auto d-flex justify-content-center"> 
+                                      <div class="avatar mx-auto" id="preview-crop-cover"></div>
+                                  </div>  
+                                </section> 
+                              </div>
+                              <div id="upload-cover" style="display: none;"></div> 
+                            </div>
+
+                            <div class="container" id="action-buttons-2">
+                              <div class="row">  
+                                <div class="col-md-12" style="padding:5%;">
+                                  <label for="cover-image" class="btn btn-outline-info">
+                                      {$lng->choose_image} <i class="fa fa-photo"></i>
+                                  </label>
+                                  <input type="file" id="cover-image" style="display: none;">
+
+                                  <button class="btn btn-info btn-upload-cover" style="margin-top:2%" onclick="upload_action(1, {$contestant_id})">
+                                      {$lng->upload_cover}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">         
+                              <div class="col mx-auto"> 
+                                <div id="cover-photo-message"></div>
+                              </div> 
+                            </div> 
+
+                          </div>          
+                        </div>
+                      </div>  
+                    </div> 
+                    <!-- Cover photo Upload Form -->
+                  </div>
+
+                </div>
+            </div> 
+
+            <!-- profile form display info tab-->
+            <div class="tab-pane fade {$active}" id="gallery" role="tabpanel" aria-labelledby="gallery-just">
+              <!-- Material Basic Info -->
+              <div class="saving-load flex"></div>
+              <div class="return-message2" class="pt-2"></div>
+
+              <div class="row">
+
+                <div class="col-md-12">
+                  <h5 class="info-color white-text py-2 mb-3"> 
+                    <strong>{$lng->upload} to {$lng->gallery}</strong> 
+                  </h5> 
+
+                  <div class="border border-light bg-white mb-2">
+                    <span class="bg-light p-2 d-flex font-weight-bold text-info">{$lng->upload_new}</span>
+
+                    <div class="p-3">
+                    {$msg}
+                      <form method="post" action="{$site_url}/connection/upload.php?d=gallery&id={$contestant_id}&ref={$header}" enctype="multipart/form-data">
+                        <div class="form-group">
+                          <label for="Photo-desc" class="d-flex justify-content-left">{$lng->description}</label>
+                          <textarea name="desc" class="form-control rounded-0" id="Photo-desc" rows="3"></textarea>
+                        </div>
+                        <label for="gallery_image" class="btn btn-outline-info waves-effect">{$lng->choose_image} 
+                          <i class="fa fa-photo"></i>
+                        </label>
+                        <input type="file" name="file" id="gallery_image" style="display: none;">
+                        <button type="submit" class="btn btn-info waves-effect">{$lng->upload} <i class="fa fa-upload"> </i> </button>
+                      </form>              
+                    </div>
+                  </div>
+
+                  <div class="card cloudy-knoxville-gradient mb-3">   
+                    <div class="panel panel-default">
+                      <div class="panel-body">   
+                        <div class="col-md-12 p-3 d-flex justify-content-left"> 
+                          {$chips}
+                        </div>  
+                      </div>          
+                    </div> 
+                  </div>
+
+                </div> 
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+        <div class="col-md-12">{$adsbar}</div>
+
+      </div>
+    </div>
+    <!--Grid row-->
+
+  </section> 
+
+  <div class="pb-2">&nbsp;</div>
+
