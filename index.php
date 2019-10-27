@@ -87,7 +87,7 @@ if(!empty($user['username'])) {
 	</li>';	 
 } else {
 	$PTMPL['login'] = '<a href="#" class="btn btn-primary btn-sm rounded" target="_blank" id="openModal1" data-toggle="modal" data-target="#connectModal"></i>'.$LANG['login'].' </a>';
-	$PTMPL['logohere'] = '<a class="navbar-brand pl-3" href="'.$CONF['url'].'"> <img src="'.$CONF['url'].'/'.$PTMPL['template_url'].'/img/'.$welcome['logo'].'" height="45" alt="passcontest logo"> </a>';
+	$PTMPL['logohere'] = '<a class="navbar-brand pl-3" href="'.$CONF['url'].'"> <img src="'.getImage($welcome['logo']).'" height="45" alt="passcontest logo"> </a>';
 }
 
 if ($admin) {
