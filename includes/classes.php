@@ -741,6 +741,7 @@ class userCallback {
 		// 	$echo = $gett->deleteContest($res[0]['id']);
 		// }
 		$x = count($res);
+		$echo = '';
 		for ($i=0; $i < $x; $i++) { 
 			$echo = $gett->deleteContest($res[0]['id']);
 		}
