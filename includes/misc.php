@@ -6,12 +6,12 @@ $welcome = getSetting(1);
 $PTMPL['template_path'] = $CONF['template_path'];
 $PTMPL['template_name'] = $CONF['template_name'] = $settings['template'];
 $PTMPL['template_url'] = $CONF['template_url'] = $CONF['template_path'].'/'.$CONF['template_name'];
-$PTMPL['full_template_url'] = $SETT['full_template_url'] = $CONF['url'].'/'.$PTMPL['template_url'];
+$PTMPL['full_template_url'] = $CONF['full_template_url'] = $CONF['url'].'/'.$PTMPL['template_url'];
 
 
 
 // Site general image
-$site_image = $CONF['url'].'/'.$PTMPL['template_url'].'/img/'.$welcome['cover'];
+$site_image = getImage($welcome['cover']);
 
 $userApp = new userCallback;
 if (isset($_SESSION['username'])) {
