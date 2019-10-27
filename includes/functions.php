@@ -2372,7 +2372,7 @@ function connector_card($type = 0, $referrer = null) {
 function getImage($image, $type = null) {
     // $a = 1: Get direct link to image
     global $CONF, $PTMPL, $LANG, $settings;
-    
+
     if (!$image) {  
       $image = 'default.jpg';
     }
@@ -2396,7 +2396,7 @@ function getImage($image, $type = null) {
     } 
 
     // Show the image
-    if ($framework->trueAjax()) {
+    if (trueAjax()) {
         if (file_exists($_dir.$image) && is_file($_dir.$image)) {
           $image = $dir_url.$image;
         } else {
