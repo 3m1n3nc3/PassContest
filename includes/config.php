@@ -19,9 +19,9 @@ $CONF['current_page'] = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 define('DB_PREFIX', '');	
 $CONF['dbdriver'] = 'mysql'; 
 $CONF['dbhost'] = 'localhost'; 
-$CONF['dbuser'] = 'passcont_admin'; 
-$CONF['dbpass'] = 'friendship1A'; 
-$CONF['dbname'] = 'passcont_passcontest';
+$CONF['dbuser'] = 'root'; 
+$CONF['dbpass'] = 'idontknow1A@'; 
+$CONF['dbname'] = 'passcontest';
 
 /* 
 * The Installation URL 
@@ -33,7 +33,7 @@ $CONF['url'] = $protocol.'://'.$_SERVER['HTTP_HOST'];
 /* 
 * The Notifications e-mail
 */
-$CONF['email'] = 'support@passcontest.com.ng';
+$CONF['email'] = 'support@passcontest.com';
 
 $CONF['site_image'] = 'profile_city.jpg';
 
@@ -41,7 +41,7 @@ $CONF['site_image'] = 'profile_city.jpg';
 * Copyrights owner
 */
 $CONF['copyrights'] = 'Passcontest';
-$CONF['copyrights_url'] = 'passcontest.com.ng';
+$CONF['copyrights_url'] = 'passcontest.com';
 
 /* 
 * The templates directory
@@ -74,7 +74,7 @@ $action = array('admin'						=> 'admin',
 				'followers'					=> 'followers',
 				'search'					=> 'search'
 				);
-$enc_key = 'aHR0cHM6Ly9hcGkucGFzc2NvbnRlc3QuY2Y=';
+$enc_key = 'aHR0cDovL2FwaS5wYXNzY29udGVzdC50ZS8=';
 /* 
 * Define the cookies path
 */				
