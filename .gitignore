@@ -11,4 +11,8 @@
 # *.png
 # *.JPG
 # *.zip
-config.php
+.idea
+includes/config.php
+.htaccess
+node_modules
+error.log
