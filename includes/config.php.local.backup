@@ -17,11 +17,11 @@ $CONF['current_page'] = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
 * The MySQL credentials
 */	
 define('DB_PREFIX', '');	
-$CONF['dbdriver'] 	= 'mysql'; 
-$CONF['dbhost'] 	= 'localhost'; 
-$CONF['dbuser'] 	= 'root'; 
-$CONF['dbpass'] 	= 'idontknow1A@'; 
-$CONF['dbname'] 	= 'passcontest';
+$CONF['dbdriver'] = 'mysql'; 
+$CONF['dbhost'] = 'localhost'; 
+$CONF['dbuser'] = 'root'; 
+$CONF['dbpass'] = 'idontknow1A@'; 
+$CONF['dbname'] = 'passcontest';
 
 /* 
 * The Installation URL 
@@ -29,7 +29,7 @@ $CONF['dbname'] 	= 'passcontest';
 */
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http';
 $CONF['url'] = $protocol.'://'.$_SERVER['HTTP_HOST'];
-																											
+
 /* 
 * The Notifications e-mail
 */
@@ -79,8 +79,5 @@ $enc_key = 'aHR0cDovL2FwaS5wYXNzY29udGVzdC50ZS8=';
 * Define the cookies path
 */				
 define('COOKIE_PATH', preg_replace('|'.$protocol.'?://[^/]+|i', '', $CONF['url']).'/');
-
-?>
-F['url']).'/');
 
 ?>
