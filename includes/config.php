@@ -12,6 +12,7 @@ $CONF = $PTMPL = array();
 * set currentPage in the local scope
 */
 $CONF['current_page'] = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+$SETT['working_dir'] = $_SERVER["DOCUMENT_ROOT"];
 
 /* 
 * The MySQL credentials

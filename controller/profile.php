@@ -44,11 +44,9 @@ function mainContent() {
 		// Show the claim button on profiles created by an agency that are not yet claimed
 		//$PTMPL['lay_claim'] = ($profiles['claimed'] == 0) ? '<a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$profiles['username']).'&claim='.$profiles['id'].'" class="btn btn-info border border-white">Claim this profile<i class="fa fa-user-add text-white"></i></a>' : '';
 
-		if ($profiles['photo']) {
-			$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/'.$profiles['photo'];
-		} else {
-			$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/default.jpg';
-		}
+		$PTMPL['pphoto'] = getImage($profiles['photo'], 1);
+		$PTMPL['cphoto'] = getImage($profiles['cover'], 2); 
+
 		if ($profiles['profession']) {
 			$PTMPL['prof'] = $profiles['profession'];
 		}
@@ -103,12 +101,6 @@ function mainContent() {
 		}   
 		
 		$PTMPL['loves'] = $profiles['lovesto'];
-		
-		if ($profiles['cover']) {
-			$PTMPL['cphoto'] = $CONF['url'].'/uploads/cover/'.$profiles['cover'];
-		} else {
-			$PTMPL['cphoto'] = $CONF['url'].'/uploads/cover/default.jpg';
-		}	
 
 		// Show the contact info if user is and agency
 

@@ -2366,6 +2366,59 @@ function connector_card($type = 0, $referrer = null) {
     return $type == 0 ? $tabbed_card : $login_card;
 }
 
+/*
+*   Fetch and return an image
+*/
+function getImage($image, $type = null) {
+    // $a = 1: Get direct link to image
+    global $CONF, $PTMPL, $LANG, $settings;
+    
+    if (!$image) {  
+      $image = 'default.jpg';
+    }
+    $default = 'default.jpg';
+
+    $c = null;
+    if ($type == 1) {
+      // Uploaded profile images
+      $dir_url = $CONF['url'] . '/uploads/faces/';
+      $_dir = $CONF['working_dir'].'/uploads/faces/';
+      $c = 1;
+    } elseif ($type == 2) {
+      // Uploaded cover images
+      $dir_url = $CONF['url'] . '/uploads/cover/';
+      $_dir = $CONF['working_dir'].'/uploads/cover/';
+      $c = 1;
+    } else {
+      // Site specific images
+      $dir_url = $CONF['full_template_url'] . '/img/';
+      $_dir = $CONF['template_url'] . '/img/';
+    } 
+
+    // Show the image
+    if ($framework->trueAjax()) {
+        if (file_exists($_dir.$image) && is_file($_dir.$image)) {
+          $image = $dir_url.$image;
+        } else {
+          $image = $dir_url.$default;
+        }
+    } elseif ($type == 3)  {
+        $image = $dir_url.$image;
+        if (@exif_imagetype($image)) {
+          $image = $image;
+        } else {
+            $image = $dir_url.$default;
+        }
+    } else {
+        if (file_exists($_dir.$image) && is_file($_dir.$image)) {
+          $image = $dir_url.$image;
+        } else {
+          $image = $dir_url.$default;
+        }
+    } 
+    return $image;
+}
+
 /* 
 * Truncate text
 */
