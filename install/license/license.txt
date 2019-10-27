@@ -1,3 +1,0 @@
-    Passcontest PHP Script - Premium contest management software
-    Copyright (C) 2019  Newnify Music Limited
- 
