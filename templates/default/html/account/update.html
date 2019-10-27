@@ -1,0 +1,292 @@
+<!--Section: Team v.1-->
+<section class="team-section pt-4">
+
+  <!--Grid row-->
+  <div class="container" style="min-width: 100%;">
+    <div class="{$row}">
+
+      <div class="{$col_2}"> 
+        {$shared_menu} 
+        {$user_menu} 
+        {$adsbar}
+        {$recommended}  
+      </div>
+      
+      <div class="{$col_1} mb-3">
+
+        <!-- Tab navigations -->
+        <ul class="nav nav-tabs nav-justified md-tabs info-color" id="myTabJust" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="home-just" aria-selected="true">{$lng->profile}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="profile-just" aria-selected="false">{$lng->basic}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="bank-tab" data-toggle="tab" href="#bank" role="tab" aria-controls="bank-just" aria-selected="false">{$lng->bank}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="contact-tab-just" data-toggle="tab" href="#contact-just" role="tab" aria-controls="contact-just" aria-selected="false">{$lng->subs}</a>
+          </li>
+        </ul>
+        <!-- Tab navigations -->
+
+        <!-- Tab content -->
+        <div class="tab-content card pt-5" id="myTabContentJust">
+
+          <!-- profile form profile info tab-->
+          <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab-just">
+
+            <div class="row p-2">
+              <div class="col border border-info mr-1">
+                <form class="text-center" style="color: #757575;">
+                    <span id="s_msg">{$email_notification_check}</span>
+                  <!-- Material switch enable contest-->
+                    <div class="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" name="email_notifications" id="email_notifications" onchange="settingSwitch(1)" {$email_checked}>
+                        <span class="lever"></span> On
+                      </label>
+                    </div>
+                    <input name="id" type="hidden" id="user_id" value="{$user_id}"> 
+                </form> 
+              </div><div class="clearfix"></div>
+
+              <div class="col border border-info ml-1">
+                <form class="text-center" style="color: #757575;"> 
+                    <span id="v_msg">{$site_notification_check}</span>
+                  <!-- Material switch Enable voting-->
+                    <div class="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" name="site_notifications" id="site_notifications" onchange="settingSwitch(2)" {$site_checked}>
+                        <span class="lever"></span> On
+                      </label>
+                    </div>
+                    <input name="id" type="hidden" id="uid" value="{$user_id}">
+                </form> 
+              </div>
+            </div>
+
+            <!-- Material Profile Info -->
+            <h3 class="info-color white-text py-2 mb-3">
+                <strong>{$lng->profile_info}</strong>
+            </h3>
+            <span id="message"></span>
+
+            <!-- Form -->
+            <form style="color: #757575;">
+
+              <div class="row p-2">
+
+                <!-- Name -->
+                <div class="col-md-5">
+                  <div class="md-form">
+                    <input name="firstname" type="text" id="pcName" class="form-control" value="{$fname}">
+                    <label for="pcName">First Name *</label>
+                  </div>                  
+                </div> 
+
+                <div class="col-md-5">
+                  <!-- Last Name -->
+                  <div class="md-form ">
+                    <input name="lastname" type="text" id="pcLast" class="form-control" value="{$lname}">
+                    <label for="pcLast">Last Name *</label>
+                  </div>                     
+                </div> 
+
+                <div class="col-md-2">   
+                  <!-- Gender -->
+                  <select name="gender" id="gender" class="text-left mdb-select md-form colorful-select dropdown-primary">
+                    <option value="male"{$m}>Male</option>
+                    <option value="female"{$f}>Female</option>  
+                    <option value="other"{$o}>Other</option>  
+                  </select> 
+                  <label for="gender">Gender</label>                    
+                </div>
+
+                <div class="col-md-12">
+                  <!-- Country --> 
+                  <select name="country" id="country" class="mdb-select md-form" onchange="fetch_state()"> 
+                    <option disabled>Country</option>
+                    {$countries}
+                  </select>
+                  <label for="country">Country</label>              
+                </div>
+               
+                <div class="col-md-6">
+                  <!-- State --> 
+                  <select name="state" id="state" class="mdb-select md-form"{$fetch_city}> 
+                    <option disabled>Select State/County</option>
+                    {$state}
+                  </select> 
+                  <label for="state">State</label>              
+                </div> 
+
+                <div class="col-md-6">
+                  <!-- City -->
+                  <select name="city" class="mdb-select md-form" id="city"> 
+                    <option disabled>Select City</option> 
+                    {$city}
+                  </select>
+                  <label>City</label>
+                  <select class="mdb-select md-form d-none"> </select>           
+                </div> 
+
+                <div class="col-md-12">
+                  <!-- Address -->
+                  <div class="md-form">
+                    <input name="address" type="text" id="address" class="form-control" value="{$address}">
+                    <label for="address">Address</label>
+                  </div>                  
+                </div>
+               
+                <div class="col-md-12">
+                  <!-- Phone -->
+                  <div class="md-form">
+                    <input name="phone" type="text" id="pcPhone" class="form-control" value="{$phone}">
+                    <label for="pcPhone">Phone Number (Append country code)</label>
+                  </div>                  
+                </div>
+              </div>
+
+              <div class="saving-load flex"></div>
+              <div id="return-message" class="pt-2"></div>
+                  <!-- Send button -->
+              <a id="save1" onclick="saveprofile(1)" class="btn btn-info btn-block my-2 waves-effect">Save</a>
+           
+            </form>  
+
+        </div>
+        <!-- profile form profile info tab-->
+
+          <!-- profile form display info tab-->
+          <div class="tab-pane fade" id="basic" role="tabpanel" aria-labelledby="profile-tab-just">
+            <!-- Material Basic Info -->
+            <h3 class="info-color white-text py-2 mb-3">
+                <strong>{$lng->basic_info}</strong>
+            </h3>
+
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;">
+
+              <!-- Profession -->
+              <div class="md-form mt-3">
+                  <input name="profession" type="text" id="profession" class="form-control" value="{$prof}">
+                  <label for="profession">Profession</label>
+              </div>
+
+              <!-- Facebook -->
+              <div class="md-form mt-3">
+                  <input name="facebook" type="text" id="facebook" class="form-control" value="{$facebook}">
+                  <label for="facebook">Facebook Username</label>
+              </div>
+
+              <!-- Twitter -->
+              <div class="md-form mt-3">
+                  <input name="twitter" type="text" id="twitter" class="form-control" value="{$twitter}">
+                  <label for="twitter">Twitter Username</label>
+              </div>
+
+              <!-- Instagram -->
+              <div class="md-form mt-3">
+                  <input name="instagram" type="text" id="instagram" class="form-control" value="{$instagram}">
+                  <label for="instagram">Instagram Username</label>
+              </div>
+
+              <!-- Instagram -->
+              <div class="md-form mt-3">
+                  <input name="lovesto" type="text" id="lovesto" class="form-control" value="{$loves}">
+                  <label for="lovesto">Things you love to do, separate with comma</label>
+              </div>
+
+              <div class="md-form">
+                <textarea name="intro" type="text" id="intro" class="md-textarea form-control" rows="3">{$intro}</textarea>
+                <label for="intro">About you</label>
+              </div>
+            </form>
+
+            <div class="saving-load flex"></div>
+            <div id="return-message2" class="pt-2"></div>
+                <!-- Send button -->
+            <a id="save2" onclick="saveprofile(2)" class="btn btn-info btn-block my-2 waves-effect">Save</a>
+            <!-- Form -->
+            <!-- Basic Info -->
+          </div>
+          <!-- profile form display info tab-->
+
+          <!-- profile form display info tab-->
+          <div class="tab-pane fade" id="bank" role="tabpanel" aria-labelledby="bank-tab-just">
+            <!-- Material Basic Info -->
+            <h3 class="info-color white-text py-2 mb-3">
+                <strong>{$lng->bank_info}</strong>
+            </h3>
+
+            <!-- Form -->
+            <form class="text-center" style="color: #757575;">
+
+              <!-- Paypal -->
+              <div class="md-form mt-3">
+                  <input name="paypal" type="text" id="paypal" class="form-control" value="{$paypal}">
+                  <label for="paypal">Papal Email address</label>
+              </div>
+
+              <!-- Bank -->
+              <div class="md-form mt-3">
+                  <input name="bank" type="text" id="bank" class="form-control" value="{$bank}">
+                  <label for="bank">Bank Name</label>
+              </div>
+
+              <!-- Address -->
+              <div class="md-form mt-3">
+                  <input name="bank_address" type="text" id="bank_address" class="form-control" value="{$bank_address}">
+                  <label for="bank_address">Bank Address</label>
+              </div>
+
+              <!-- Sort -->
+              <div class="md-form mt-3">
+                  <input name="sort" type="text" id="sort" class="form-control" value="{$sort}">
+                  <label for="sort">Sort Code</label>
+              </div>
+
+              <!-- Name -->
+              <div class="md-form mt-3">
+                  <input name="account_name" type="text" id="account_name" class="form-control" value="{$account_name}">
+                  <label for="account_name">Account holders Name</label>
+              </div> 
+
+              <!-- Numer -->
+              <div class="md-form mt-3">
+                  <input name="account_number" type="text" id="account_number" class="form-control" value="{$account_number}">
+                  <label for="account_number">Account Number</label>
+              </div> 
+
+              <!-- Instagram -->
+              <div class="md-form mt-3">
+                  <input name="routing" type="text" id="routing" class="form-control" value="{$routing}">
+                  <label for="routing">Routing code (ABA)</label>
+              </div> 
+            </form>
+
+            <div class="saving-load flex"></div>
+            <div id="return-messageX" class="pt-2"></div>
+                <!-- Send button -->
+            <a id="savebank" onclick="save_bank()" class="btn btn-info btn-block my-2 waves-effect">Save</a>
+            <!-- Form -->
+            <!-- Basic Info -->
+          </div>
+          <!-- profile form display info tab-->
+
+          <div class="tab-pane fade" id="contact-just" role="tabpanel" aria-labelledby="contact-tab-just">
+            {$premium_tab} 
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
+<div class="mb-4">&nbsp;</div>
+

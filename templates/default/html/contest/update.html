@@ -1,0 +1,185 @@
+<!--Section: Team v.1-->
+<section class="text-center team-section pt-5">
+
+    <!--Grid row-->
+    <div class="container" style="max-width: 100%;">
+      <div class="{$row}">
+
+        <div class="{$col_2} mb-3">
+          {$sidebar_menu}
+          {$shared_menu}  
+          {$adsbar}
+          {$recommended} 
+        </div>
+        <div class="{$col_1} pb-3">
+
+          <!-- Tab navigations -->
+          <ul class="nav nav-tabs nav-justified md-tabs info-color" id="myTabJust" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile-just" aria-selected="true">{$lng->c_basic}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="basic-tab" data-toggle="tab" href="#basic" role="tab" aria-controls="basic-just" aria-selected="false">{$lng->c_contest}</a>
+            </li>              
+          </ul>
+          <!-- Tab navigations -->
+
+          <!-- Tab content -->
+          <div class="tab-content card pt-5" id="myTabContentJust">
+
+            <!-- profile form profile info tab-->
+            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab-just">
+
+              <!-- Material Profile Info -->
+                  <h3 class="info-color white-text py-2 mb-3">
+                      <strong>{$lng->c_details}</strong>
+                  </h3>
+                  <div class="saving-load flex"></div>
+                  <div id="return-message" class="pt-2"></div>
+
+                      <!-- Form -->
+                      <form class="text-center" style="color: #757575;">
+
+                          <!-- Current contest for update -->
+                          <input name="id" type="hidden" id="title1" value="{$contest_id}">
+
+                          <!-- Contest Name -->
+                          <div class="md-form mt-3">
+                              <input name="title" type="text" id="title" class="form-control" value="{$title}">
+                              <label for="title">Contest Name *</label>
+                          </div>
+
+                          <!-- Type -->
+                          <div class="md-form">
+                            <select name="type" id="type" class="mdb-select md-form" value=""> 
+                              <option disabled>Choose Contest Type</option>
+                              {$contest_types}
+                            </select>  
+                          </div>
+ 
+                          <!-- Slogan -->
+                          <div class="md-form">
+                              <input name="slogan" type="text" id="slogan" class="form-control" value="{$slogan}">
+                              <label for="slogan">Slogan or Catch line</label>
+                          </div>   
+
+                          <!-- Facebook -->
+                          <div class="md-form mt-3">
+                              <input name="facebook" type="text" id="facebook" class="form-control" value="{$facebook}">
+                              <label for="facebook">Facebook Username</label>
+                          </div>
+
+                          <!-- Twitter -->
+                          <div class="md-form mt-3">
+                              <input name="twitter" type="text" id="twitter" class="form-control" value="{$twitter}">
+                              <label for="twitter">Twitter Username</label>
+                          </div>
+
+                          <!-- Instagram -->
+                          <div class="md-form mt-3">
+                              <input name="instagram" type="text" id="instagram" class="form-control" value="{$instagram}">
+                              <label for="instagram">Instagram Username</label>
+                          </div> 
+
+                          <!-- Email -->
+                          <div class="md-form mt-3">
+                              <input name="email" type="text" id="email2" class="form-control" value="{$email}">
+                              <label for="email2">Email Address</label>
+                          </div>
+                          
+                          <!-- Phone -->
+                          <div class="md-form">
+                              <input name="phone" type="text" id="phone" class="form-control" value="{$phone}">
+                              <label for="phone">Phone Number (Append country code)</label>
+                          </div>
+
+                      </form>
+                      <div id="return-message" class="pt-2"></div>
+                          <!-- Send button -->
+                      <a id="save1" onclick="updateContest(1)" class="btn btn-info btn-rounded my-2 waves-effect">Save</a>
+                      <!-- Form -->
+              <!-- Profile Info -->
+
+            </div>
+            <!-- profile form profile info tab-->
+
+            <!-- profile form display info tab-->
+            <div class="tab-pane fade" id="basic" role="tabpanel" aria-labelledby="profile-tab-just">
+              <!-- Material Basic Info -->
+                  <h3 class="info-color white-text py-2 mb-3">
+                      <strong>{$lng->c_contest}</strong>
+                  </h3>
+                  <div class="saving-load flex"></div>
+                  <div id="return-message2" class="pt-2"></div>
+
+                      <!-- Form -->
+                      <form class="text-center" style="color: #757575;">
+
+                           <!-- Current contest for update -->
+                          <input name="id" type="hidden" id="id1" value="{$contest_id}">
+                          <!-- Country -->
+                          <div class="md-form">
+                            NB: If contests is limited by country or region, specify that in the Eligibility info section.
+                            <select name="country" id="country" class="mdb-select md-form" value="{$country}"> 
+                              <option disabled>Countries that can partake</option> 
+                              {$country2partake}
+                            </select>   
+                          </div>                          
+
+                          <!-- Intro -->
+                          <div class="md-form">
+                            <textarea name="intro" type="text" id="intro" class="md-textarea form-control" rows="3">{$intro}</textarea>
+                            <label for="intro">Introduction</label>
+                          </div> 
+
+                          <!-- Prize -->
+                          <div class="md-form">
+                            <textarea name="prize" type="text" id="prize" class="md-textarea form-control" rows="3">{$prize}</textarea>
+                            <label for="prize">Prize and Awards</label>
+                          </div>
+
+                          <!-- Eligibility -->
+                          <div class="md-form">
+                            <textarea name="eligibility" type="text" id="eligibility" class="md-textarea form-control" rows="3">{$eligibility}</textarea>
+                            <label for="eligibility">Eligibility Information</label>
+                          </div>
+
+                          <!-- Address -->
+                          <div class="md-form">
+                            <textarea name="address" type="text" id="address" class="md-textarea form-control" rows="3">{$venue}</textarea>
+                            <label for="celigibility">Address and locations Information</label>
+                          </div>
+                      </form>
+                      <div id="return-message2" class="pt-2"></div>
+                          <!-- Send button -->
+                      <a id="save2" onclick="updateContest(2)" class="btn btn-info btn-rounded my-2 waves-effect">Save</a>
+                      <!-- Form -->
+              <!-- Basic Info -->
+            </div>
+ 
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!--Grid row-->
+
+  </section> 
+
+    <script type="text/javascript">
+      Dropzone.options.myDropzone = {
+        maxFilesize: 15, 
+        //autoProcessQueue: false        
+        init: function() {
+        $('#startUpload').click(function(){           
+          myDropzone.processQueue();
+        });          
+              this.on("success", function(file, responseText) {
+                //$('#myDropzone').load('index.php?a=contest&d=create');
+                //location.reload();
+                   //
+                $('#save-btn').show();
+              });
+          }
+      };          
+    </script> 

@@ -1,0 +1,35 @@
+<style type="text/css">
+	.table-wrapper-scroll-y {
+	display: block;
+	max-height: 50vh;
+	overflow-y: auto;
+	-ms-overflow-style: -ms-autohiding-scrollbar; }
+</style>
+<div class="card-body px-lg-2 pt-0 pb-5">
+
+	{$ref_link}
+
+	<h3 class="d-flex justify-content-center"> 
+		{$lng->your_ref}
+	</h3>
+	<div class="d-flex rounded grey lighten-5 border m-2 table-wrapper-scroll-y"> 
+		<table class="table table-sm table-hover text-left">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">{$lng->username}</th>
+		      <th scope="col">{$lng->fname}</th>
+		      <th scope="col">{$lng->lname}</th>
+		      <th scope="col">{$lng->role}</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	{$tbody}  
+		  </tbody>
+		</table>
+	</div>
+	<small class="d-flex p-2 border border-info mt-3 mx-2 blue lighten-5 rounded">
+		<span class="blue-text">{$note}</span>
+	</small>
+
+</div>

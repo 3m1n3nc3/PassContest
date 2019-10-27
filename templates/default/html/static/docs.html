@@ -1,0 +1,52 @@
+<script>tinymce.init({ selector:'textarea', branding: false, plugins: [
+    'autolink lists link image',
+    'code fullscreen',
+    'table contextmenu code wordcount'
+  ], resize: true, menubar: false, toolbar: 'insert | formatselect | bold italic backcolor | alignleft aligncenter alignjustify blockquote | bullist numlist outdent indent | removeformat | code'});
+</script>
+
+<div class="container mt-4" style="min-width: 100%;">
+  <div class="row">
+    <div class="{$col_2}">
+      {$adsbar}
+      {$recommended}
+    </div>
+    <div class="{$col_1}">
+      <div class="jumbotron text-center blue-grey lighten-5" style="min-height: 73vh">
+
+        <!-- Title -->
+        <h2 class="h1-responsive font-weight-bold my-2">{$title}</h2>
+        
+        <hr class="mt-4">
+        {$message}
+        <span class="mb-4 pb-2">{$write_btn} {$return_btn} {$page_editor}</span>
+
+        <!-- Grid row -->
+        <div class="row d-flex justify-content-center"> 
+   
+            <!-- Section: Blog v.2 -->
+          <div class="text-center my-2 p-2 px-4"> 
+
+            <!-- Section description -->
+            {$intro}
+
+            <!-- Grid row -->
+            <div class="row">
+
+              <!-- Grid column -->
+             {$get_pages}
+             {$heading}
+             {$content}
+              <!-- Grid column -->
+
+            </div>
+            <!-- Grid row -->
+
+          </div> 
+
+        </div> 
+
+      </div> 
+    </div>
+  </div>
+</div> 

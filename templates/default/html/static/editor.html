@@ -1,0 +1,73 @@
+<div class="bg-white p-3 border">
+    <!-- Form -->
+  <form style="color: #757575;" action="" method="post"> 
+
+    <div class="row"> 
+
+      <div class="col-md-6">
+          <!-- Page Title --> 
+        <div class="md-form">
+            <small for="page_title1">&nbsp;</small>
+            <input name="page_title" type="text" id="page_title1" class="form-control" value="{$d_title}" onkeyup="changeAlias(1)">
+            <label for="page_title1">Page Title</label>
+        </div>                     
+      </div> 
+
+      <div class="col-md-6">
+          <!-- Page Alias --> 
+        <div class="md-form">
+            <span class="text-left">Page Alias <span class="text-danger text-left">(Must be unique)</span></span>
+            <input name="page_alias" type="text" id="page_alias1" class="form-control" value="{$page_alias}">
+        </div>                     
+      </div> 
+
+      <!-- Page content                     -->
+      <div class="col-md-12 text-left">  
+        <div class="container p-2 border">
+          <div class="font-weight-bold">Page Content</div>   
+          <textarea name="page_content" type="text" id="page_content" class="md-textarea form-control" rows="3">
+            {$page_content}
+          </textarea>  
+        </div>       
+      </div>  
+
+
+      <div class="col-md-4 text-left">  
+        <!-- Rave mode -->  
+        <select name="category" id="category" class="text-left mdb-select md-form colorful-select dropdown-primary"> 
+          <option disabled>Category</option>
+          <option {$updates_on} value="updates">News and Updates</option>
+          <option {$documentation_on} value="documentation">Documentation</option>
+          <option {$developer_on} value="developer">Developer</option>
+          <option {$support_on} value="support">Support</option>
+          <option {$bounty_on} value="bounty">Bounty Program</option> 
+        </select> 
+        <label for="category">Category</label>                    
+      </div> 
+
+      <div class="col-md-4 text-left">  
+        <!-- Rave mode -->  
+        <select name="featured" id="featured" class="text-left mdb-select md-form colorful-select dropdown-primary"> 
+          <option disabled>Featured</option>
+          <option {$featured_on} value="1">Featured</option>
+          <option {$featured_off} value="0">Not Featured</option>
+        </select> 
+        <label for="featured">Featured</label>                    
+      </div> 
+
+      <div class="col-md-4 text-left">  
+        <!-- Rave mode -->  
+        <select name="page_status" id="page_status" class="text-left mdb-select md-form colorful-select dropdown-primary"> 
+          <option disabled>Status</option>
+          <option {$page_status_on} value="1">Active</option>
+          <option {$page_status_off} value="0">Inactive</option>
+        </select> 
+        <label for="page_status">Page Status</label>                    
+      </div> 
+  
+    </div>
+
+    <span id="msg">{$message}</span><span class="loading"></span>
+    {$create_button} 
+  </form> 
+</div>

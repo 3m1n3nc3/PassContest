@@ -1,0 +1,331 @@
+ 
+          <div class="classic-tabs">
+
+            <ul class="nav tabs-info" id="site_settings_Tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link  waves-light {$tab}" id="generate-tab-classic" data-toggle="tab" href="#generate-classic" role="tab" aria-controls="generate-classic" aria-selected="true">{$lng->generate_cards}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link  waves-light {$tab2}" id="voucher-tab-classic" data-toggle="tab" href="#voucher-classic" role="tab" aria-controls="voucher-classic" aria-selected="true">Generate {$lng->passcredit}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link waves-light {$tab1}" id="giftcards-tab-classic" data-toggle="tab" href="#giftcards-classic" role="tab" aria-controls="giftcards-classic" aria-selected="false">{$lng->get_cards}</a>
+              </li> 
+              <li class="nav-item">
+                <a class="nav-link waves-light {$tab3}" id="pricing-tab-classic" data-toggle="tab" href="#pricing-classic" role="tab" aria-controls="pricing-classic" aria-selected="false">{$lng->pricing}</a>
+              </li> 
+            </ul>
+
+ 
+            <div class="tab-content card" id="settingsTabContent"> 
+
+              <!-- Generate tab -->
+              <div class="tab-pane fade {$tab}" id="generate-classic" role="tabpanel" aria-labelledby="generate-tab-classic"> 
+
+                <!-- Form -->
+                <form class="border grey lighten-5 rounded p-2 form-text text-muted mb-2 text-justify" style="color: #757575;" method="post" action=""> 
+
+                  <div class="row"> 
+
+                    <div class="col-md-12 text-left">  
+                        <!-- Captcha -->  
+                          <select name="contest" id="contest_list" class="text-left mdb-select md-form colorful-select dropdown-primary" searchable="Search for Contest.."> 
+                            <option disabled>{$lng->contest}</option>
+                            {$contest_list}
+                          </select> 
+                          <label for="contest_list">{$lng->contest}</label>                     
+                    </div> 
+
+                    <div class="col-md-12">
+                        <!-- Facebook App ID --> 
+                      <div class="md-form form-sm mt-1">
+                          <input name="quantity" type="text" id="quantity" class="form-control" value="5">
+                          <label for="quantity">Quantity</label>
+                      </div>                     
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Facebook Secret --> 
+                      <div class="">
+                           <select name="valid" id="valid" class="text-left form-sm mdb-select md-form colorful-select dropdown-primary">
+                            <option disabled>Valid For</option>
+                            <option value="1">1 Day</option>
+                            <option value="2">1 Week</option>
+                            <option value="3">1 Month</option>
+                            <option value="4">3 Months</option>
+                            <option value="5">6 Months</option>
+                            <option value="6">1 Year</option>
+                          </select> 
+                          <label for="valid">Valid For</label>
+                      </div>                     
+                    </div> 
+
+                    <div class="col-md-6">
+                        <!-- Facebook Secret --> 
+                      <div class="">
+                           <select name="invalid" id="invalid" class="text-left form-sm mdb-select md-form colorful-select dropdown-primary">
+                            <option disabled>Expires After</option>
+                            <option value="1">1 Day</option>
+                            <option value="2">1 Week</option>
+                            <option value="3">1 Month</option>
+                            <option value="4">3 Months</option>
+                            <option value="5">6 Months</option>
+                            <option value="6">1 Year</option>
+                          </select> 
+                          <label for="invalid">Expires After</label>
+                      </div>                     
+                    </div> 
+
+                  </div>
+ 
+                  <span id="msg4">{$message}</span><span class="loading"></span>
+                  <button name="generate" id="save2" class="btn btn-info btn-rounded my-2 waves-effect" type="submit" >Generate</button> 
+                </form> 
+
+              </div> 
+
+
+              <!-- Vouchers tab -->
+              <div class="tab-pane fade {$tab2}" id="voucher-classic" role="tabpanel" aria-labelledby="voucher-tab-classic"> 
+
+                <!-- Form -->
+                <form class="border grey lighten-5 rounded p-2 form-text text-muted mb-2 text-justify" style="color: #757575;" method="post" action=""> 
+ 
+                <input type="hidden" name="contest" value="0">
+                  <div class="row">  
+                    <div class="col-md-12 p-2">&nbsp;</div>
+                    <div class="col-md-6">
+                        <!-- Facebook App ID --> 
+                      <div class="md-form form-sm mt-2">
+                          <input name="quantity" type="text" id="quantity" class="form-control" value="5">
+                          <label for="quantity">Quantity</label>
+                      </div>                     
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Facebook App ID --> 
+                      <div class="md-form form-sm mt-2">
+                          <input name="value" type="text" id="value" class="form-control" value="50">
+                          <label for="value">Value</label>
+                      </div>                     
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Facebook Secret --> 
+                      <div class="">
+                          <select name="valid" id="valid" class="text-left form-sm mdb-select md-form colorful-select dropdown-primary">
+                            <option disabled>Valid For</option>
+                            <option value="1">1 Day</option>
+                            <option value="2">1 Week</option>
+                            <option value="3">1 Month</option>
+                            <option value="4">3 Months</option>
+                            <option value="5">6 Months</option>
+                            <option value="6">1 Year</option>
+                          </select> 
+                          <label for="valid">Valid For</label>
+                      </div>                     
+                    </div> 
+
+                    <div class="col-md-6">
+                        <!-- Facebook Secret --> 
+                      <div class="">
+                          <select name="invalid" id="invalid" class="text-left form-sm mdb-select md-form colorful-select dropdown-primary">
+                            <option disabled>Expires After</option>
+                            <option value="1">1 Day</option>
+                            <option value="2">1 Week</option>
+                            <option value="3">1 Month</option>
+                            <option value="4">3 Months</option>
+                            <option value="5">6 Months</option>
+                            <option value="6">1 Year</option>
+                          </select> 
+                          <label for="invalid">Expires After</label>
+                      </div>                     
+                    </div> 
+
+                  </div>
+ 
+                  <span id="msg4">{$message1}</span><span class="loading"></span>
+                  <button name="generate" id="save2" class="btn btn-info btn-rounded my-2 waves-effect" type="submit" >Generate</button> 
+                </form> 
+
+              </div> 
+
+              <!-- Tokens tab -->
+              <div class="tab-pane fade {$tab1}" id="giftcards-classic" role="tabpanel" aria-labelledby="giftcards-tab-classic"> 
+
+                <div class="border grey lighten-5 rounded p-2 form-text text-muted mb-2 text-justify">
+                  <!-- Form -->
+                  <form class="p-4 m-2 border blue-grey lighten-5 mb-4" style="color: #757575;" method="post" action=""> 
+
+                    <div class="row"> 
+
+                      <div class="col-md-6">  
+                        <!-- Captcha -->  
+                        <select name="get_contest" id="get_contest_list" class="text-left mdb-select md-form colorful-select dropdown-primary" searchable="Search for Contest.."> 
+                          <option disabled>{$lng->contest}</option> 
+                          {$gift_list}
+                        </select> 
+                        <label for="get_contest_list">{$lng->contest}</label>                     
+                      </div>
+
+                      <div class="col-md-6">
+                          <!-- Results Per page --> 
+                        <div class="md-form ">
+                            <input name="quantity" type="text" id="quantity" class="form-control" value="{$get_quantity}">
+                            <label for="quantity">Amount to show</label>
+                        </div>                     
+                      </div>
+                    </div>
+
+                    <div class="container mr-auto text-center" style="min-width: 100%">
+                      {$get_buttons}
+                      <span class="mx-1">{$save_link} </span>           
+                    </div>  
+                                      
+                  </form> 
+
+                  <span id="msg1">{$ret_resp}</span> 
+                  <div class="border rounded m-2">
+                    <div class="grey lighten-2 rounded-top p-2 text-danger font-weight-bold">DELETE <i class="fa fa-trash"></i></div>
+                    <form action="" method="post" class="text-center p-2">
+                      <button id="del_exp" name="del_exp" class="btn btn-sm btn-danger waves-effect">Exp. Tokens</button>
+                      <button id="del_all" name="del_all" class="btn btn-sm btn-danger waves-effect">All Tokens</button> 
+                      <button id="del_used" name="del_used" class="btn btn-sm btn-danger waves-effect">Used Tokens</button>
+                      <button id="del_voucher" name="del_voucher" class="btn btn-sm btn-danger waves-effect">Passcredits</button> 
+                    </form>                    
+                  </div>
+
+
+                  <div class="row m-1">
+                    <div class="col-md-6 text-left"> 
+                      {$generated_tokens}
+                    </div>
+                    <div class="col-md-6 text-left"> 
+                      <div class="card">
+                        <div class="card-header text-white h6">Statistics</div>
+                        <div class="card-body p-3">
+                          <div>{$count_this}</div>
+                          <div>{$count_all}</div>
+                          <div>{$count_invalid}</div>
+                          <div>{$count_cwt}</div> 
+                          <div>{$count_used}</div> 
+                        </div>
+                      </div>                      
+                      
+                    </div>
+                  </div> 
+                </div>
+
+              </div> 
+
+              <!-- Premium tab -->
+              <div class="tab-pane fade {$tab3}" id="pricing-classic" role="tabpanel" aria-labelledby="pricing-tab-classic"> 
+
+                <div class="p-2 form-text text-muted mb-2 text-justify">
+                  <small id="possible_helper" class="border grey lighten-5 p-2 form-text text-muted m-2 text-center">
+                      <strong class="text-info">To turn off any of the features simply set it's value to 0.00</strong>
+                  </small>                  
+                  <!-- Form -->
+                  <form class="p-4 m-2 border grey lighten-5 rounded mb-4" style="color: #757575;" method="post" action=""> 
+
+                    <div class="row"> 
+
+                      <div class="col-md-4">
+                          <!-- Currency --> 
+                        <div class="md-form ">
+                          <input name="pc_enter" type="text" id="pc_enter" class="form-control" value="{$pc_enter}">
+                          <label for="pc_enter">Cost per Contest Entry </label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4">
+                          <!-- Currency --> 
+                        <div class="md-form ">
+                          <input name="pc_comment" type="text" id="pc_comment" class="form-control" value="{$pc_comment}">
+                          <label for="pc_comment">Cost per Comment </label>
+                        </div>                     
+                      </div> 
+
+                      <div class="col-md-4">
+                          <!-- Premium votes --> 
+                        <div class="md-form ">
+                          <input name="pc_vote" type="text" id="pc_vote" class="form-control" value="{$pc_vote}">
+                          <label for="pc_vote">Cost per vote</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4">
+                          <!-- Premium Plan --> 
+                        <div class="md-form ">
+                          <input name="symbol" type="text" id="symbol" class="form-control" value="{$pc_symbol}">
+                          <label for="symbol">{$lng->passcredit} Symbol (PCS)</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4">
+                          <!-- Premium Plan --> 
+                        <div class="md-form ">
+                          <input name="pc_value" type="text" id="pc_value" class="form-control" value="{$pc_value}">
+                          <label for="pc_value">{$lng->passcredit}({$pc_symbol}) Value to {$currency}</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4">
+                          <!-- Premium Plan --> 
+                        <div class="md-form ">
+                          <input name="bonus" type="text" id="bonus" class="form-control" value="{$bonus}">
+                          <label for="bonus">Signup Bonus</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4">
+                          <!-- Premium Plan --> 
+                        <div class="md-form ">
+                          <input name="referral" type="text" id="referral" class="form-control" value="{$pc_ref_percent}">
+                          <label for="referral">Referral Percentage</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4">
+                          <!-- Premium Plan --> 
+                        <div class="md-form ">
+                          <input name="agency" type="text" id="agency" class="form-control" value="{$pc_ref_percent}">
+                          <label for="agency">Agency Percentage</label>
+                        </div>                     
+                      </div>
+
+                      <div class="col-md-4"> 
+                        <div class="md-form ">
+                          <input name="cashout" type="text" id="cashout" class="form-control" value="{$cashout}">
+                          <label for="cashout">Cashout Minimum ({$currency}) </label> 
+                        </div>                 
+                      </div>  
+
+                      <div class="col-md-6"> 
+                        <div class="md-form ">
+                          <input name="cashout_max" type="text" id="cashout_max" class="form-control" value="{$cashout_max}">
+                          <label for="cashout_max">Maximum Cashout Percentage</label> 
+                        </div>                 
+                      </div> 
+
+                      <div class="col-md-6"> 
+                        <div class="md-form ">
+                          <input name="cashout_retain" type="text" id="cashout_retain" class="form-control" value="{$cashout_retain}">
+                          <label for="cashout_retain">Cashout Retention Percentage</label> 
+                        </div>                 
+                      </div>  
+                    </div>
+
+                    <div class="text-center">
+                    <span id="msg5">{$message5}</span> 
+                      <button id="save_pricing" name="save_pricing" type="submit" class="mr-auto btn btn-info btn-rounded my-2 waves-effect">Save Settings</button>       
+                    </div>  
+                                      
+                  </form>    
+                </div>
+
+              </div>
+
+            </div>
+
+          </div> 

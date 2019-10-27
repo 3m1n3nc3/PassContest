@@ -1,0 +1,47 @@
+<script type="text/javascript">
+$(document).ready(function() { 
+  loadFeature(1, {$limit}, 1, 1);
+});
+</script>
+
+<div class="p-4 blue-gradient"></div>
+
+<div class="container" style="min-width: 100%">
+  <div class="{$row}"> 
+    <div class="{$col_1} mb-3">
+      <!-- Card -->
+      <div class="card card-cascade wider reverse">
+
+        <!-- Card content -->
+        <div class="card-body card-body-cascade text-center">
+          <nav class="nav nav-pills nav-justified cloudy-knoxville-gradient">
+            <a id="t1" class="nav-item nav-link active" href="#" onclick="loadFeature(1, {$limit}, 1, 1)">Featured Contests</a>
+            <a id="t2" class="nav-item nav-link" href="#" onclick="loadFeature(1, {$limit}, 1, 2)">Featured Profiles</a> 
+          </nav> 
+          <div id="content_collector"> </div>  
+
+        </div>
+        <!-- Card -->
+      </div>
+    </div>
+
+  <!-- Side navigation bar -->
+    <div class="{$col_2} mt-2">
+      {$adsbar} 
+      {$recommended}
+    </div>  
+  </div>
+</div> 
+
+<!-- Profile data modal container -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="ProfileModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-body" id="profile-container">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="sharer"></div>

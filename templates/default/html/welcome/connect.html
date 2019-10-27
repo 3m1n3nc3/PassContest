@@ -1,0 +1,119 @@
+ 
+  <div class="modal fade" id="connectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog cascading-modal" role="document">
+          <!--Content-->
+          <div class="modal-content">
+ 
+              <div class="modal-c-tabs">
+                  <ul class="nav nav-tabs md-tabs tabs-2 blue-gradient darken-3" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#login-tab" role="tab" id="login"><i class="fa fa-user mr-1"></i> {$lng->login}</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#signup-tab" role="tab" id="signup"><i class="fa fa-user-plus mr-1"></i> {$lng->signup}</a>
+                      </li>
+                  </ul>
+ 
+                  <div class="tab-content">
+                      <!--Panel 7-->
+                      <div class="tab-pane fade in active show" id="login-tab" role="tabpanel">
+                        <div id="loader"></div>
+                        <div class="text-center mx-2" id="login-message"></div>
+
+                        <form>
+                          <!--Body-->
+                          <div class="modal-body mb-1"> 
+
+                              <div class="md-form form-sm mb-3">
+                                  <i class="fa fa-envelope prefix"></i>
+                                  <input name="username" type="text" id="username" class="form-control form-control-sm {$invalid1}" data-validation="length alphanumeric" data-validation-length="min6" value="{$postuser}">
+                                  <label for="username">{$lng->username}</label> 
+                              </div>
+
+                              <div class="md-form form-sm mb-3">
+                                  <i class="fa fa-lock prefix"></i>
+                                  <input name="password" type="password" id="password" class="form-control form-control-sm {$einvalid1}" data-validation="required length" data-validation-length="min6"> 
+                                  <!-- (<span id="maxlength">50</span> characters left) -->
+                                  <label for="password">{$lng->password}</label> 
+                              </div> 
+                              
+                              <div >
+                                <!-- Remember me -->
+                                <div class="fmd-form form-check">
+                                  <input name="remember" type="checkbox" class="form-check-input" id="meRemember">
+                                  <label class="form-check-label" for="meRemember">{$lng->remember}</label>
+                                </div>
+                              </div>                              
+                              <div class="text-center mt-1">
+                                {$fbconnect}
+                                <button name="login" id="login-btn" type="button" class="btn btn-info" onclick="connector(0, '{$referrer}')">{$lng->login} <i class="fa fa-sign-in ml-1"></i></button>
+                              </div>
+                          </div>
+                        </form> 
+                          <div class="modal-footer">
+                              <div class="options text-center text-md-right mt-1">
+                                  <p class="pt-1"><a href="{$forgot_link}" class="blue-text">{$lng->forgot_password}</a></p>
+                              </div>
+                              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                          </div>
+
+                      </div>
+                      <!--/.Panel 7-->
+
+                      <!--Panel 8-->
+                      <div class="tab-pane fade" id="signup-tab" role="tabpanel">
+                        <div id="loader-2"></div>
+                        <div class="text-center mx-2" id="signup-message"></div>
+
+                        <form>
+                          <!--Body-->
+                          <div class="modal-body">
+
+                              {$invite_code} 
+
+                              <div class="md-form form-sm mb-3">
+                                  <i class="fa fa-user prefix"></i>
+                                  <input name="username" type="text" id="username2" class="form-control form-control-sm" data-validation="required length" data-validation-length="min5" value="{$postuser}">
+                                  <label for="username2">{$lng->username}</label>       
+                              </div>
+
+                              <div class="md-form form-sm mb-3">
+                                  <i class="fa fa-envelope prefix"></i>
+                                  <input name="email" type="email" id="email2" class="form-control form-control-sm" data-validation="email" value="{$postemail}">
+                                  <label for="email2">{$lng->email}</label> 
+                              </div>
+
+                              {$phone_number}
+
+                              <div class="md-form form-sm mb-3">
+                                  <i class="fa fa-lock prefix"></i>
+                                  <input name="password" type="password" id="password2" class="form-control form-control-sm" data-validation="required length" data-validation-length="min5">
+                                  <label for="password2">{$lng->password}</label>
+                              </div> 
+
+                              {$recaptcha}
+
+                              <div class="text-center form-sm mt-1">
+                                
+                                {$fbconnect}
+
+                                <button name="signup" id="signup-btn" type="button" class="btn btn-info" onclick="connector(1, '{$referrer}')">{$lng->signup} <i class="fa fa-sign-in ml-1"></i></button>
+                              </div>
+
+                          </div>
+                        </form>
+                       
+                          <!--Footer-->
+                          <div class="modal-footer">
+                              <div class="options text-right">
+                                  <p class="pt-1"><a href="{$forgot_link}" class="blue-text">{$lng->forgot_password}</a></p>
+                              </div>
+                              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                          </div>
+                      </div> 
+                  </div>
+
+              </div>
+          </div> 
+      </div>
+  </div>

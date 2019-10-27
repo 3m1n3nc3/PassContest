@@ -1,0 +1,18 @@
+#> * is used as a wildcard match
+#> / is used to ignore pathnames relative to the .gitignore file
+#> # is used to add comments to a .gitignore file
+#
+# Ignore all files like these 
+# *.mp3
+# *.wav
+# *.amr
+# *.jpeg 
+# *.jpg
+# *.png
+# *.JPG
+# *.zip
+.idea
+includes/config.php
+.htaccess
+node_modules
+error.log

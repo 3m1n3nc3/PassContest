@@ -1,0 +1,213 @@
+<div class="classic-tabs">
+
+	<ul class="nav tabs-info" id="siteTemplates" role="tablist">
+	    <li class="nav-item">
+	      <a class="nav-link waves-light{$active_1}" id="temp-tab-classic" data-toggle="tab" href="#temp-classic" role="tab" aria-controls="temp-classic" aria-selected="true">Templates</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link waves-light{$active_2}" id="others-tab-classic" data-toggle="tab" href="#others-classic" role="tab" aria-controls="others-classic" aria-selected="false">Others</a>
+	    </li>
+	</ul>
+
+	<div class="tab-content border-right border-bottom border-left rounded-bottom" id="siteTemplatesTabContent">
+	    <div class="tab-pane fade{$active_1}" id="temp-classic" role="tabpanel" aria-labelledby="temp-tab-classic">
+
+			<!-- Templates Settings tab -->
+			<div class="card">
+				<div class="card-header h6 d-flex justify-content-left winter-neva-gradient white-text p-2">{$this_title}</div>
+				<div class="card-body">
+					
+				    <small id="possible_helper" class="border border-danger form-text text-muted mb-2 text-justify">
+				      <span class="d-flex d-inline-block bg-light justify-content-center p-1 mb-2">Available Templates</span>  
+				      <div class="p-3">
+					      <span id="msg1">{$message1}</span>
+					      <strong>{$templates}</strong>      	
+				      </div>
+				    </small>
+
+				    <small id="possible_helper" class="border border-danger form-text text-muted mb-2 text-justify">
+				      	<span class="d-flex d-inline-block bg-light justify-content-center p-1 mb-2">Skins and Landing Page</span>
+				      	<div class="text-center text-warning border border-warning orange lighten-5 rounded mx-4 p-2">
+				      		Skins may not be available for all templates
+				      	</div> 
+				      	<div class="p-3">
+					    	<span id="msg1">{$message}</span> 
+					    	
+					    	<form name="skinner" method="post" action="">
+						    	<div class="row"> 
+									<div class="col-md-6 text-left">
+										<select name="skin" class="mdb-select md-form colorful-select dropdown-primary">
+										  <option disabled>Choose Skin</option>
+										  {$skins}
+										</select>
+										<label>Skin</label>					
+									</div>	
+									<div class="col-md-6 text-left">
+										<select name="landing" class="mdb-select md-form colorful-select dropdown-primary">
+										  <option disabled>Choose Landing Page</option>
+										  <option value="1" {$l_1}>Informative</option>
+										  <option value="2" {$l_2}>Login</option> 
+										</select>
+										<label>Landing Page</label>					
+									</div>
+									<div class="col text-center">
+										<button name="set_skinner" type="submit" class="btn btn-primary btn-block">Upload</button>
+									</div>	    		
+						    	</div>		    		
+					    	</form>      	
+				      	</div>
+				    </small> 
+
+				 </div>
+			</div> 
+
+	    </div>
+	    <div class="tab-pane fade{$active_2}" id="others-classic" role="tabpanel" aria-labelledby="others-tab-classic">
+	      
+	      <!-- Other templates settings tab -->
+			<div class="card">
+				<div class="card-header h6 d-flex justify-content-left winter-neva-gradient white-text p-2">{$other_title}</div>
+				<div class="card-body">
+
+				    <small id="possible_helper" class="border border-danger form-text text-muted mb-2 text-justify">
+				      	<span class="d-flex d-inline-block bg-light justify-content-center p-1 mb-2">Upload Site Images</span> 
+				      	<div class="p-3">
+					    	<span id="msg1">{$messageX}</span> 
+					    	
+					    	<form name="uploader" method="post" action="" enctype="multipart/form-data">
+						    	<div class="row">  
+								    <div class="file-field medium md-form">
+								        <div class="btn btn-outline-primary waves-effect float-left">
+								            <span>Choose files<i class="fa fa-cloud-upload ml-3" aria-hidden="true"></i></span>
+								            <input type="file" name="file">
+								        </div>
+								        <div class="file-path-wrapper">
+								            <input class="file-path validate" type="text" placeholder="Choose file to upload">
+								        </div>
+								    </div> 
+									<div class="col-md-12 text-left">
+										<select name="type" class="mdb-select md-form colorful-select dropdown-primary">
+										  <option disabled>Choose Image Type</option>
+										  <option value="1">Site Cover Image</option>
+										  <option value="2">Site Logo</option>
+										  <option value="3">Favicon</option>
+										  <option value="4">Slide 1 Image</option> 
+										  <option value="5">Slide 2 Image</option> 
+										  <option value="6">Slide 3 Image</option> 
+										</select>
+										<label>Image Type</label>					
+									</div>
+									<div class="col-12 text-center">
+										<button name="upload" type="submit" class="btn btn-primary btn-block">Save</button>
+									</div>	    		
+						    	</div>		    		
+					    	</form>      	
+				      	</div>
+				    </small> 
+
+				    <small id="possible_helper" class="border border-danger form-text text-muted mb-2 text-justify">
+				      	<span class="d-flex d-inline-block bg-light justify-content-center p-1 mb-2">Introductory Texts</span>  
+				      <div class="p-3">
+					    <span id="msg1">{$messageXY}</span>
+
+					    <form method="post" action="">
+						    <div class="row border-bottom border-info mb-2">
+			                    <div class="col-md-12 text-left mb-1">  
+								  <label for="intro">Site Introduction Title</label> 
+								  <input name="intro_title" value="{$site_intro}" type="text" id="intro" class="form-control">
+			                    </div>
+			                    <div class="col-md-12 text-left mb-1">      
+		                          <label for="intro_desc">Site Introduction</label>   
+		                          <textarea name="intro_desc" type="text" id="intro_desc" class="form-control" rows="2">{$site_intro_desc}</textarea>         
+			                    </div>
+			                </div>
+			                <div class="row border-bottom border-info mb-2">  
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="uses_one">Site Uses 1</label>
+								  <input name="uses_one" value="{$uses_one}" type="text" id="uses_one" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12  text-left mb-2">     
+		                          <label for="uses_one_desc">Site Uses 1 Description</label>
+		                          <textarea name="uses_one_desc" type="text" id="uses_one_desc" class="form-control" rows="2">{$uses_one_desc}</textarea>                  
+			                    </div> 
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="uses_two">Site Uses 2</label>
+								  <input name="uses_two" value="{$uses_two}" type="text" id="uses_two" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12 text-left mb-2">      
+		                          <label for="uses_two_desc">Site Uses 2 Description</label> 
+		                          <textarea name="uses_two_desc" type="text" id="uses_one_desc" class="form-control" rows="2">{$uses_two_desc}</textarea>              
+			                    </div> 
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="uses_three">Site Uses 3</label>
+								  <input name="uses_three" value="{$uses_three}" type="text" id="uses_three" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12 text-left mb-2">      
+		                          <label for="uses_three_desc">Site Uses 3 Description</label> 
+		                          <textarea name="uses_three_desc" type="text" id="uses_three_desc" class="form-control" rows="2">{$uses_three_desc}</textarea>              
+			                    </div> 
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="uses_four">Site Uses 4</label>
+								  <input name="uses_four" value="{$uses_four}" type="text" id="uses_four" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12 text-left mb-2">      
+		                          <label for="uses_four_desc">Site Uses 4 Description</label> 
+		                          <textarea name="uses_four_desc" type="text" id="uses_four_desc" class="form-control" rows="2">{$uses_four_desc}</textarea>              
+			                    </div> 					    	
+						    </div>
+			                <div class="row border-bottom border-info mb-2">  
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="carousel_one">Carousel 1 title</label>
+								  <input name="carousel_one" value="{$carousel_one}" type="text" id="carousel_one" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12 text-left pb-2">  
+								  <label for="carousel_one_sub">Carousel 1 Subtitle</label>
+								  <input name="carousel_one_sub" value="{$carousel_one_sub}" type="text" id="carousel_one_sub" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12  text-left pb-2">     
+		                          <label for="carousel_one_desc">Carousel 1 Description</label>
+		                          <textarea name="carousel_one_desc" type="text" id="carousel_one_desc" class="form-control" rows="2">{$carousel_one_desc}</textarea>                  
+			                    </div>					    	
+						    </div>
+			                <div class="row border-bottom border-info mb-2">  
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="carousel_two">Carousel 2 title</label>
+								  <input name="carousel_two" value="{$carousel_two}" type="text" id="carousel_two" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12 text-left pb-2">  
+								  <label for="carousel_one_sub">Carousel 2 Subtitle</label>
+								  <input name="carousel_two_sub" value="{$carousel_two_sub}" type="text" id="carousel_two_sub" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12  text-left pb-2">     
+		                          <label for="carousel_two_desc">Carousel 2 Description</label>
+		                          <textarea name="carousel_two_desc" type="text" id="carousel_two_desc" class="form-control" rows="2">{$carousel_two_desc}</textarea>                  
+			                    </div>					    	
+						    </div>
+			                <div class="row mb-2">  
+			                    <div class="col-md-12 text-left mb-2">  
+								  <label for="carousel_three">Carousel 3 title</label>
+								  <input name="carousel_three" value="{$carousel_three}" type="text" id="carousel_three" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12 text-left pb-2">  
+								  <label for="carousel_three_sub">Carousel 3 Subtitle</label>
+								  <input name="carousel_three_sub" value="{$carousel_three_sub}" type="text" id="carousel_three_sub" class="form-control"> 
+			                    </div>
+			                    <div class="col-md-12  text-left pb-2">     
+		                          <label for="carousel_three_desc">Carousel 2 Description</label>
+		                          <textarea name="carousel_three_desc" type="text" id="carousel_three_desc" class="form-control" rows="2">{$carousel_three_desc}</textarea>                  
+			                    </div>	
+								<div class="col-12 text-center">
+									<button name="save" type="submit" class="btn btn-primary btn-block">Save</button>
+								</div>	 				    	
+						    </div>
+						</form>
+				      </div>
+				    </small>
+
+				 </div>
+			</div>
+
+	    </div> 
+	</div>
+
+</div>

@@ -1,0 +1,50 @@
+  
+    <div id="slide-out" class="side-nav sn-bg-4 fixed">
+      <ul class="custom-scrollbar"> 
+        <!-- Logo -->
+        <li>
+          <div class="logo-wrapper waves-light">
+            <a href="#"><img src="{$site_url}/{$template_path}/{$template_name}/img/logo.png" class="img-fluid flex-center"></a>
+          </div>
+        </li>
+        <!--/. Logo -->
+        <li> 
+        	<div class="text-center p-2">
+            	<img src="{$pphoto}" class="img-fluid rounded-circle" height="50%" width="50%">
+        		<h4 class="pt-2">{$fullname}</h4> 
+        	</div>
+        </li><hr class="bg-light">     
+        
+        <li>
+          <form class="search-form" role="search">
+            <div class="form-group md-form mt-0 pt-1 waves-light"> 
+              <input name="search" type="text" class="form-control" placeholder="Search" onkeyup="do_Asearch(2)" autocomplete="off">
+            </div>
+            <div class="dropdown-wrapper">
+              <span id="search_results"></span> 
+            </div>
+          </form>
+        </li> 
+        <!--/.Search Form-->
+        <!-- Side navigation links -->
+        <li>
+          <ul class="collapsible collapsible-accordion">
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-chevron-right"></i> {$lng->contests}<i class="fa fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                {$menuUldrop}
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-chevron-right"></i> {$lng->documentation}<i class="fa fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                {$documentation}
+              </div>
+            </li> 
+            <li>
+              {$contact} 
+            </li>
+          </ul>
+        </li>
+        <!--/. Side navigation links -->
+      </ul>
+      <div class="sidenav-bg mask-strong"></div>
+    </div>
