@@ -12,7 +12,6 @@
 # *.JPG
 # *.zip
 .idea
-includes/config.php
-.htaccess
+includes/config.php 
 node_modules
 error.log

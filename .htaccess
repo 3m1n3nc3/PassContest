@@ -1,0 +1,96 @@
+RewriteEngine on
+
+RewriteCond %{request_filename} -f
+
+RewriteRule ^(.*) 										$1													[L]
+RewriteRule ^(([^/]*)+)?$								index.php?a=$1										[L]
+
+RewriteRule ^passcredit/?$								index.php?a=credit									[NC] 
+
+RewriteRule ^welcome/?$									index.php?a=welcome									[NC] 
+RewriteRule ^welcome/referrer/([^/]+)/?$				index.php?a=welcome&ref=$1							[NC] 
+
+RewriteRule ^offline/?$									index.php?a=offline									[NC]
+
+RewriteRule ^explore/?$									index.php?a=explore									[NC]
+RewriteRule ^explore/logout/?$							index.php?a=explore&logout							[NC]
+RewriteRule ^explore/popular$				        	index.php?a=explore&popular	    					[NC] 
+
+RewriteRule ^featured/?$								index.php?a=featured								[NC]
+
+RewriteRule ^premium/?$									index.php?a=premium									[NC] 
+
+RewriteRule ^notifications/?$							index.php?a=notifications							[NC]
+RewriteRule ^notifications/filter/([^/]+)/?$			index.php?a=notifications&filter=$1					[NC] 
+
+RewriteRule ^voting/([^/]+)/?$							index.php?a=voting&id=$1							[NC]
+RewriteRule ^voting/([^/]+)/vote/([^/]+)/?$				index.php?a=voting&id=$1&user=$2					[NC]  
+
+RewriteRule ^recovery/?$								index.php?a=recovery								[NC]
+RewriteRule ^recovery/set/?$							index.php?a=recovery&ready=1						[NC]
+RewriteRule ^recovery/account/([^/]+)/set/?$			index.php?a=recovery&account=$1&ready=1				[NC]
+
+RewriteRule ^enter/([^/]+)/?$							index.php?a=enter&id=$1								[NC] 
+RewriteRule ^enter/create/([^/]+)/?$					index.php?a=enter&create=$1							[NC]
+RewriteRule ^enter/manage/([^/]+)/?$					index.php?a=enter&manage=$1							[NC]
+RewriteRule ^enter/manage/([^/]+)/profile/([^/]+)/?$	index.php?a=enter&manage=$1&user=$2					[NC]
+RewriteRule ^enter/viewdata/([^/]+)/?$					index.php?a=enter&viewdata=$1						[NC]
+RewriteRule ^enter/update/([^/]+)/?$					index.php?a=enter&update=$1							[NC]
+RewriteRule ^enter/success/([^/]+)/?$					index.php?a=enter&success=$1						[NC]
+RewriteRule ^enter/success/([^/]+)/process/([^/]+)/?$	index.php?a=enter&success=$1&process=$2				[NC]
+
+RewriteRule ^contest/?$									index.php?a=contest									[NC]
+RewriteRule ^contest/id/([^/]+)/?$						index.php?a=contest&id=$1							[NC]
+RewriteRule ^contest/([^/]+)/?$							index.php?a=contest&s=$1							[NC]  
+RewriteRule ^contest/([^/]+)/id/([^/]+)/?$				index.php?a=contest&d=$1&id=$2						[NC] 
+RewriteRule ^contest/owner/([^/]+)/?$					index.php?a=contest&u=$1							[NC]
+RewriteRule ^contest/approved/([^/]+)/?$				index.php?a=contest&approved=$1						[NC]
+RewriteRule ^contest/applications/([^/]+)/?$			index.php?a=contest&applications=$1					[NC]
+RewriteRule ^contest/manage/([^/]+)/?$					index.php?a=contest&manage=$1						[NC]
+
+RewriteRule ^read/([^/]+)/?$							index.php?a=static&page=$1							[NC]
+
+RewriteRule ^docs/?$									index.php?a=documentation							[NC]
+RewriteRule ^docs/([^/]+)/?$							index.php?a=documentation&read=$1					[NC]
+RewriteRule ^docs/support/([^/]+)/?$					index.php?a=documentation&support=$1				[NC]
+RewriteRule ^docs/delete/([^/]+)/?$						index.php?a=documentation&delete=$1					[NC]
+RewriteRule ^docs/write/([^/]+)/?$						index.php?a=documentation&write=$1					[NC]
+RewriteRule ^docs/edit/([^/]+)/?$						index.php?a=documentation&edit=$1					[NC]
+RewriteRule ^docs/edit/([^/]+)/type/([^/]+)/?$			index.php?a=documentation&edit=$1&type=$2			[NC]
+
+RewriteRule ^settings/?$								index.php?a=settings								[NC]
+RewriteRule ^settings/([^/]+)/?$						index.php?a=settings&b=$1							[NC]
+RewriteRule ^settings/([^/]+)/edit/([^/]+)/?$			index.php?a=settings&b=$1&edit=$2					[NC]
+RewriteRule ^settings/([^/]+)/delete/([^/]+)/?$			index.php?a=settings&b=$1&delete=$2					[NC]
+RewriteRule ^settings/([^/]+)/promote/([^/]+)/?$		index.php?a=settings&b=$1&promote=$2				[NC]
+
+RewriteRule ^account/settings/?$						index.php?a=update									[NC]
+RewriteRule ^account/votes/([^/]+)/?$					index.php?a=account&votes=$1						[NC]
+RewriteRule ^account/notifications/([^/]+)/?$			index.php?a=account&notifications=$1				[NC]
+RewriteRule ^account/notifications/?$					index.php?a=account&notifications					[NC]
+
+RewriteRule ^profile/([^/]+)/?$							index.php?a=profile&u=$1							[NC]
+RewriteRule ^profile/([^/]+)/([^/]+)/?$					index.php?a=profile&u=$1&r=$2						[NC]
+RewriteRule ^profile/([^/]+)/filter/([^/]+)/?$			index.php?a=profile&u=$1&filter=$2					[NC]
+
+RewriteRule ^gallery/([^/]+)/?$							index.php?a=gallery&u=$1							[NC]
+RewriteRule ^gallery/([^/]+)/([^/]+)/?$					index.php?a=gallery&u=$1&r=$2						[NC]
+RewriteRule ^gallery/([^/]+)/filter/([^/]+)/?$			index.php?a=gallery&u=$1&filter=$2					[NC]
+
+RewriteRule ^search/?$									index.php?a=search									[NC]
+RewriteRule ^search/filters/([^/]+)/?$					index.php?a=search&filters=$1						[NC]
+RewriteRule ^search/filters/([^/]+)/query/([^/]+)/?$	index.php?a=search&filters=$1&query=$2				[NC]
+
+RewriteRule ^messenger/?$								index.php?a=messenger								[NC]
+RewriteRule ^messenger/([^/]+)/?$						index.php?a=messenger&u=$1							[NC]
+RewriteRule ^messenger/([^/]+)/([^/]+)/?$				index.php?a=messenger&u=$1&id=$2					[NC]
+
+RewriteRule ^timeline/?$								index.php?a=timeline								[NC]
+RewriteRule ^timeline/([^/]+)/?$						index.php?a=timeline&u=$1							[NC]
+RewriteRule ^timeline/([^/]+)/read/([^/]+)/?$			index.php?a=timeline&u=$1&read=$2					[NC]
+RewriteRule ^timeline/([^/]+)/read/([^/]+)/([^/]+)/?$	index.php?a=timeline&u=$1&read=$2&sort=$3			[NC]
+RewriteRule ^timeline/([^/]+)/share/([^/]+)/?$			index.php?a=timeline&u=$1&share=$2					[NC]
+
+RewriteRule ^followers/?$								index.php?a=followers								[NC]
+RewriteRule ^followers/followers/([^/]+)/?$				index.php?a=followers&followers=$1					[NC]
+RewriteRule ^followers/following/([^/]+)/?$				index.php?a=followers&following=$1					[NC]
