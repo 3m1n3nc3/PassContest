@@ -2144,7 +2144,15 @@ class social {
 		} else {
 			$follow_link = '<a class="text-info" onclick="relate('.$leader.', 0)" id="'.$type.'follow_link_'.$leader.'"><i class="fa fa-user-plus"></i> '.$LANG['follow'].'</a>';
 		}
-		return $leader !== $user['id'] ? $follow_link : null;
+
+		if ($user && $leader !== $user['id']) {
+			if ($t == 2) {
+				return '<span class="mx-3">'.$follow_link.'</span>';
+			} else {
+				return $follow_link;
+			}
+		}
+		return;
 	}
 
 

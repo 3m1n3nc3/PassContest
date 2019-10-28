@@ -36,7 +36,7 @@ function mainContent() {
  		// Get users followers
  		$followers = $social->follow($profiles['id'], 2);
 		$following = $social->follow($profiles['id'], 3);
-		$follow_link = $social->follow_link($profiles['id'], 0) ? '<span class="mx-3">'.$social->follow_link($profiles['id'], 0).'</span>' : '';
+		$follow_link = $social->follow_link($profiles['id'], 2);
 
 		// Link to the follows page
 		$followers_link = permalink($SETT['url'].'/index.php?a=followers&followers='.$profiles['id']);
@@ -49,16 +49,9 @@ function mainContent() {
 
 		if ($profiles['profession']) {
 			$PTMPL['prof'] = $profiles['profession'];
-		}
-		if ($profiles['facebook']) {
-			$PTMPL['facebook'] = '<a href="https://facebook.com/'.$profiles['facebook'].'" class="p-2 m-2 fa-lg fb-ic"> <i class="fa fa-facebook fb-ic"> </i></a>';         
-		}
-		if ($profiles['twitter']) {
-			$PTMPL['twitter'] = '<a href="https://twitter.com/'.$profiles['twitter'].'" class="p-2 m-2 fa-lg tw-ic"> <i class="fa fa-twitter tw-ic"> </i> </a>';
 		} 
-		if ($profiles['instagram']) {
-			$PTMPL['instagram'] = '<a href="https://instagram.com/'.$profiles['instagram'].'" class="p-2 m-2 fa-lg ins-ic"> <i class="fa fa-instagram ins-ic"> </i> </a>';
-		}
+		
+		$PTMPL['contest_social_accounts'] = fetchSocialInfo($profiles, 1);
 
 		// Show the full bio link to agencies
 		$fullbio = '';
@@ -73,18 +66,18 @@ function mainContent() {
 		$timeline = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$profiles['username']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['timeline'].'" class="btn btn-info border border-white">'.$LANG['timeline'].'</a>';
 
 		$related = '
-            <div class="d-flex justify-content-center p-3 m-4 text-info font-weight-bold rounded border border-info bg-white">
-              <a class="text-info" href="'.$followers_link.'">
-              	<span class="px-3" id="followers_count_'.$profiles['id'].'">'.count($followers).' '.$LANG['followers'].'</span>
-              </a>
-              <a class="text-info" href="'.$following_link.'">
-              	<span class="px-3">'.count($following).' '.$LANG['following'].'</span>
-              </a> 
-              '.$follow_link.'
-              <a class="text-info" href="'.$collect['message'].'">
-              	<span class="px-3">'.$LANG['message'].' '.$online['icon'].'</span>
-              </a>
-            </div>'; 
+		<div class="d-flex justify-content-center p-3 m-4 text-info font-weight-bold rounded border border-info bg-white">
+			<a class="text-info" href="'.$followers_link.'">
+				<span class="px-3" id="followers_count_'.$profiles['id'].'">'.count($followers).' '.$LANG['followers'].'</span>
+			</a>
+			<a class="text-info" href="'.$following_link.'">
+				<span class="px-3">'.count($following).' '.$LANG['following'].'</span>
+			</a>
+			'.$follow_link.'
+			<a class="text-info" href="'.$collect['message'].'">
+				<span class="px-3">'.$LANG['message'].' '.$online['icon'].'</span>
+			</a>
+		</div>';
 
 		// Arrange all the buttons in an array
 		$all_buttons = array($gallery, $timeline, $fullbio, $related);

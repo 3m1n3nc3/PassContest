@@ -88,8 +88,7 @@ if ($_POST['action'] == 'follow' || $_POST['action'] == 'unfollow') {
 				</div>
 			</a>';
 
-			$likers .= 
-			'<span>'.$photo.'</span> '.$social->follow_link($u['id'], 1);
+			$likers .= '<span>'.$photo.'</span> '.$social->follow_link($u['id'], 1);
 		}		
 	} else {
 		$likers .= 

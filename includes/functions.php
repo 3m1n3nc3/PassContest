@@ -172,20 +172,89 @@ function deleteFiles($name, $type = null, $fb = null) {
     return 0;
 }
 
+function notAvailable($string, $pad='', $type = null) {
+    if (strlen($type) >= 3) {
+        $title = '- '.$type.' -';
+        $pad = 'text-danger';
+        if ($type == 403) {
+            $string = 'You do not have sufficient privileges to access the resource you requested!';
+        } elseif ($type == 404) {
+            $string = 'The resource you requested was not found on this server!';
+        }
+        $type = 2;
+    } else {
+        $title = 'Not available';
+    }
+    if ($type == 1) {
+        $return = 
+        '<div class="p-5 m-3 container-fluid text-center shadow-sm border border-info '.$pad.'">
+            <div class="'.$pad.'pad-section">  
+                <i class="'.$pad.' fa fa-question-circle"></i>
+                <p class="small">' . $string . '</p> 
+            </div>
+        </div>';
+    } elseif ($type == 2) {
+        $return = 
+        '<div class="mb-4 container-fluid"> 
+            <div class="my-5"> 
+                <div class="card"> 
+                    <div class="card-body p-5"> 
+                        <h1 class="card-title d-flex justify-content-center">
+                            <strong class="text-default">'.$title.'</strong>
+                        </h1>
+                        <hr>
+                        <h1 class="text-center"><i class="'.$pad.' fa fa-question-circle"></i></h1>
+                        <div class="row my-3 mx-3 d-flex justify-content-center">
+                            <h2 class="'.$pad.'">' . $string . '</h2> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>';
+    } else {
+        if ($pad == '') {
+            $pad = 'display-1';
+        }
+        $return = 
+        '<div class="text-center container-fluid">
+            <div class="p-4 m-4 border rounded border-info bg-light text-info">
+                <i class="'.$pad.' ion-ios-help-circle-outline"></i>
+                <p class="'.$pad.'">'.$string.'</p>
+            </div>
+        </div>';
+    }
+    return $return;
+} 
+
+function fetchSocialInfo($profile, $type = 1) {
+    global $configuration, $framework, $user;
+        
+    // Array: database column name => url model
+
+    $links = '';
+ 
+    $social = array( 
+        'facebook'      => array('https://facebook.com/%s', 'fb-ic'), 
+        'twitter'       => array('https://twitter.com/%s', 'tw-ic'),
+        'instagram'     => array('https://instagram.com/%s', '  ins-ic')
+    );  
+
+    foreach($social as $value => $url) {
+        $links .= ((!empty($profile[$value])) ? '
+        <a href="'.sprintf($url[0], $profile[$value]).'" rel="nofllow" class="p-2 m-2 fa-lg"> <i class="fa '.icon(3, $value).' '.$url[1].'"> </i> </a>' : ''); 
+    }
+    return $links;
+}
+
 function contestTypes($value) { 
 
-    $list = array('' => '', "0" => "pageant", "1" => "election", "2" => "popularity", "3" => "photo", "4" => "others");
+    $list = array("", "pageant", "election", "popularity", "photo", "others");
 
     $rows = '';
-    foreach($list as $code => $name) {
-        $label = ucfirst($name);
-        if($value == $name) {
-            $selected = 'selected="selected"';
-        } else { 
-            $selected = '';
-        }
-        $rows .= '<option value="'.$name.'" '.$selected.'>'.$label.'</option>';
-    }  
+    foreach($list as $code => $name) { 
+        $selected = $value == $name ? 'selected="selected"' : ''; 
+        $rows .= '<option value="'.$name.'" '.$selected.'>'.ucfirst($name).'</option>';
+    }
     return $rows;
 }   
 
@@ -1637,18 +1706,7 @@ function gallery_cards() {
         }
         $photo_rows = $cards;
     } else {
-       $photo_rows = '
-        <div class="col-lg-12" id="photo">
-            <div class="cardbox shadow-md bg-light">
-                
-                <div class="cardbox-heading">
-                    '.$fullname.$LANG['no_photos'].'
-                </div>
-                <div class="cardbox-item">
-                    <img class="img-fluid" src="'.getImage('default.jpg', 1).'" alt="Image">
-                </div>
-            </div>
-        </div>';
+       $photo_rows = notAvailable('This user has not uploaded any gallery item', $pad='', 2);
     }
 
     return $photo_rows;    

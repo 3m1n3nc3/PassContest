@@ -44,24 +44,23 @@ function mainContent() {
 		}
 
 		$upload_form ='
-          <div class="border border-light bg-white mb-2 m-3">
-            <span class="bg-light p-2 d-flex font-weight-bold text-info">'.$LANG['upload_new'].'</span>
-
-            <div class="p-3">
-            '.$msg.'
-              <form method="post" action="'.$SETT['url'].'/connection/upload.php?d=gallery" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="Photo-desc">'.$LANG['description'].'</label>
-                  <textarea name="desc" class="form-control rounded-0" id="Photo-desc" rows="3"></textarea>
-                </div>
-                <label for="gallery_image" class="btn btn-outline-info waves-effect">'.$LANG['choose_image'].' 
-                  <i class="fa fa-photo"></i>
-                </label>
-                <input type="file" name="file" id="gallery_image" style="display: none;">
-                <button type="submit" class="btn btn-info waves-effect">'.$LANG['upload'].' <i class="fa fa-upload"> </i> </button>
-              </form>              
-            </div>
-          </div>';
+		<div class="border border-light bg-white mb-2 m-3">
+			<span class="bg-light p-2 d-flex font-weight-bold text-info">'.$LANG['upload_new'].'</span>
+			<div class="p-3">
+				'.$msg.'
+				<form method="post" action="'.$SETT['url'].'/connection/upload.php?d=gallery" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="Photo-desc">'.$LANG['description'].'</label>
+						<textarea name="desc" class="form-control rounded-0" id="Photo-desc" rows="3"></textarea>
+					</div>
+					<label for="gallery_image" class="btn btn-outline-info waves-effect">'.$LANG['choose_image'].'
+						<i class="fa fa-photo"></i>
+					</label>
+					<input type="file" name="file" id="gallery_image" style="display: none;">
+					<button type="submit" class="btn btn-info waves-effect">'.$LANG['upload'].' <i class="fa fa-upload"> </i> </button>
+				</form>
+			</div>
+		</div>';
 
 		if ($user['id'] == $profiles['id']) {
 			$PTMPL['upload_form'] = $upload_form;

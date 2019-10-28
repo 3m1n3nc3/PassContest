@@ -103,11 +103,8 @@ function mainContent() {
 			$PTMPL['contest_slug'] = stripslashes($contest_details['slogan']); 
 			$PTMPL['contest_intro'] = '<h4 class="black-text">'.stripslashes($contest_details['intro']).'</h4>';  
 
-	        $PTMPL['contest_fb'] = isset($contest_details['facebook'])?'<a href="http://facebook.com/'.$contest_details['facebook'].'" class="p-2 m-2 fa-lg"> <i class="fa fa-facebook fb-ic"> </i> </a>':'';
-
-	        $PTMPL['contest_tw'] = isset($contest_details['twitter'])?'<a href="http://twitter.com/'.$contest_details['twitter'].'" class="p-2 m-2 fa-lg"> <i class="fa fa-twitter tw-ic"> </i> </a>':'';
-
-	        $PTMPL['contest_ins'] = isset($contest_details['instagram'])?'<a href="http://instagram.com/'.$contest_details['instagram'].'" class="p-2 m-2 fa-lg"> <i class="fa fa-instagram ins-ic"> </i> </a>':'';
+	        $PTMPL['social_accounts'] = fetchSocialInfo($contest_details, 1);
+	        
 	        $tw = (isset($contest_details['twitter'])) ? $contest_details['twitter'] : '';
 	        $fb = (isset($contest_details['facebook'])) ? $contest_details['facebook'] : '';
 

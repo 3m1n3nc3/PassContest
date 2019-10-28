@@ -46,15 +46,9 @@ function mainContent() {
 		if ($user['profession']) {
 			$PTMPL['prof'] = $user['profession'];
 		}
-		if ($user['facebook']) {
-			$PTMPL['facebook'] = '<a href="https://facebook.com/'.$user['facebook'].'" class="p-2 m-2 fa-lg fb-ic"> <i class="fa fa-facebook fb-ic"> </i></a>';         
-		}
-		if ($user['twitter']) {
-			$PTMPL['twitter'] = '<a href="https://twitter.com/'.$user['twitter'].'" class="p-2 m-2 fa-lg tw-ic"> <i class="fa fa-twitter tw-ic"> </i> </a>';
-		}
-		if ($user['instagram']) {
-			$PTMPL['instagram'] = '<a href="https://instagram.com/'.$user['instagram'].'" class="p-2 m-2 fa-lg ins-ic"> <i class="fa fa-instagram ins-ic"> </i> </a>';
-		}
+	 
+		$PTMPL['social_accounts'] = fetchSocialInfo($user, 1);
+	 
 		if ($user['intro']) {
 			$PTMPL['intro'] = '<h4 class="black-text">'.$user['intro'].'</h4>';
 		} else {
