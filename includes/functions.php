@@ -2421,7 +2421,7 @@ function getImage($image, $type = null) {
     $c = null;
     if ($type == 1) {
       // Uploaded profile images
-      $dir_url = $SETT['url'] . '/uploads/faces/';
+      $dir_url = $SETT['url'] . '/uploads/photos/';
       $_dir = $SETT['working_dir'].'/uploads/photos/';
       $c = 1;
     } elseif ($type == 2) {
