@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings; 
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings; 
 	$PTMPL['page_title'] = $LANG['featured'];  
 
 	$bars = new barMenus;

@@ -141,7 +141,7 @@ function contestTypes($value) {
 }   
 
 function contestCards(){
-    global $LANG, $PTMPL, $CONF, $user, $settings; 
+    global $LANG, $PTMPL, $SETT, $user, $settings; 
 
     // Pagination Navigation settings
     $perpage = $settings['per_contest'];  //Results to show per page
@@ -208,13 +208,13 @@ function contestCards(){
             foreach ($contest as $rs => $key) {
                 if (isset($_GET['u']) && $_GET['u'] == $user['username']) {
                     // Show the edit button
-                    $edit = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&d=create&id='.$key['id']).'"><i class="fa fa-edit" data-toggle="tooltip" data-placement="right" title="Quick Edit Contest"></i></a>';
+                    $edit = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&d=create&id='.$key['id']).'"><i class="fa fa-edit" data-toggle="tooltip" data-placement="right" title="Quick Edit Contest"></i></a>';
                     
                     // Show the manage button
-                    $manage = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&manage='.$key['id']).'" class="btn btn-info btn-sm">'.$LANG['manage'].'</a>';
+                    $manage = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&manage='.$key['id']).'" class="btn btn-info btn-sm">'.$LANG['manage'].'</a>';
                     
                      // Show the view applications button
-                    $applications = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$key['id']).'" class="btn btn-light btn-sm">'.$LANG['applications'].'</a>';
+                    $applications = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$key['id']).'" class="btn btn-light btn-sm">'.$LANG['applications'].'</a>';
 
                     // Dont show any button if the user did not create the contest
                 } else {
@@ -249,7 +249,7 @@ function contestCards(){
 
                           <!-- Title -->
                           <h4> 
-                            <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$key['id']).'" class="black-text" id="contest-url'.$key['id'].'">'.$key['title'].' <i class="fa fa-angle-double-right"></i></a>
+                            <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$key['id']).'" class="black-text" id="contest-url'.$key['id'].'">'.$key['title'].' <i class="fa fa-angle-double-right"></i></a>
                             <span class="badge badge-pill '.$c.'">'.$d.'</span>
                           </h4>
                           <hr>
@@ -258,7 +258,7 @@ function contestCards(){
                           <!-- Text -->
                           <p class="card-text m-2 text-justify">'.myTruncate($key['intro'], 200).'</p>
                           <!-- Link -->
-                          <a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['id']).'" class="btn btn-secondary btn-sm">'.$LANG['view_details'].'</a>
+                          <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'" class="btn btn-secondary btn-sm">'.$LANG['view_details'].'</a>
                           '.$manage.$applications.$edit.'
                         </div>
 
@@ -276,17 +276,17 @@ function contestCards(){
         $navigation = '';
         if ($endpage > 1) {
             if($curpage != $startpage){
-                $navigation .= ' <a class=" mx-2" href="'.permalink($CONF['url'].'/index.php?a=contest'.$u).'&more='.$startpage.'" data-toggle="tooltip" data-placement="left" title="First Page"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a> ';                 
+                $navigation .= ' <a class=" mx-2" href="'.permalink($SETT['url'].'/index.php?a=contest'.$u).'&more='.$startpage.'" data-toggle="tooltip" data-placement="left" title="First Page"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a> ';                 
             }
             if($curpage >= 2){
-                $navigation .= ' <a class=" mx-2" href="'.permalink($CONF['url'].'/index.php?a=contest'.$u).'&more='.$previouspage.'" data-toggle="tooltip" data-placement="left" title="Previous Page"><i class="fa fa-chevron-left"></i></a> ';                  
+                $navigation .= ' <a class=" mx-2" href="'.permalink($SETT['url'].'/index.php?a=contest'.$u).'&more='.$previouspage.'" data-toggle="tooltip" data-placement="left" title="Previous Page"><i class="fa fa-chevron-left"></i></a> ';                  
             }
-            $navigation .= ' <a class=" mx-2" href="'.permalink($CONF['url'].'/index.php?a=contest'.$u).'&more='.$curpage.'" data-toggle="tooltip" data-placement="left" title="Current Page"><i class="fa fa-th"></i></a> '; 
+            $navigation .= ' <a class=" mx-2" href="'.permalink($SETT['url'].'/index.php?a=contest'.$u).'&more='.$curpage.'" data-toggle="tooltip" data-placement="left" title="Current Page"><i class="fa fa-th"></i></a> '; 
 
             if($curpage != $endpage){
-                $navigation .= ' <a class=" mx-2" href="'.permalink($CONF['url'].'/index.php?a=contest'.$u).'&more='.$nextpage.'" data-toggle="tooltip" data-placement="left" title="Next Page"> <i class="fa fa-chevron-right"></i></a> ';
+                $navigation .= ' <a class=" mx-2" href="'.permalink($SETT['url'].'/index.php?a=contest'.$u).'&more='.$nextpage.'" data-toggle="tooltip" data-placement="left" title="Next Page"> <i class="fa fa-chevron-right"></i></a> ';
 
-                $navigation .= ' <a class=" mx-2" href="'.permalink($CONF['url'].'/index.php?a=contest'.$u).'&more='.$endpage.'" data-toggle="tooltip" data-placement="left" title="Last Page"> <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a> ';                                
+                $navigation .= ' <a class=" mx-2" href="'.permalink($SETT['url'].'/index.php?a=contest'.$u).'&more='.$endpage.'" data-toggle="tooltip" data-placement="left" title="Last Page"> <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a> ';                                
             }
         }
         $PTMPL['navigation'] = $navigation;
@@ -297,7 +297,7 @@ function contestCards(){
 } 
 
 function scheduleList(){
-    global $LANG, $PTMPL, $CONF, $user; 
+    global $LANG, $PTMPL, $SETT, $user; 
 
     $gett = new contestDelivery;
     $scheduler = $gett->getScheduleCategory($_GET['manage'], 0);
@@ -339,7 +339,7 @@ function scheduleList(){
 } 
 
 function applicationList(){
-    global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id, $settings; 
+    global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id, $settings; 
 
     $gett = new contestDelivery;
  
@@ -370,7 +370,7 @@ function applicationList(){
 
         if ($list) { 
             foreach ($list as $rs => $key) {
-              $PTMPL['view_btn'] = '<a href="'.permalink($CONF['url'].'/index.php?a=enter&viewdata='.$key['user_id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['view_data'].'" class="btn btn-info btn-sm">'.$LANG['view'].'</a>';
+              $PTMPL['view_btn'] = '<a href="'.permalink($SETT['url'].'/index.php?a=enter&viewdata='.$key['user_id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['view_data'].'" class="btn btn-info btn-sm">'.$LANG['view'].'</a>';
 
               $approve_btn = '<a href="#" id="approve'.$key['user_id'].'" onclick="approveApplication('.$key['user_id'].', '.$key['contest_id'].')" data-toggle="tooltip" data-placement="right" title="'.$LANG['approve'].'"><i class="px-1 fa fa-check-circle fa-lg text-success"></i></a>';
 
@@ -400,17 +400,17 @@ function applicationList(){
              // Table Navigation
         if ($endpage > 1) {
             if($curpage != $startpage){
-                $PTMPL['navigation1'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$startpage.'" data-toggle="tooltip" data-placement="left" title="First Page"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a> ';                 
+                $PTMPL['navigation1'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$startpage.'" data-toggle="tooltip" data-placement="left" title="First Page"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a> ';                 
             }
             if($curpage >= 2){
-                $PTMPL['navigation2'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$previouspage.'" data-toggle="tooltip" data-placement="left" title="Previous Page"><i class="fa fa-chevron-left"></i></a> ';                  
+                $PTMPL['navigation2'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$previouspage.'" data-toggle="tooltip" data-placement="left" title="Previous Page"><i class="fa fa-chevron-left"></i></a> ';                  
             }
-            $PTMPL['navigation0'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$curpage.'" data-toggle="tooltip" data-placement="left" title="Current Page"><i class="fa fa-th mx-2"></i></a> '; 
+            $PTMPL['navigation0'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$curpage.'" data-toggle="tooltip" data-placement="left" title="Current Page"><i class="fa fa-th mx-2"></i></a> '; 
 
             if($curpage != $endpage){
-                $PTMPL['navigation3'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$nextpage.'" data-toggle="tooltip" data-placement="left" title="Next Page"> <i class="fa fa-chevron-right mx-2"></i></a> ';
+                $PTMPL['navigation3'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$nextpage.'" data-toggle="tooltip" data-placement="left" title="Next Page"> <i class="fa fa-chevron-right mx-2"></i></a> ';
 
-                $PTMPL['navigation4'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$endpage.'" data-toggle="tooltip" data-placement="left" title="Last Page"> <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a> ';                                
+                $PTMPL['navigation4'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$_GET['applications']).'&more='.$endpage.'" data-toggle="tooltip" data-placement="left" title="Last Page"> <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a> ';                                
             }
         }
        
@@ -421,7 +421,7 @@ function applicationList(){
 }
 
 function approvedList(){
-    global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id, $settings; 
+    global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id, $settings; 
 
     $perpage = $settings['per_table'];
     if(isset($_GET['more']) & !empty($_GET['more'])){
@@ -458,7 +458,7 @@ function approvedList(){
                 $nb = $nb+1;  
                 if($key) { 
 
-                $view_btn = '<a href="'.permalink($CONF['url'].'/index.php?a=enter&viewdata='.$key['contestant_id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['users_data'].'" class="py-1 mt-1 btn btn-sm btn-info btn-rounded">'.$LANG['view'].'</a>';
+                $view_btn = '<a href="'.permalink($SETT['url'].'/index.php?a=enter&viewdata='.$key['contestant_id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['users_data'].'" class="py-1 mt-1 btn btn-sm btn-info btn-rounded">'.$LANG['view'].'</a>';
 
                 $remove_btn = '<a href="#" id="approve'.$key['contestant_id'].'" onclick="delete_the('.$key['contestant_id'].', 5, '.$key['contest_id'].')" data-toggle="tooltip" data-placement="right" title="'.$LANG['remove'].'" class="py-1 mt-1 btn btn-sm btn-danger btn-rounded">'.$LANG['remove'].'</a>';
 
@@ -466,7 +466,7 @@ function approvedList(){
                       <tbody id=row'.$key['contestant_id'].'>
                         <tr>
                           <th scope="row">'.$nb.'</th>
-                          <td><a data-toggle="tooltip" data-placement="right" title="View Public Profile" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$userdata['username']).'">'.$key['name'].'</a>
+                          <td><a data-toggle="tooltip" data-placement="right" title="View Public Profile" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$userdata['username']).'">'.$key['name'].'</a>
                           </td>
                           <td>'.$key['city'].'</td>
                           <td>'.$key['state'].'</td>
@@ -486,17 +486,17 @@ function approvedList(){
              // Table Navigation
         if ($endpage > 1) {
             if($curpage != $startpage){
-                $PTMPL['navigation1'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$startpage.'" data-toggle="tooltip" data-placement="left" title="First Page"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a> ';                 
+                $PTMPL['navigation1'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$startpage.'" data-toggle="tooltip" data-placement="left" title="First Page"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a> ';                 
             }
             if($curpage >= 2){
-                $PTMPL['navigation2'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$previouspage.'" data-toggle="tooltip" data-placement="left" title="Previous Page"><i class="fa fa-chevron-left"></i></a> ';                  
+                $PTMPL['navigation2'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$previouspage.'" data-toggle="tooltip" data-placement="left" title="Previous Page"><i class="fa fa-chevron-left"></i></a> ';                  
             }
-            $PTMPL['navigation0'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$curpage.'" data-toggle="tooltip" data-placement="left" title="Current Page"><i class="fa fa-th mx-2"></i></a> '; 
+            $PTMPL['navigation0'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$curpage.'" data-toggle="tooltip" data-placement="left" title="Current Page"><i class="fa fa-th mx-2"></i></a> '; 
 
             if($curpage != $endpage){
-                $PTMPL['navigation3'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$nextpage.'" data-toggle="tooltip" data-placement="left" title="Next Page"> <i class="fa fa-chevron-right mx-2"></i></a> ';
+                $PTMPL['navigation3'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$nextpage.'" data-toggle="tooltip" data-placement="left" title="Next Page"> <i class="fa fa-chevron-right mx-2"></i></a> ';
 
-                $PTMPL['navigation4'] = ' <a href="'.permalink($CONF['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$endpage.'" data-toggle="tooltip" data-placement="left" title="Last Page"> <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a> ';                                
+                $PTMPL['navigation4'] = ' <a href="'.permalink($SETT['url'].'/index.php?a=contest&approved='.$_GET['approved']).'&more='.$endpage.'" data-toggle="tooltip" data-placement="left" title="Last Page"> <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a> ';                                
             }
         }
 
@@ -508,7 +508,7 @@ function approvedList(){
 
 // Contest details and general information
 function detailsCards(){
-    global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id; 
+    global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id; 
 
     $gett = new contestDelivery;   
     $contest_by_id = $gett->getContest(NULL, isset($_GET['id']) ? $_GET['id'] : '');
@@ -588,7 +588,7 @@ function detailsCards(){
 }
 
 function masterCraft(){ 
-    global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id, $profiles; 
+    global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id, $profiles; 
  
     $cd = new contestDelivery;
     $cd->contestant_id = $profiles['id'];
@@ -621,7 +621,7 @@ function masterCraft(){
                 }  
                 if ($requested['status']) { 
                     $vote_button = '
-                    <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$key['contest_id'].'&user='.$profiles['username']).'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="right" title="Goto user voting page to vote">'.$LANG['vote'].'</a>';            
+                    <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$key['contest_id'].'&user='.$profiles['username']).'" class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="right" title="Goto user voting page to vote">'.$LANG['vote'].'</a>';            
                 } else {
                     $vote_button = '';
                 }
@@ -629,7 +629,7 @@ function masterCraft(){
                 if($key) { 
                     $PTMPL['c_contests'] .= $divider.' 
                         <h6 class="text-left">
-                          <a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['contest_id']).'" class="black-text text-left"> '.$requested['title'].' <i class="fa fa-angle-double-right"></i> </a> <br>
+                          <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['contest_id']).'" class="black-text text-left"> '.$requested['title'].' <i class="fa fa-angle-double-right"></i> </a> <br>
                             '.$vote_button.' '.$vote_count.'
                         </h6><hr class="bg-white">';  
                   
@@ -652,8 +652,8 @@ function masterCraft(){
                 if($key) { 
                     $PTMPL['c_created'] .= $divider.' 
                         <h6 class="text-left">
-                          <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$key['id']).'" class="black-text text-left"> '.$requested['title'].' <i class="fa fa-angle-double-right"></i> </a> <br> 
-                          <a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['id']).'" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="right" title="'.$LANG['view_this_datails'].'">'.$LANG['view_details'].' <i class="fa fa-eye"></i></a>
+                          <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$key['id']).'" class="black-text text-left"> '.$requested['title'].' <i class="fa fa-angle-double-right"></i> </a> <br> 
+                          <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="right" title="'.$LANG['view_this_datails'].'">'.$LANG['view_details'].' <i class="fa fa-eye"></i></a>
                           Total Votes: '.$vote_count.'
                         </h6><hr class="bg-white">';  
                   
@@ -733,7 +733,7 @@ function get_isabi($code) {
 }
 
 function votingCards(){
-    global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id, $profiles, $settings; 
+    global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id, $profiles, $settings; 
 
     // Pagination Navigation settings
     $perpage = $settings['per_voting'];
@@ -797,7 +797,7 @@ function votingCards(){
                     $vote_button = '';
                 } 
             } else { 
-                $vote_button = '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$key['contest_id'].'&required=login_vote&referrer='.urlencode(urlReferrer(permalink($CONF['url'].'/index.php?a=voting&id='.$key['contest_id']), 0))).'" class="text-white btn btn-rounded btn-action ml-auto mr-4 peach-gradient lighten-3">VOTE</a>';
+                $vote_button = '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$key['contest_id'].'&required=login_vote&referrer='.urlencode(urlReferrer(permalink($SETT['url'].'/index.php?a=voting&id='.$key['contest_id']), 0))).'" class="text-white btn btn-rounded btn-action ml-auto mr-4 peach-gradient lighten-3">VOTE</a>';
             } 
         
             // Check if this user has voted before
@@ -811,7 +811,7 @@ function votingCards(){
                 $vote_btn = $vote_button;
             }
 
-            $c_photo = ($c_user['photo']) ? $CONF['url'].'/uploads/faces/'.$c_user['photo'] : $CONF['url'].'/uploads/faces/default.jpg';
+            $c_photo = ($c_user['photo']) ? $SETT['url'].'/uploads/faces/'.$c_user['photo'] : $SETT['url'].'/uploads/faces/default.jpg';
             isset($key['votes']) && $key['votes']>0?$vote_count = $key['votes']:$vote_count = '0'; 
             $d=strtotime($key["date"]);
             $date = date("M d - h:i A", $d);
@@ -826,7 +826,7 @@ function votingCards(){
             if($key) {
                 $PTMPL['contestants_c'] .= $divider.' 
                     
-                <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$key['contest_id'].'&user='.$c_user['username']).'" id="profile-url'.$c_user['id'].'" style="display: none;"> '.$key['name'].'</a>
+                <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$key['contest_id'].'&user='.$c_user['username']).'" id="profile-url'.$c_user['id'].'" style="display: none;"> '.$key['name'].'</a>
 
                       <div class="col-md-12"> 
                         <div class="card cloudy-knoxville-gradient m-2"> 
@@ -840,7 +840,7 @@ function votingCards(){
                           <span id="loader'.$key['contestant_id'].'" class="small-loader"></span>
                             '.$vote_btn.'
                           <div class="card-body cloudy-knoxville-gradient m-2"> 
-                            <h5 class="card-title"><a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$c_user['username']).'" class="black-text text-left"> '.$key['name'].' <i class="fa fa-angle-double-right"></i> </a></h5> 
+                            <h5 class="card-title"><a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$c_user['username']).'" class="black-text text-left"> '.$key['name'].' <i class="fa fa-angle-double-right"></i> </a></h5> 
                             <p class="card-text text-justify">'.$intro.'. </p> 
                           </div>
                             <span class="peach-gradient text-white" id="vote-msg'.$key['contestant_id'].'"></span>  
@@ -867,18 +867,18 @@ function votingCards(){
 
     if ($endpage > 1) {
         if ($curpage != $startpage) {
-          $navigation .= '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$startpage.'" class="text-black mx-1"><i class="fa fa-angle-double-left"></i></a>';
+          $navigation .= '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$startpage.'" class="text-black mx-1"><i class="fa fa-angle-double-left"></i></a>';
         }
 
         if ($curpage >= 2) {
-          $navigation .= '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$previouspage.'" class="text-black mx-1"><i class="fa fa-angle-left"></i></a>';
+          $navigation .= '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$previouspage.'" class="text-black mx-1"><i class="fa fa-angle-left"></i></a>';
         }
-          $navigation .= '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$curpage.'" class="text-black mx-1"><i class="fa fa-th-large"></i></a>';
+          $navigation .= '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$curpage.'" class="text-black mx-1"><i class="fa fa-th-large"></i></a>';
 
         if($curpage != $endpage){
-          $navigation .= '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$nextpage.'" class="text-black mx-1"><i class="fa fa-angle-right"></i></a>';
+          $navigation .= '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$nextpage.'" class="text-black mx-1"><i class="fa fa-angle-right"></i></a>';
 
-          $navigation .= '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$endpage.'" class="text-black mx-1"><i class="fa fa-angle-double-right"></i></a>';
+          $navigation .= '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$_GET['id']).'&page='.$endpage.'" class="text-black mx-1"><i class="fa fa-angle-double-right"></i></a>';
         }
 
         $navigation .= '<p class="px-4">Page '.$curpage.' of '.$endpage.'</p>';
@@ -894,7 +894,7 @@ function votingCards(){
 
 
 function vote_user_card(){
-    global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id, $profiles, $settings; 
+    global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id, $profiles, $settings; 
 
     $gett = new contestDelivery;
     $save = new siteClass;
@@ -941,7 +941,7 @@ function vote_user_card(){
             $vote_button = '';
         } 
     } else { 
-        $vote_button = '<a  id="vote'.$contest['contestant_id'].'" href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$contest['contest_id'].'&user='.$c_user['username']).'&required=login_vote&referrer='.urlencode(urlReferrer(permalink($CONF['url'].'/index.php?a=voting&id='.$contest['contest_id'].'&user='.$c_user['username']), 0)).'" class="text-white btn btn-rounded btn-action ml-auto mr-4 peach-gradient lighten-3">VOTE</a>';
+        $vote_button = '<a  id="vote'.$contest['contestant_id'].'" href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$contest['contest_id'].'&user='.$c_user['username']).'&required=login_vote&referrer='.urlencode(urlReferrer(permalink($SETT['url'].'/index.php?a=voting&id='.$contest['contest_id'].'&user='.$c_user['username']), 0)).'" class="text-white btn btn-rounded btn-action ml-auto mr-4 peach-gradient lighten-3">VOTE</a>';
     }
 
     // Check if this user has voted before
@@ -955,7 +955,7 @@ function vote_user_card(){
         $vote_btn = $vote_button;
     }
 
-    $c_photo = ($c_user['photo']) ? $CONF['url'].'/uploads/faces/'.$c_user['photo'] : $CONF['url'].'/uploads/faces/default.jpg';
+    $c_photo = ($c_user['photo']) ? $SETT['url'].'/uploads/faces/'.$c_user['photo'] : $SETT['url'].'/uploads/faces/default.jpg';
     isset($contest['votes']) && $contest['votes']>0?$vote_count = $contest['votes']:$vote_count = '0'; 
     $d=strtotime($contest["date"]);
     $date = date("M d - h:i A", $d);
@@ -970,7 +970,7 @@ function vote_user_card(){
     if($contest) {
         $PTMPL['contestants_c'] .= $divider.' 
 
-        <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$contest['contest_id'].'&user='.$c_user['username']).'" id="profile-url'.$c_user['id'].'" style="display: none;"> '.$contest['name'].'</a>
+        <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$contest['contest_id'].'&user='.$c_user['username']).'" id="profile-url'.$c_user['id'].'" style="display: none;"> '.$contest['name'].'</a>
 
               <div class="col-md-12">
                 <div class="card cloudy-knoxville-gradient m-2"> 
@@ -983,7 +983,7 @@ function vote_user_card(){
                   <span id="loader'.$contest['contestant_id'].'" class="small-loader"></span>
                     '.$vote_btn.'
                   <div class="card-body cloudy-knoxville-gradient m-2"> 
-                    <h5 class="card-title"><a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$c_user['username']).'" class="black-text text-left"> '.$contest['name'].' <i class="fa fa-angle-double-right"></i> </a></h5> 
+                    <h5 class="card-title"><a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$c_user['username']).'" class="black-text text-left"> '.$contest['name'].' <i class="fa fa-angle-double-right"></i> </a></h5> 
                     <p class="card-text text-justify">'.$intro.'. </p> 
                   </div>
                     <span class="peach-gradient text-white" id="vote-msg'.$contest['contestant_id'].'"></span> 
@@ -999,8 +999,8 @@ function vote_user_card(){
                   </div>
                 </div> 
                 <div class="row">
-                <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$contest['contest_id']).'" class="btn deep-blue-gradient col">VIEW ALL CONTESTANTS</a>
-                <a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$contest['contest_id']).'" class="btn winter-neva-gradient col">VIEW '.$disd['title'].'</a></div>
+                <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$contest['contest_id']).'" class="btn deep-blue-gradient col">VIEW ALL CONTESTANTS</a>
+                <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$contest['contest_id']).'" class="btn winter-neva-gradient col">VIEW '.$disd['title'].'</a></div>
               </div>';              
     } else {
         $PTMPL['contestants_c'] .= $divider.'<div class="h3 text-center text-info p-5">'.$LANG['not_here'].'</div>';
@@ -1012,7 +1012,7 @@ function vote_user_card(){
 }
 
 function badge($request=null, $name=null, $x=null) {
-    global $LANG, $PTMPL, $CONF, $user, $settings, $profiles; 
+    global $LANG, $PTMPL, $SETT, $user, $settings, $profiles; 
     // x 1: name
     // x 2: badge
     // x 3: Integer
@@ -1045,22 +1045,22 @@ function badge($request=null, $name=null, $x=null) {
         }        
     }
     if ($type == 1) {
-        ($x == 2 || !$x) ? $file = $CONF['url'].'/'.$PTMPL['template_url'].'/img/badge/pvb.png' : '';
+        ($x == 2 || !$x) ? $file = $SETT['url'].'/'.$PTMPL['template_url'].'/img/badge/pvb.png' : '';
         $name = $LANG['premium_vp'];
     } elseif ($type == 2) {
-        ($x == 2 || !$x) ? $file = $CONF['url'].'/'.$PTMPL['template_url'].'/img/badge/cld.png' : '';
+        ($x == 2 || !$x) ? $file = $SETT['url'].'/'.$PTMPL['template_url'].'/img/badge/cld.png' : '';
         $name = $LANG['clead_p'];
     } elseif ($type == 3) {
-        ($x == 2 || !$x) ? $file = $CONF['url'].'/'.$PTMPL['template_url'].'/img/badge/cmx.png' : '';
+        ($x == 2 || !$x) ? $file = $SETT['url'].'/'.$PTMPL['template_url'].'/img/badge/cmx.png' : '';
         $name = $LANG['cmarx_p'];
     } elseif ($type == 4) {
-        ($x == 2 || !$x) ? $file = $CONF['url'].'/'.$PTMPL['template_url'].'/img/badge/slt.png' : '';
+        ($x == 2 || !$x) ? $file = $SETT['url'].'/'.$PTMPL['template_url'].'/img/badge/slt.png' : '';
         $name = $LANG['slight_p'];
     } elseif ($type == 5) {
-        ($x == 2 || !$x) ? $file = $CONF['url'].'/'.$PTMPL['template_url'].'/img/badge/lte.png' : '';
+        ($x == 2 || !$x) ? $file = $SETT['url'].'/'.$PTMPL['template_url'].'/img/badge/lte.png' : '';
         $name = $LANG['lite_p'];
     } elseif ($type == 6) {
-        ($x == 2 || !$x) ? $file = $CONF['url'].'/'.$PTMPL['template_url'].'/img/badge/lfe.png' : '';
+        ($x == 2 || !$x) ? $file = $SETT['url'].'/'.$PTMPL['template_url'].'/img/badge/lfe.png' : '';
         $name = $LANG['life_p'];
     } elseif ($type == 7) {
         ($x == 2 || !$x) ? $file = '' : '';
@@ -1095,7 +1095,7 @@ function badge($request=null, $name=null, $x=null) {
 
 // Get recommended users
 function recomended_users() {
-    global $LANG, $CONF, $user, $settings;
+    global $LANG, $SETT, $user, $settings;
 
     $userApp = new userCallback;
     $cd = new contestDelivery;
@@ -1128,8 +1128,8 @@ function recomended_users() {
             $contest = $cd->getContest(0, $key['contest_id']);
             $photo = ($data['photo']) ? $data['photo'] : 'default.jpg';
             $recommend .= '
-                <img src="'.$CONF['url'].'/uploads/faces/'.$photo.'" class="rounded mr-2 float-left" height="50px" width="50px" alt="avatar">
-                  <a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$contest['id'].'&user='.$data['username']).'" class="black-text font-weight-bold text-left" id="profile-url'.$data['id'].'"><p class="font-weight-bold">'.$key['name'].'
+                <img src="'.$SETT['url'].'/uploads/faces/'.$photo.'" class="rounded mr-2 float-left" height="50px" width="50px" alt="avatar">
+                  <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$contest['id'].'&user='.$data['username']).'" class="black-text font-weight-bold text-left" id="profile-url'.$data['id'].'"><p class="font-weight-bold">'.$key['name'].'
                     <br><span class="card-text">'.$contest['title'].'</span>
                   </p></a><hr>';
         }
@@ -1154,7 +1154,7 @@ function recomended_users() {
 
 // Get recommended contests
 function recomended_contests() {
-    global $LANG, $CONF, $user, $settings;
+    global $LANG, $SETT, $user, $settings;
 
     $userApp = new userCallback;
     $cd = new contestDelivery;
@@ -1181,8 +1181,8 @@ function recomended_contests() {
   
             $photo = ($key['cover']) ? 'cover/contest/'.$key['cover'] : 'faces/default.jpg';
             $recommend .= '
-                <img src="'.$CONF['url'].'/uploads/'.$photo.'" class="rounded mr-2 float-left" height="50px" width="auto" alt="avatar">
-                  <a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['id']).'" class="black-text font-weight-bold text-left" id="contest-url'.$key['id'].'"><p class="font-weight-bold">'.$key['title'].'
+                <img src="'.$SETT['url'].'/uploads/'.$photo.'" class="rounded mr-2 float-left" height="50px" width="auto" alt="avatar">
+                  <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'" class="black-text font-weight-bold text-left" id="contest-url'.$key['id'].'"><p class="font-weight-bold">'.$key['title'].'
                     <br><span class="card-text">'.$LANG['managed_by'].' '.ucfirst($key['creator']).'</span>
                   </p></a><hr>';
         }
@@ -1216,7 +1216,7 @@ function recomendations() {
 }
 
 function feature_section($type, $id, $xy=0) {
-    global $CONF, $LANG, $userApp, $info_color;
+    global $SETT, $LANG, $userApp, $info_color;
  
     $link = '
         <a target="_blank" href="%s" class="btn btn-md btn-%s">%s
@@ -1230,7 +1230,7 @@ function feature_section($type, $id, $xy=0) {
 
     if ($type == 0) {
         $data = $userApp->collectUserName(null, 0, $id);
-        $image = $CONF['url'].'/uploads/cover/'.$data['cover'];
+        $image = $SETT['url'].'/uploads/cover/'.$data['cover'];
         $title = $data['fullname'];
         $featured = $LANG['featured'].' '.$LANG['profile'];
         $detail = myTruncate($data['intro'], 300, ' ');
@@ -1270,7 +1270,7 @@ function feature_section($type, $id, $xy=0) {
 
 // Contests and user featured on the home page
 function home_featured($type=0, $xy=0) {
-    global $DB, $CONF, $info_color;
+    global $DB, $SETT, $info_color;
 
     // Fetch the featured contests
     $sql = "SELECT * FROM " . TABLE_CONTEST . " WHERE status = '1' AND featured = '1' LIMIT 10";
@@ -1295,10 +1295,10 @@ function home_featured($type=0, $xy=0) {
             if($i == 4) break;
             $title = $key['title'];
             $intro = myTruncate($key['intro'], 100, ' ');
-            $image = $CONF['url'].'/uploads/cover/contest/'.$key['cover'];
+            $image = $SETT['url'].'/uploads/cover/contest/'.$key['cover'];
 
             $featured_contest .=
-              '<a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['id']).'">
+              '<a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'">
               <div class="col-md-4">
                 <div class="card mb-2">
                     <div class="view overlay">
@@ -1328,10 +1328,10 @@ function home_featured($type=0, $xy=0) {
             if($i == 4) break;
             $name = $key['fname'].' '.$key['lname'];
             $intro = myTruncate($key['intro'], 100, ' ');
-            $image = $CONF['url'].'/uploads/faces/'.$key['photo'];
+            $image = $SETT['url'].'/uploads/faces/'.$key['photo'];
 
             $featured_users .=
-              '<a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$key['username']).'">
+              '<a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['username']).'">
               <div class="col-md-4">
                 <div class="card mb-2">
                     <div class="view overlay">
@@ -1409,7 +1409,7 @@ function home_featured($type=0, $xy=0) {
 }
 
 function seo_plugin($image, $twitter, $facebook, $desc, $title) {
-    global $CONF, $PTMPL, $settings, $site_image;
+    global $SETT, $PTMPL, $settings, $site_image;
 
     $twitter = ($twitter) ? $twitter : $settings['site_name'];
     $facebook = ($facebook) ? $facebook : $settings['site_name'];
@@ -1473,7 +1473,7 @@ function gallery_chips($user_id) {
             // Show the image
             $chip .= '
               <div class="chip chip-lg info-color white-text" id="chip_'.$rs['id'].'">
-                <img src="'.$CONF['url'].'/uploads/gallery/'.$rs['photo'].'" alt="'.$LANG['gallery_chip'].' '.$rs['id'].'">
+                <img src="'.$SETT['url'].'/uploads/gallery/'.$rs['photo'].'" alt="'.$LANG['gallery_chip'].' '.$rs['id'].'">
                 '.$delete.'
                 '.$LANG['gallery_chip'].' '.$i.'
               </div>';            
@@ -1483,7 +1483,7 @@ function gallery_chips($user_id) {
 }
 
 function gallery_cards() {
-    global $LANG, $CONF, $marxTime, $profiles, $user, $premium_status;
+    global $LANG, $SETT, $marxTime, $profiles, $user, $premium_status;
 
     $userApp = new userCallback;
     $cd = new contestDelivery;
@@ -1493,9 +1493,9 @@ function gallery_cards() {
     $fullname = realName($profiles['username'], $profiles['fname'], $profiles['lname']).' '.$badge;
 
     if ($profiles['photo']) {
-        $pphoto = $CONF['url'].'/uploads/faces/'.$profiles['photo'];
+        $pphoto = $SETT['url'].'/uploads/faces/'.$profiles['photo'];
     } else {
-        $pphoto = $CONF['url'].'/uploads/faces/default.jpg';
+        $pphoto = $SETT['url'].'/uploads/faces/default.jpg';
     }
 
     // Set the users location
@@ -1528,7 +1528,7 @@ function gallery_cards() {
                 $delete = '<div class="px-3">'.$LANG['hello'].'</div>';
             }
 
-            $user_profile = permalink($CONF['url'].'/index.php?a=profile&u='.$profiles['username']);
+            $user_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$profiles['username']);
 
             // Check Users current contests and show a vote link
             $cd->contestant_id = $image['uid'];
@@ -1539,7 +1539,7 @@ function gallery_cards() {
                     $requested = $cd->getContest(0, $key['contest_id']);  
                     if ($requested['status']) { 
                         $vote_button = '
-                        <a class="dropdown-item" href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$key['contest_id'].'&user='.$profiles['username']).'">'.$LANG['vote'].' on '.$requested['title'].'</a>';            
+                        <a class="dropdown-item" href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$key['contest_id'].'&user='.$profiles['username']).'">'.$LANG['vote'].' on '.$requested['title'].'</a>';            
                     }   
                 }
             } 
@@ -1548,7 +1548,7 @@ function gallery_cards() {
             '<span id="set-message_'.$image['id'].'"></span>
             <div class="col-md-6 mb-3" id="photo_'.$image['id'].'">
                 <div class="border z-depth-1">
-                  <img src="'.$CONF['url'].'/uploads/gallery/'.$image['photo'].'" class="img-fluid"
+                  <img src="'.$SETT['url'].'/uploads/gallery/'.$image['photo'].'" class="img-fluid"
                     alt="Gallery image">
                     '.$delete.'
                   '.$desc.'
@@ -1583,7 +1583,7 @@ function gallery_cards() {
                 </div> 
               
                 <div class="cardbox-item d-flex justify-content-center">
-                  <img class="img-fluid" src="'.$CONF['url'].'/uploads/gallery/'.$image['photo'].'" alt="Image">
+                  <img class="img-fluid" src="'.$SETT['url'].'/uploads/gallery/'.$image['photo'].'" alt="Image">
                 </div> 
                 '.$desc.'  
                 
@@ -1601,7 +1601,7 @@ function gallery_cards() {
                     '.$fullname.$LANG['no_photos'].' 
                 </div>
                 <div class="cardbox-item">
-                  <img class="img-fluid" src="'.$CONF['url'].'/uploads/faces/default.jpg" alt="Image"> 
+                  <img class="img-fluid" src="'.$SETT['url'].'/uploads/faces/default.jpg" alt="Image"> 
                 </div> 
               </div>
             </div>';       
@@ -1615,7 +1615,7 @@ function gallery_cards() {
 * Display the users posts in the timeline
 */
 function timeline_cards() {
-    global $LANG, $CONF, $marxTime, $profiles, $user, $premium_status, $userApp;
+    global $LANG, $SETT, $marxTime, $profiles, $user, $premium_status, $userApp;
 
     $social = new social;
     $cd = new contestDelivery;
@@ -1670,7 +1670,7 @@ function timeline_cards() {
             $desc = '';
             if ($post['text']) {
                 $get_desc = myTruncate($action->decodeMessage($post['text'], 1), 120);
-                $more = mb_strlen($post['text']) > mb_strlen($get_desc) ? '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$post['username'].'&read='.$post['pid']).'" class="text-info"> '.$LANG['read_more'].'</a>' : '';
+                $more = mb_strlen($post['text']) > mb_strlen($get_desc) ? '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$post['username'].'&read='.$post['pid']).'" class="text-info"> '.$LANG['read_more'].'</a>' : '';
 
                 $desc .= '<div class="p-2 '.$post_class.'" id="description_'.$post['pid'].'">'.$get_desc.$more.'</div>'; 
             } 
@@ -1682,7 +1682,7 @@ function timeline_cards() {
                 $u = $userApp->collectUserName(null, 0, $post['user_id']);
                 $sharer = $s['user_id'] == $user['id'] ? 'You' : $s['fullname'];
                 $poster = $u['user_id'] == $user['id'] ? 'your' : $u['fullnamex'];
-                $post_link = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$u['username'].'&read='.$post['post_id']).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
+                $post_link = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$u['username'].'&read='.$post['post_id']).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
                 $author = sprintf($author_link, $s['profile'], $sharer).' '.lcfirst($LANG['shared']).' '.sprintf($author_link, $u['profile'], $poster).' '.$post_link;
                 $auto_photo = $s['photo'];
             } else {
@@ -1693,12 +1693,12 @@ function timeline_cards() {
             
             // Set the photo
             if ($post['photo']) {
-                $pphoto = $CONF['url'].'/uploads/faces/'.$auto_photo;
+                $pphoto = $SETT['url'].'/uploads/faces/'.$auto_photo;
             } else {
-                $pphoto = $CONF['url'].'/uploads/faces/default.jpg';
+                $pphoto = $SETT['url'].'/uploads/faces/default.jpg';
             }
 
-            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.$CONF['url'].'/uploads/gallery/'.$post['post_photo'].'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : '';  
+            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.$SETT['url'].'/uploads/gallery/'.$post['post_photo'].'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : '';  
 
             if ($user['id'] == $post['user_id'] || $user['id'] == $post['share_id']) {
                 $delete = ' 
@@ -1710,7 +1710,7 @@ function timeline_cards() {
 
             $stop_follow = $follower['follower_id']==$user['id'] ? '<a class="dropdown-item" onclick="relate('.$post['user_id'].', 1)">'.$LANG['stop_follow'].'</a>' : '';
 
-            $user_profile = permalink($CONF['url'].'/index.php?a=profile&u='.$post['username']);
+            $user_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$post['username']);
 
             // privacy icon
             $privacy_icon = $post['privacy']=='1' ? 'users' : ($post['privacy']=='0' ? 'user' : 'globe');
@@ -1735,8 +1735,8 @@ function timeline_cards() {
                     $userApp->user_id = $key['user_id'];
                     $lk_user = $userApp->userData(NULL, 1)[0];
                     $pp = $lk_user['photo'] ? $lk_user['photo'] : 'default.jpg';
-                    $lk_profile = permalink($CONF['url'].'/index.php?a=profile&u='.$lk_user['username']);
-                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.$CONF['url'].'/uploads/faces/'.$pp.'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
+                    $lk_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$lk_user['username']);
+                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.$SETT['url'].'/uploads/faces/'.$pp.'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
                 }
             }
             $liker = count($all_likes)>0 ? $liking : '';
@@ -1749,13 +1749,13 @@ function timeline_cards() {
             $get_comments = $cd->doComments(1, 'post', 3);
 
             // View full post link
-            $full_post = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$post['username'].'&read='.$post['pid']).'"  class="dropdown-item">'.$LANG['full_post'].'</a>';
+            $full_post = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$post['username'].'&read='.$post['pid']).'"  class="dropdown-item">'.$LANG['full_post'].'</a>';
 
             // Share post on timeline
-            $share_post = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$user['username'].'&share='.$post['pid']).'"  class="dropdown-item">'.$LANG['share_post'].'</a>';
+            $share_post = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$user['username'].'&share='.$post['pid']).'"  class="dropdown-item">'.$LANG['share_post'].'</a>';
 
             // Post comments link
-            $post_comments = permalink($CONF['url'].'/index.php?a=timeline&u='.$post['username'].'&read='.$post['pid']);
+            $post_comments = permalink($SETT['url'].'/index.php?a=timeline&u='.$post['username'].'&read='.$post['pid']);
 
             $cards .= '<div id="set-messagez_'.$post['pid'].'"></div>
             <div class="col-lg-12" id="photo_'.$post['pid'].'" style="min-width: 100%;"> 
@@ -1855,18 +1855,18 @@ function timeline_cards() {
  *this header is show on user related pages like timelines
  */
 function profile_header($id, $page=0) {
-    global $LANG, $CONF, $userApp;
+    global $LANG, $SETT, $userApp;
 
     // Fetch users data
     $_data = $userApp->collectUserName(null, 0, $id);
-    $cover = $CONF['url'].'/uploads/cover/'.$_data['cover'];
-    $photo = $CONF['url'].'/uploads/faces/'.$_data['photo'];
+    $cover = $SETT['url'].'/uploads/cover/'.$_data['cover'];
+    $photo = $SETT['url'].'/uploads/faces/'.$_data['photo'];
 
-    $timeline = permalink($CONF['url'].'/index.php?a=timeline&u='.$_data['username']);
-    $gallery = permalink($CONF['url'].'/index.php?a=gallery&u='.$_data['username']);
-    $followers = permalink($CONF['url'].'/index.php?a=followers&followers='.$_data['user_id']);
-    $following = permalink($CONF['url'].'/index.php?a=followers&following='.$_data['user_id']);
-    $contest = permalink($CONF['url'].'/index.php?a=contest');
+    $timeline = permalink($SETT['url'].'/index.php?a=timeline&u='.$_data['username']);
+    $gallery = permalink($SETT['url'].'/index.php?a=gallery&u='.$_data['username']);
+    $followers = permalink($SETT['url'].'/index.php?a=followers&followers='.$_data['user_id']);
+    $following = permalink($SETT['url'].'/index.php?a=followers&following='.$_data['user_id']);
+    $contest = permalink($SETT['url'].'/index.php?a=contest');
 
     // Set the active tabindex
     $m1 = $m2 = $m3 = $t0 = $t1 = $t2 = $t3 = '';
@@ -1989,7 +1989,7 @@ function modal($modal, $content, $title, $size='', $footer='', $extra='') {
  * User account management menu
  */ 
 function barMenu(){
-    global $LANG, $PTMPL, $CONF, $user, $settings; 
+    global $LANG, $PTMPL, $SETT, $user, $settings; 
 
     if ($user) { 
         $droplink = $divider = '';
@@ -2008,7 +2008,7 @@ function barMenu(){
         //print_r($links);
         foreach ($links as $rs => $key) {
             if($key) {
-                $droplink .= $divider.'<li class="nav-item border border-info m-1 blue-grey lighten-5 flex-fill"><a class="nav-link" href="'.permalink($CONF['url'].'/index.php?a='.$key[0].'">'.$key[1]).'</a></li>';
+                $droplink .= $divider.'<li class="nav-item border border-info m-1 blue-grey lighten-5 flex-fill"><a class="nav-link" href="'.permalink($SETT['url'].'/index.php?a='.$key[0].'">'.$key[1]).'</a></li>';
             } 
         }
     return $droplink;
@@ -2140,7 +2140,7 @@ function oworgi($str){
 * Search and explore filter
 */
 function filters($x, $q=null) {
-    global $CONF, $LANG;
+    global $SETT, $LANG;
     $filters = array('contests' => 'Contests', 'contest_type' => 'Contest type', 'users' => 'Users',
         'country' => 'Country', 'gender' => 'Gender', 'posts' => 'Posts', 'unset' => 'Reset');
     $q = $q ? '&query='.$q : '';
@@ -2150,7 +2150,7 @@ function filters($x, $q=null) {
         $link = '#';
         if ($key == 'gender') {
             $data = ' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="genderDrop"';
-            $l = permalink($CONF['url'].'/index.php?a=search&filters='.$key.'&query=%s');         
+            $l = permalink($SETT['url'].'/index.php?a=search&filters='.$key.'&query=%s');         
             $drop = '
               <div class="dropdown-menu dropdown-primary dropdown-menu-right">
                 <a class="dropdown-item" href="'.sprintf($l, 'male').'">'.$LANG['male'].'</a>
@@ -2162,17 +2162,17 @@ function filters($x, $q=null) {
                 'election' => $LANG['election'], 'other' => $LANG['other_contest']);
             $ml = '';
             foreach ($_type as $k => $v) {
-                $l = permalink($CONF['url'].'/index.php?a=search&filters='.$key.'&query=%s');
+                $l = permalink($SETT['url'].'/index.php?a=search&filters='.$key.'&query=%s');
                 $ml .= '<a class="dropdown-item" href="'.sprintf($l, $k).'">'.$v.'</a>';
             }
             $data = ' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="contestDrop"'; 
-            $l = permalink($CONF['url'].'/index.php?a=search&filters='.$key.'&query=%s');         
+            $l = permalink($SETT['url'].'/index.php?a=search&filters='.$key.'&query=%s');         
             $drop = '
               <div class="dropdown-menu dropdown-primary">
                 '.$ml.' 
               </div>';
         } else {
-            $link = permalink($CONF['url'].'/index.php?a=search&filters='.$key.$q);            
+            $link = permalink($SETT['url'].'/index.php?a=search&filters='.$key.$q);            
         }
         $class = $x == $key ? ' text-success active' : '';
         $values .= '
@@ -2188,7 +2188,7 @@ function filters($x, $q=null) {
 * Set the extra form fields for login
 */
 function extra_fields() {
-    global $CONF, $PTMPL, $LANG, $settings, $referrer;
+    global $SETT, $PTMPL, $LANG, $settings, $referrer;
 
     $fbconnect = $recaptcha = $invite_code = $phone_number = '';
     if($settings['fbacc']) {
@@ -2197,7 +2197,7 @@ function extra_fields() {
             $_SESSION['state'] = md5(uniqid(rand(), TRUE)); 
         }
         // Facebook Login Url
-        $fbconnect = '<a class="btn btn-fb" href="https://www.facebook.com/dialog/oauth?client_id='.$settings['fb_appid'].'&redirect_uri='.$CONF['url'].'/connection/connect.php?facebook=true&state='.$_SESSION['state'].'&scope=public_profile,email">Facebook <i class="fa fa-facebook ml-1"></i></a>';
+        $fbconnect = '<a class="btn btn-fb" href="https://www.facebook.com/dialog/oauth?client_id='.$settings['fb_appid'].'&redirect_uri='.$SETT['url'].'/connection/connect.php?facebook=true&state='.$_SESSION['state'].'&scope=public_profile,email">Facebook <i class="fa fa-facebook ml-1"></i></a>';
     }
     $captcha_url = '/includes/vendor/goCaptcha/goCaptcha.php?gocache='.strtotime('now');
     if($settings['captcha']) {
@@ -2207,7 +2207,7 @@ function extra_fields() {
                 <i class="fa fa-clock-o prefix"></i>
                 <input name="recaptcha" type="text" id="recaptcha2" class="form-control form-control-sm" autocomplete="off">
                 <label for="username">'.$LANG['recaptcha'].'</label>
-                <span class="ml-2" id="recaptcha-img"><img width="120px" src="'.$CONF['url'].$captcha_url.'" /></span>
+                <span class="ml-2" id="recaptcha-img"><img width="120px" src="'.$SETT['url'].$captcha_url.'" /></span>
             </div> ';
     }  
     if ($settings['invite_only']) {
@@ -2238,12 +2238,12 @@ function extra_fields() {
 }
 
 function connector_card($type = 0, $referrer = null) {
-    global $CONF, $PTMPL, $LANG, $settings;
+    global $SETT, $PTMPL, $LANG, $settings;
 
     $extra_ = extra_fields();
     $post_user = isset($_POST['username']) ? $_POST['username'] : '';
     $post_email = isset($_POST['email']) ? $_POST['email'] : '';
-    $forgot_link = permalink($CONF['url'].'/index.php?a=recovery');
+    $forgot_link = permalink($SETT['url'].'/index.php?a=recovery');
 
     $login_form = '
     <form> 
@@ -2371,7 +2371,7 @@ function connector_card($type = 0, $referrer = null) {
 */
 function getImage($image, $type = null) {
     // $a = 1: Get direct link to image
-    global $CONF, $PTMPL, $LANG, $settings;
+    global $SETT, $PTMPL, $LANG, $settings;
 
     if (!$image) {  
       $image = 'default.jpg';
@@ -2381,18 +2381,18 @@ function getImage($image, $type = null) {
     $c = null;
     if ($type == 1) {
       // Uploaded profile images
-      $dir_url = $CONF['url'] . '/uploads/faces/';
-      $_dir = $CONF['working_dir'].'/uploads/faces/';
+      $dir_url = $SETT['url'] . '/uploads/faces/';
+      $_dir = $SETT['working_dir'].'/uploads/faces/';
       $c = 1;
     } elseif ($type == 2) {
       // Uploaded cover images
-      $dir_url = $CONF['url'] . '/uploads/cover/';
-      $_dir = $CONF['working_dir'].'/uploads/cover/';
+      $dir_url = $SETT['url'] . '/uploads/cover/';
+      $_dir = $SETT['working_dir'].'/uploads/cover/';
       $c = 1;
     } else {
       // Site specific images
-      $dir_url = $CONF['full_template_url'] . '/img/';
-      $_dir = $CONF['template_url'] . '/img/';
+      $dir_url = $SETT['full_template_url'] . '/img/';
+      $_dir = $SETT['template_url'] . '/img/';
     } 
 
     // Show the image
@@ -2472,14 +2472,14 @@ function urlReferrer($url, $type) {
 * redirect page
 */
 function redirect($location = '', $type = 0) {
-    global $CONF;
+    global $SETT;
     if ($type) {
         header('Location: '.$location);
     } else {
         if($location) {
-            header('Location: '.permalink($CONF['url'].'/index.php?a='.$location));
+            header('Location: '.permalink($SETT['url'].'/index.php?a='.$location));
         } else {
-            header('Location: '.permalink($CONF['url'].'/index.php'));
+            header('Location: '.permalink($SETT['url'].'/index.php'));
         }        
     }
 

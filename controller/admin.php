@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $admin, $admin_access; 
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $admin, $admin_access; 
 	$PTMPL['page_title'] = $LANG['admin_login']; 
  	$userApp = new userCallback;
 
@@ -21,14 +21,14 @@ function mainContent() {
 			$_SESSION['admin_password'] = $check['password']; 
 			$logged = true;	 
 			if ($logged) {
-				header('Location: '.permalink($CONF['url'].'/index.php?a=settings'));
+				header('Location: '.permalink($SETT['url'].'/index.php?a=settings'));
 			}
 		}
 		$PTMPL['message'] = (isset($message)) ? infoMessage($message) : '';
 	} 
  
 	if ($admin_access) {
-		header('Location: '.permalink($CONF['url'].'/index.php?a=settings'));
+		header('Location: '.permalink($SETT['url'].'/index.php?a=settings'));
 	}
 
 	$theme = new themer('admin/admin');

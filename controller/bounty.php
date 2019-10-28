@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 
 	$uc = new userCallback;
 	$save = new siteClass;
@@ -41,7 +41,7 @@ function mainContent() {
 
 		$theme = new themer('bounty/bounty'); $container = '';
 
-		$link = permalink($CONF['url'].'/index.php?a=welcome&ref='.$user['username']);
+		$link = permalink($SETT['url'].'/index.php?a=welcome&ref='.$user['username']);
 		$ref_link = '
 		<div class="d-flex p-2 border m-2 justify-content-around blue-grey lighten-5 rounded">
 			<div class="font-weight-bold w-75">'.$LANG['your_ref_link'].':</div> 
@@ -59,7 +59,7 @@ function mainContent() {
 			$refs = $save->referrals(1);
 			if ($refs) {
 				foreach ($refs as $key => $data) {
-				  	$username = '<a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$data['username']).'">'.$data['username'].'</a>';
+				  	$username = '<a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$data['username']).'">'.$data['username'].'</a>';
 				    $content .=
 				    '<tr>
 				      <th scope="row">'.$nb++.'</th>
@@ -79,7 +79,7 @@ function mainContent() {
 		}
 		$PTMPL['tbody'] = $content;		 
 	} else {
-		header("Location:".permalink($CONF['url'].'/index.php?a=welcome'));
+		header("Location:".permalink($SETT['url'].'/index.php?a=welcome'));
 	}
 
 	$container = $theme->make();

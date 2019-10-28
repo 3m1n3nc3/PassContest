@@ -82,9 +82,9 @@ if ($_POST['action'] == 'follow' || $_POST['action'] == 'unfollow') {
 			$fullname = realName($u['username'], $u['fname'], $u['lname']).' '.$badge;
 
 			$photo = '
-			<a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$u['username']).'">
+			<a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$u['username']).'">
 				<div class="chip">
-				  <img src="'.$CONF['url'].'/uploads/faces/'.$u['photo'].'" alt="'.$u['username'].'"> '.$fullname.'
+				  <img src="'.$SETT['url'].'/uploads/faces/'.$u['photo'].'" alt="'.$u['username'].'"> '.$fullname.'
 				</div>
 			</a>';
 

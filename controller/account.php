@@ -1,7 +1,7 @@
 <?php  
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 
 	$userApp = new userCallback;
 	$bars = new barMenus; 
@@ -14,7 +14,7 @@ function mainContent() {
 
     	// If the user is not activated  
     	if($user['status'] == 0) {  
-    	    header('Location: '.permalink($CONF['url'].'/index.php?a=welcome'));
+    	    header('Location: '.permalink($SETT['url'].'/index.php?a=welcome'));
     	}
     	
 		// Checkk if user is premium
@@ -41,9 +41,9 @@ function mainContent() {
 		$PTMPL['introShort'] = completeIntro($user['city'], $user['state'], $user['country'], $user['lovesto']);
 
 		if ($user['photo']) {
-			$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/'.$user['photo'];
+			$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/'.$user['photo'];
 		} else {
-			$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/default.jpg';
+			$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/default.jpg';
 		}
 
 		if ($user['profession']) {
@@ -65,9 +65,9 @@ function mainContent() {
 		} 
 
 		if ($user['cover']) {
-			$PTMPL['cphoto'] = $CONF['url'].'/uploads/cover/'.$user['cover'];
+			$PTMPL['cphoto'] = $SETT['url'].'/uploads/cover/'.$user['cover'];
 		} else {
-			$PTMPL['cphoto'] = $CONF['url'].'/uploads/cover/default.jpg';
+			$PTMPL['cphoto'] = $SETT['url'].'/uploads/cover/default.jpg';
 		}
 		$PTMPL['extra_data'] = extra_userData($user['username']);
 		// Show all notifications
@@ -77,7 +77,7 @@ function mainContent() {
 			if ($_GET['notifications'] !== '') {
 				$PTMPL['notification_id'] = $_GET['notifications']; 
 
-        		$PTMPL['all_notifications'] = '<div class="d-inline-flex justify-content-center p-2 blue-gradient text-white font-weight-bold"><a href="'.permalink($CONF['url'].'/index.php?a=account&notifications').'" class="white-text text-left">View All '.$LANG['notifications'].'</a></div>';
+        		$PTMPL['all_notifications'] = '<div class="d-inline-flex justify-content-center p-2 blue-gradient text-white font-weight-bold"><a href="'.permalink($SETT['url'].'/index.php?a=account&notifications').'" class="white-text text-left">View All '.$LANG['notifications'].'</a></div>';
 			} else {
 				$PTMPL['notification_id'] = '';
 			}
@@ -92,7 +92,7 @@ function mainContent() {
 			return $theme->make();			
 		}
 	} else {
-		header("Location: ".$CONF['site_url']."/index.php?a=welcome"); 
+		header("Location: ".$SETT['site_url']."/index.php?a=welcome"); 
 	} 
 
 	$theme = new themer('account/content');

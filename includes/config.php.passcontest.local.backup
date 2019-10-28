@@ -6,48 +6,48 @@
 if (version_compare(PHP_VERSION, 5.3, '<') && function_exists('set_magic_quotes_runtime')) set_magic_quotes_runtime(0);
 
 
-$CONF = $PTMPL = array();
+$SETT = $PTMPL = array();
 
 /* 
 * set currentPage in the local scope
 */
-$CONF['current_page'] = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
-$CONF['working_dir'] = $_SERVER["DOCUMENT_ROOT"];
+$SETT['current_page'] = pathinfo($_SERVER['PHP_SELF'], PATHINFO_FILENAME);
+$SETT['working_dir'] = $_SERVER["DOCUMENT_ROOT"];
 
 /* 
 * The MySQL credentials
 */	
 define('DB_PREFIX', '');	
-$CONF['dbdriver'] = 'mysql'; 
-$CONF['dbhost'] = 'localhost'; 
-$CONF['dbuser'] = 'root'; 
-$CONF['dbpass'] = 'idontknow1A@'; 
-$CONF['dbname'] = 'passcontest';
+$SETT['dbdriver'] = 'mysql'; 
+$SETT['dbhost'] = 'localhost'; 
+$SETT['dbuser'] = 'root'; 
+$SETT['dbpass'] = 'idontknow1A@'; 
+$SETT['dbname'] = 'passcontest';
 
 /* 
 * The Installation URL 
 * https is enforced in .HTACCESS, to use the auto protocol feature remove the .HTACCESS https enforcement
 */
 $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http';
-$CONF['url'] = $protocol.'://'.$_SERVER['HTTP_HOST'];
+$SETT['url'] = $protocol.'://'.$_SERVER['HTTP_HOST'];
 
 /* 
 * The Notifications e-mail
 */
-$CONF['email'] = 'support@passcontest.com';
+$SETT['email'] = 'support@passcontest.com';
 
-$CONF['site_image'] = 'profile_city.jpg';
+$SETT['site_image'] = 'profile_city.jpg';
 
 /* 
 * Copyrights owner
 */
-$CONF['copyrights'] = 'Passcontest';
-$CONF['copyrights_url'] = 'passcontest.com';
+$SETT['copyrights'] = 'Passcontest';
+$SETT['copyrights_url'] = 'passcontest.com';
 
 /* 
 * The templates directory
 */
-$CONF['template_path'] = 'templates';
+$SETT['template_path'] = 'templates';
 
 $action = array('admin'						=> 'admin',
 				'contest'					=> 'contest',
@@ -79,6 +79,6 @@ $enc_key = 'aHR0cDovL2FwaS5wYXNzY29udGVzdC50ZS8=';
 /* 
 * Define the cookies path
 */				
-define('COOKIE_PATH', preg_replace('|'.$protocol.'?://[^/]+|i', '', $CONF['url']).'/');
+define('COOKIE_PATH', preg_replace('|'.$protocol.'?://[^/]+|i', '', $SETT['url']).'/');
 
 ?>

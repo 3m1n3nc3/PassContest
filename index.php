@@ -21,21 +21,21 @@ require_once("controller/{$page_name}.php");
 $PTMPL['skinner'] = $settings['skin'];
 $PTMPL['site_title'] = $settings['site_name'];
 $PTMPL['seo_plugin'] = seo_plugin(0, 0, 0, $PTMPL['site_title'], 0);
-$PTMPL['site_url'] = $CONF['url']; 
+$PTMPL['site_url'] = $SETT['url']; 
 $PTMPL['cur_page'] = $page_name;
 $PTMPL['country'] = $user['country']; 
 $PTMPL['countries'] = set_local(1, $user['country']); 
 $PTMPL['favicon'] = $welcome['favicon']; 
 
 // Link to read the documentation
-$PTMPL['docs_link'] = permalink($CONF['url'].'/index.php?a=documentation');
+$PTMPL['docs_link'] = permalink($SETT['url'].'/index.php?a=documentation');
 
-$PTMPL['copyrights'] = '&copy;'.date('Y').' <a href="'.$CONF['copyrights_url'].'" target="_blank">'.$CONF['copyrights']
+$PTMPL['copyrights'] = '&copy;'.date('Y').' <a href="'.$SETT['copyrights_url'].'" target="_blank">'.$SETT['copyrights']
 .'</a>, made with <i class="fa fa-heart text-danger"></i>';
 
 $PTMPL['username'] = $user['username'];
 
-$PTMPL['forgot_link'] = permalink($CONF['url'].'/index.php?a=recovery');
+$PTMPL['forgot_link'] = permalink($SETT['url'].'/index.php?a=recovery');
 
 $extra_ = extra_fields();
 
@@ -52,7 +52,7 @@ $PTMPL['invite_code'] = $extra_['invite_code'];
 $PTMPL['phone_number'] = $extra_['phone_number'];
 
 $captcha_url = '/includes/vendor/goCaptcha/goCaptcha.php?gocache='.strtotime('now');
-$PTMPL['captcha_url'] = $CONF['url'].$captcha_url;
+$PTMPL['captcha_url'] = $SETT['url'].$captcha_url;
 
 //$PTMPL['token'] = $_SESSION['token_id'];  
 
@@ -65,7 +65,7 @@ $slidebtn = $theme->make();
 $dm = new menuHandler; 
 $PTMPL['dropmenu'] = $dm->droplmenu();
 
-$PTMPL['featured_link'] = permalink($CONF['url'].'/index.php?a=featured');
+$PTMPL['featured_link'] = permalink($SETT['url'].'/index.php?a=featured');
 
 if ($admin_access) {
 	if ($settings['mode'] == 'offline') {
@@ -83,18 +83,18 @@ if(!empty($user['username'])) {
 
 	$PTMPL['explore_link'] = '
 	<li class="nav-item active">
-		<a class="nav-link font-weight-bold" href="'.permalink($CONF['url'].'/index.php?a=explore').'" target="_self">'.$LANG['explore'].'</a>
+		<a class="nav-link font-weight-bold" href="'.permalink($SETT['url'].'/index.php?a=explore').'" target="_self">'.$LANG['explore'].'</a>
 	</li>';	 
 } else {
 	$PTMPL['login'] = '<a href="#" class="btn btn-primary btn-sm rounded" target="_blank" id="openModal1" data-toggle="modal" data-target="#connectModal"></i>'.$LANG['login'].' </a>';
-	$PTMPL['logohere'] = '<a class="navbar-brand pl-3" href="'.$CONF['url'].'"> <img src="'.getImage($welcome['logo']).'" height="45" alt="passcontest logo"> </a>';
+	$PTMPL['logohere'] = '<a class="navbar-brand pl-3" href="'.$SETT['url'].'"> <img src="'.getImage($welcome['logo']).'" height="45" alt="passcontest logo"> </a>';
 }
 
 if ($admin) {
 	$PTMPL['admin_menu'] = '
     <ul class="navbar-nav nav-flex-icons">  
       <li class="nav-item">
-        <a class="nav-link text-white" href="'.permalink($CONF['url'].'/index.php?a=admin').'"><i class="fa fa-tachometer"></i></a>
+        <a class="nav-link text-white" href="'.permalink($SETT['url'].'/index.php?a=admin').'"><i class="fa fa-tachometer"></i></a>
       </li>          
     </ul>';
 }
@@ -132,7 +132,7 @@ $get_pages = $site_class->static_pages(0, 0);
 $pages = '<a class="px-1" href="'.$PTMPL['docs_link'].'"> <small>'.strtoupper($LANG['documentation']).'</small> </a>';
 if ($get_pages) {
 	foreach($get_pages as $list => $key) { 
-		$pages .= '<a class="px-1" href="'.permalink($CONF['url'].'/index.php?a=static&page='.$key['link']).'"> <small>'.strtoupper($key['title']).'</small> </a>';
+		$pages .= '<a class="px-1" href="'.permalink($SETT['url'].'/index.php?a=static&page='.$key['link']).'"> <small>'.strtoupper($key['title']).'</small> </a>';
 	}					 
 } else {
 	$pages = '<a href="#" class="text-danger">No extra pages to show</a>';

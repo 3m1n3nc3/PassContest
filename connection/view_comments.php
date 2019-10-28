@@ -33,9 +33,9 @@ if ($comments) {
 
             	$userApp->user_id = $rs['writer_id'];
 				$replyer = $userApp->userData(NULL, 1)[0];
-				$r_photo = $CONF['url'].'/uploads/faces/'.$replyer['photo'];
+				$r_photo = $SETT['url'].'/uploads/faces/'.$replyer['photo'];
 				$real_replyer_name = realName($replyer['username'], $replyer['fname'], $replyer['lname']);
-				$repurl = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$replyer['username']).'">'.$real_replyer_name.'</a>';
+				$repurl = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$replyer['username']).'">'.$real_replyer_name.'</a>';
 
 				$reply_comment .='
 				<span class="pb-1 d-flex justify-content-end">
@@ -55,9 +55,9 @@ if ($comments) {
 
 		$userApp->user_id = $key['writer_id'];
 		$writer = $userApp->userData(NULL, 1)[0];
-		$w_photo = $CONF['url'].'/uploads/faces/'.$writer['photo'];
+		$w_photo = $SETT['url'].'/uploads/faces/'.$writer['photo'];
 		$real_writer_name = realName($writer['username'], $writer['fname'], $writer['lname']); 
-		$comurl = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$writer['username']).'">'.$real_writer_name.'</a>';
+		$comurl = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$writer['username']).'">'.$real_writer_name.'</a>';
 		 $d=strtotime($key['date']);
 
 		$comments_data .= '<span id="notice_'.$key['id'].'"></span>

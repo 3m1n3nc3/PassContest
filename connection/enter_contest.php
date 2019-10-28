@@ -114,7 +114,7 @@ $return = dbProcessor($sql, 0, $response);
 $msg = easy_crypt($return); 
 
 if (isset($_POST['save'])) {
-	header("Location: ".permalink($CONF['url'].'/index.php?a=enter&success='.$user['id'].'&updt='.$msg));
+	header("Location: ".permalink($SETT['url'].'/index.php?a=enter&success='.$user['id'].'&updt='.$msg));
 } else { 
-	header("Location: ".permalink($CONF['url'].'/index.php?a=enter&success='.$contest_id.'&ret='.$msg));
+	header("Location: ".permalink($SETT['url'].'/index.php?a=enter&success='.$contest_id.'&ret='.$msg));
 }

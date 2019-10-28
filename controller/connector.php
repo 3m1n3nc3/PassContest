@@ -1,6 +1,6 @@
 <?php
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $welcome, $referrer;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $welcome, $referrer;
 	$userApp = new userCallback;
 
 	$PTMPL['page_title'] = $LANG['welcome'];
@@ -10,11 +10,11 @@ function mainContent() {
     	$_SESSION['referrer'] = $_GET['ref'];
     }
 	if ($user && $user['status'] == 2) {
-		header("Location: ".permalink($CONF['url']."/index.php?a=explore"));
+		header("Location: ".permalink($SETT['url']."/index.php?a=explore"));
 	} elseif ($user && $user['status'] == 0) {
 	    $notification ='';
 	    $title = sprintf($LANG['your_acc'], $LANG['inactive']);
-	    $message = sprintf($LANG['acc_inactive'], permalink($CONF['url'].'/index.php?a=connector&activate=resend'));
+	    $message = sprintf($LANG['acc_inactive'], permalink($SETT['url'].'/index.php?a=connector&activate=resend'));
 		 
 		if (isset($_GET['activate']) && $_GET['activate'] == 'resend') {
 			$notification .= $userApp->account_activation('resend', $user['username']);
@@ -45,7 +45,7 @@ function mainContent() {
 	// Show the connector card
 	$PTMPL['login_connector'] = connector_card(1, $referrer);
 
-	$PTMPL['site_url'] = $CONF['url'];  
+	$PTMPL['site_url'] = $SETT['url'];  
 
     // Set the SEO info
 	$PTMPL['page_title'] = $LANG['welcome'].' - '.$settings['site_name']; 

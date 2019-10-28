@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 	$social = new social;
 	
 	if ($user) {
@@ -21,7 +21,7 @@ function mainContent() {
 		if(isset($_GET['logout'])) {
 	        $u = new userCallback;
 	        $u->logOut();
-	        header('Location: '.permalink($CONF['url'].'/index.php?a=welcome'));
+	        header('Location: '.permalink($SETT['url'].'/index.php?a=welcome'));
 		}
 		if (isset($_POST['limit'])) {
 			$PTMPL['limit'] = $_POST['limit'];
@@ -34,7 +34,7 @@ function mainContent() {
 		$theme = new themer('explore/content');
 		return $theme->make();
 	} else {
-		header('Location: '.permalink($CONF['url'].'/index.php?a=featured'));
+		header('Location: '.permalink($SETT['url'].'/index.php?a=featured'));
 	}
 }
 ?>

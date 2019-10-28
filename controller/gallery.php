@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $profiles;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $profiles;
 	$cd = new contestDelivery;
 	$userApp = new userCallback;
 	$bars = new barMenus;
@@ -49,7 +49,7 @@ function mainContent() {
 
             <div class="p-3">
             '.$msg.'
-              <form method="post" action="'.$CONF['url'].'/connection/upload.php?d=gallery" enctype="multipart/form-data">
+              <form method="post" action="'.$SETT['url'].'/connection/upload.php?d=gallery" enctype="multipart/form-data">
                 <div class="form-group">
                   <label for="Photo-desc">'.$LANG['description'].'</label>
                   <textarea name="desc" class="form-control rounded-0" id="Photo-desc" rows="3"></textarea>
@@ -71,7 +71,7 @@ function mainContent() {
 		$PTMPL['gallery_cards'] = gallery_cards(); 	
 
 		$img = $userApp->user_gallery($profiles['id'], 1)[0]['photo'];
-		$img = $CONF['url'].'/uploads/gallery/'.$img;
+		$img = $SETT['url'].'/uploads/gallery/'.$img;
 		$PTMPL['seo_plugin'] = seo_plugin($img, $profiles['twitter'], $profiles['facebook'], $profiles['intro'], $page_title);
 	// Show 404 errow	 
 	} else {

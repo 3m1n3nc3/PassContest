@@ -12,8 +12,8 @@ class themer {
 	}
 
 	public function make() { 
-		global $CONF;
-		$file = sprintf('./'.$CONF['template_path'].'/'.$CONF['template_name'].'/html/%s.html', $this->filename);
+		global $SETT;
+		$file = sprintf('./'.$SETT['template_path'].'/'.$SETT['template_name'].'/html/%s.html', $this->filename);
 
 		//$file = 'template/index.html';
 		$fh_skin = fopen($file, 'r');

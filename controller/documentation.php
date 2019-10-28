@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $admin, $marxTime; 
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $admin, $marxTime; 
 	// Whole function displays static pages
 	$PTMPL['page_title'] = $settings['site_name'].' '.$LANG['documentation']; 
 	$site_class = new siteClass;
@@ -18,14 +18,14 @@ function mainContent() {
 
 	// Show buttons to compose and return
 	$write_btn ='';
-	$write_btn .= ($admin) ? '<a class="btn btn-info btn-rounded btn-md" href="'.permalink($CONF['url'].'/index.php?a=documentation&write=new').'">Write New Documentation</a>' : '';
+	$write_btn .= ($admin) ? '<a class="btn btn-info btn-rounded btn-md" href="'.permalink($SETT['url'].'/index.php?a=documentation&write=new').'">Write New Documentation</a>' : '';
 
-	$write_btn .= ($user) ? '<a class="btn btn-info btn-rounded btn-md" href="'.permalink($CONF['url'].'/index.php?a=documentation&support=review').'">Support Tickets</a>' : '';
+	$write_btn .= ($user) ? '<a class="btn btn-info btn-rounded btn-md" href="'.permalink($SETT['url'].'/index.php?a=documentation&support=review').'">Support Tickets</a>' : '';
 
 	$PTMPL['write_btn'] = $write_btn;
 
-	$edit_int = ($admin) ? '<a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=documentation&edit='.$intro['id'].'&type=2').'">Edit <i class="fa fa-edit text-info"></i></a>' : '';
-	$return_btn = '<a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=documentation').'"><i class="fa fa-arrow-left text-info"></i> Return </a>';
+	$edit_int = ($admin) ? '<a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=documentation&edit='.$intro['id'].'&type=2').'">Edit <i class="fa fa-edit text-info"></i></a>' : '';
+	$return_btn = '<a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=documentation').'"><i class="fa fa-arrow-left text-info"></i> Return </a>';
 		if ($intro) {
 			$PTMPL['intro'] = (!isset($_GET['read'])) ? '<p class="dark-grey-text w-responsive mx-auto mb-5">'.strip_tags($intro['content']).$edit_int.'</p>' : '';
 		} 
@@ -110,7 +110,7 @@ function mainContent() {
 	} elseif (isset($_GET['delete'])) {
 		 $return = $site_class->static_pages(3, 1, $_GET['delete']);
 		 $msg = urlencode($return);
-		 ($return == 1) ? header('Location: '.permalink($CONF['url'].'/index.php?a=documentation&ret=true')) : header('Location: '.permalink($CONF['url'].'/index.php?a=documentation&ret=false&msg='.$msg)); 
+		 ($return == 1) ? header('Location: '.permalink($SETT['url'].'/index.php?a=documentation&ret=true')) : header('Location: '.permalink($SETT['url'].'/index.php?a=documentation&ret=false&msg='.$msg)); 
 	} elseif (isset($_GET['read']) && $_GET['read'] !=='') {
 		// Open the sellected document
 		$site_class->what = sprintf('link = \'%s\'', $_GET['read']);
@@ -120,7 +120,7 @@ function mainContent() {
 		// Show the opened document
 		$content ='';
 		if ($read) {
-			$edit = '<a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=documentation&edit='.$read['id']).'">Edit <i class="fa fa-edit text-info"></i></a>';
+			$edit = '<a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=documentation&edit='.$read['id']).'">Edit <i class="fa fa-edit text-info"></i></a>';
 			$PTMPL['page_title'] = $PTMPL['page_title'].' - '.stripslashes($read['title']);		
 			$content .= '<h4 class="h4-responsive font-weight-bold my-2"> -'.stripslashes($read['title']).'</h4>';
 			$content .= '<p class="font-weight-normal px-5">'.stripslashes($read['content']).' '.$edit.'<hr class="mt-4 mb-2"></p>';
@@ -171,7 +171,7 @@ function mainContent() {
 			$review = '';
 			if ($user) {
 				$review .= '
-					<a href="'.permalink($CONF['url'].'/index.php?a=documentation&support=new_ticket').'">
+					<a href="'.permalink($SETT['url'].'/index.php?a=documentation&support=new_ticket').'">
 					    <div class="hoverable d-inline-block blue lighten-4 border border-info m-1 float-left white-text p-1">
 					   		New Ticket
 					    </div><div class="clearfix"></div>
@@ -208,7 +208,7 @@ function mainContent() {
 						  <div class="p-2 my-2 bg-white border text-left">  
 						    <div class="d-inline-block float-left font-weight-bold px-2"> '.$key['subject'].'
 						      <div class="date">'.$mtime.'</div>
-							    <a href="'.permalink($CONF['url'].'/index.php?a=documentation&support=reply&id='.$key['id']).'">
+							    <a href="'.permalink($SETT['url'].'/index.php?a=documentation&support=reply&id='.$key['id']).'">
 								    <div class="hoverable d-inline-block light-blue lighten-1 border border-primary m-1 float-left white-text p-1 font-weight-normal">
 								   		Send Reply
 								    </div>
@@ -265,8 +265,8 @@ function mainContent() {
 				$col2 = ($key['featured'] == 1) ? '6' : '4';
 
 				$editors = ($admin) ? '
-					<a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=documentation&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a> 
-			     	<a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=documentation&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a>' : '';
+					<a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=documentation&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a> 
+			     	<a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=documentation&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a>' : '';
 
 				$list_pages .= '
 
@@ -276,7 +276,7 @@ function mainContent() {
 			      <h4 class="font-weight-bold mb-3"><strong>'.$key['title'].'</strong></h4>
 			      <p class="font-weight-bold">'.$date.'</p>
 			      <p class="dark-grey-text">'.$detail.'</p>
-			      <a href="'.permalink($CONF['url'].'/index.php?a=documentation&read='.$key['link']).'" class="btn btn-'.$color.' btn-rounded btn-md">Read more</a><br>
+			      <a href="'.permalink($SETT['url'].'/index.php?a=documentation&read='.$key['link']).'" class="btn btn-'.$color.' btn-rounded btn-md">Read more</a><br>
 			      '.$editors.'
 			    </div>';
 			}					 

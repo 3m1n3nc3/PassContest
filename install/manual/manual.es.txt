@@ -81,14 +81,14 @@ INSERT INTO `api` (`id`, `token`, `server`) VALUES</br>
 <p>1. With a text editor open the includes/config.php file you just uploaded, and replace what's between the quotes (e.g: 'YOURDBNAME') with your Own parameters:</p>
 
 define('DB_PREFIX', '_YOURDBTABLEPREFX>');	<br/>
-$CONF['dbdriver'] = 'mysql'; <br/>
-$CONF['dbhost'] = 'YOURDBHOST>'; <br/>
-$CONF['dbuser'] = 'YOURDBUSERNAME>'; <br/>
-$CONF['dbpass'] = 'YOURDBPASSWORD';<br/> 
-$CONF['dbname'] = 'YOURDBNAME';<br/>
-$CONF['email'] = 'YOURSITE_EMAIL>';<br/>
-$CONF['copyrights'] = 'SITE_COPYRIGHTS_OWNER';<br/>
-$CONF['copyrights_url'] = 'SITE_COPYCOPYRIGHTS_OWNER_LINK';
+$SETT['dbdriver'] = 'mysql'; <br/>
+$SETT['dbhost'] = 'YOURDBHOST>'; <br/>
+$SETT['dbuser'] = 'YOURDBUSERNAME>'; <br/>
+$SETT['dbpass'] = 'YOURDBPASSWORD';<br/> 
+$SETT['dbname'] = 'YOURDBNAME';<br/>
+$SETT['email'] = 'YOURSITE_EMAIL>';<br/>
+$SETT['copyrights'] = 'SITE_COPYRIGHTS_OWNER';<br/>
+$SETT['copyrights_url'] = 'SITE_COPYCOPYRIGHTS_OWNER_LINK';
 
 <p><br /></p>
 

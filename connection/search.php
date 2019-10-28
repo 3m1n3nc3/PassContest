@@ -52,7 +52,7 @@ if (strlen($_POST['search']) !='') {
                   <div class="card mb-1 aqua-gradient h-100">
    
                     <div class="view overlay">
-                      <img class="card-img-top" src="'.$CONF['url'].'/uploads/cover/contest/'.$photo.'" alt="'.$key['title'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
+                      <img class="card-img-top" src="'.$SETT['url'].'/uploads/cover/contest/'.$photo.'" alt="'.$key['title'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
                       <a onclick="profileModal('.$key['id'].', '.$key['id'].', 2)">
                         <div class="mask rgba-white-light flex-center font-weight-bold">Quick Preview</div>
                       </a>
@@ -60,7 +60,7 @@ if (strlen($_POST['search']) !='') {
 
                     <div class="card-body">
                       <a onclick="shareModal(1, '.$key['id'].')" class="activator waves-effect waves-light mr-2"><i class="fa fa-share-alt"></i></a> 
-                      <a href="'.permalink($CONF['url'].'/index.php?a=contest&s='.$key['safelink']).'" class="black-text" id="contest-url'.$key['id'].'"><h4>'.$key['title'].' <i class="fa fa-angle-double-right"></i></h4></a> 
+                      <a href="'.permalink($SETT['url'].'/index.php?a=contest&s='.$key['safelink']).'" class="black-text" id="contest-url'.$key['id'].'"><h4>'.$key['title'].' <i class="fa fa-angle-double-right"></i></h4></a> 
                     </div>
                     <div class="card-footer cloudy-knoxville-gradient"> 
                         <span class="badge badge-pill '.$c.'">'.$d.'</span></div>
@@ -106,7 +106,7 @@ if (strlen($_POST['search']) !='') {
                   <div class="card m-1 aqua-gradient h-100">
    
                     <div class="view overlay">
-                      <img class="card-img-top" src="'.$CONF['url'].'/uploads/faces/'.$photo.'" alt="'.$key['username'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
+                      <img class="card-img-top" src="'.$SETT['url'].'/uploads/faces/'.$photo.'" alt="'.$key['username'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
                       <a onclick="profileModal('.$key['id'].', '.$key['id'].', 0)">
                         <div class="mask rgba-white-light flex-center font-weight-bold">Quick Preview</div>
                       </a>
@@ -115,7 +115,7 @@ if (strlen($_POST['search']) !='') {
                     <div class="card-body">
    
                       <a onclick="shareModal(2, '.$key['id'].')" class="activator waves-effect waves-light mr-2"><i class="fa fa-share-alt"></i></a> 
-                      <a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$key['username']).'" class="black-text text-left" id="profile-url'.$key['id'].'"><h4>'.$fullname.' <i class="fa fa-angle-double-right"></i></h4></a> 
+                      <a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['username']).'" class="black-text text-left" id="profile-url'.$key['id'].'"><h4>'.$fullname.' <i class="fa fa-angle-double-right"></i></h4></a> 
                     </div>
                     <div class="card-footer cloudy-knoxville-gradient"> 
                         <span class="badge badge-pill '.$c.'">'.$d.'</span></div>
@@ -153,9 +153,9 @@ if (strlen($_POST['search']) !='') {
 
             $search_res .= ' 
                 <div class="bg-light text-dark px-2 my-1">
-                  <a href="'.permalink($CONF['url'].'/index.php?a=contest&s='.$key['safelink']).'" class="black-text h6" id="contest-url'.$key['id'].'">'.$key['title'].'  
+                  <a href="'.permalink($SETT['url'].'/index.php?a=contest&s='.$key['safelink']).'" class="black-text h6" id="contest-url'.$key['id'].'">'.$key['title'].'  
                   <span class="badge badge-pill '.$c.'">'.$d.'</span></a>
-                  <img class="card-img-top" src="'.$CONF['url'].'/uploads/cover/contest/'.$photo.'" alt="'.$key['title'].'"  style="display: block; object-position: 10% 10%; width: 100%; height: 5vh;   object-fit: cover;" id="photo_'.$key['id'].'"> 
+                  <img class="card-img-top" src="'.$SETT['url'].'/uploads/cover/contest/'.$photo.'" alt="'.$key['title'].'"  style="display: block; object-position: 10% 10%; width: 100%; height: 5vh;   object-fit: cover;" id="photo_'.$key['id'].'"> 
                 </div>    
               ';
           }
@@ -191,8 +191,8 @@ if (strlen($_POST['search']) !='') {
 
             $search_res .= ' 
                 <div class="bg-light text-dark px-2 my-1">
-                  <a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$key['username']).'" class="black-text h6" id="profile-url'.$key['id'].'">'.$fullname.' </a>
-                  <img class="card-img-top" src="'.$CONF['url'].'/uploads/faces/'.$photo.'" alt="'.$key['username'].'"  style="display: block; object-position: 10% 10%; width: 100%; height: 5vh;   object-fit: cover;" id="pphoto_'.$key['id'].'"> 
+                  <a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['username']).'" class="black-text h6" id="profile-url'.$key['id'].'">'.$fullname.' </a>
+                  <img class="card-img-top" src="'.$SETT['url'].'/uploads/faces/'.$photo.'" alt="'.$key['username'].'"  style="display: block; object-position: 10% 10%; width: 100%; height: 5vh;   object-fit: cover;" id="pphoto_'.$key['id'].'"> 
                 </div>    
               '; 
           } 

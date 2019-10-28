@@ -99,9 +99,9 @@ if (!empty($_FILES)) {
       $msg = $msg;
     }
     if (isset($_GET['ref']) && isset($_GET['create'])) {
-      $header = permalink($CONF['url'].'/index.php?a='.$_GET['ref'].'&create='.$_GET['create'].'&photo='.$_GET['photo'].'&msg='.urlencode($msg).'#gallery');
+      $header = permalink($SETT['url'].'/index.php?a='.$_GET['ref'].'&create='.$_GET['create'].'&photo='.$_GET['photo'].'&msg='.urlencode($msg).'#gallery');
     } else {
-      $header = permalink($CONF['url'].'/index.php?a=gallery&u='.$user['username'].'&msg='.urlencode($msg));
+      $header = permalink($SETT['url'].'/index.php?a=gallery&u='.$user['username'].'&msg='.urlencode($msg));
     }
 
     header("Location: ".$header);

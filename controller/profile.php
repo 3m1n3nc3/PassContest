@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $profiles;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $profiles;
 	$cd = new contestDelivery;
 	$userApp = new userCallback;
 	$bars = new barMenus;
@@ -39,10 +39,10 @@ function mainContent() {
 		$follow_link = $social->follow_link($profiles['id'], 0) ? '<span class="mx-3">'.$social->follow_link($profiles['id'], 0).'</span>' : '';
 
 		// Link to the follows page
-		$followers_link = permalink($CONF['url'].'/index.php?a=followers&followers='.$profiles['id']);
-		$following_link = permalink($CONF['url'].'/index.php?a=followers&following='.$profiles['id']);
+		$followers_link = permalink($SETT['url'].'/index.php?a=followers&followers='.$profiles['id']);
+		$following_link = permalink($SETT['url'].'/index.php?a=followers&following='.$profiles['id']);
 		// Show the claim button on profiles created by an agency that are not yet claimed
-		//$PTMPL['lay_claim'] = ($profiles['claimed'] == 0) ? '<a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$profiles['username']).'&claim='.$profiles['id'].'" class="btn btn-info border border-white">Claim this profile<i class="fa fa-user-add text-white"></i></a>' : '';
+		//$PTMPL['lay_claim'] = ($profiles['claimed'] == 0) ? '<a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$profiles['username']).'&claim='.$profiles['id'].'" class="btn btn-info border border-white">Claim this profile<i class="fa fa-user-add text-white"></i></a>' : '';
 
 		$PTMPL['pphoto'] = getImage($profiles['photo'], 1);
 		$PTMPL['cphoto'] = getImage($profiles['cover'], 2); 
@@ -63,14 +63,14 @@ function mainContent() {
 		// Show the full bio link to agencies
 		$fullbio = '';
 		if ($quickinfo) {
-			$fullbio = ($user['role'] == 'agency' || $profiles['id'] == $user['id']) ? '<a href="'.permalink($CONF['url'].'/index.php?a=enter&viewdata='.$profiles['id']).'" data-toggle="tooltip" data-placement="right" title="View user data" class="btn btn-info border border-white">View Full Bio</a>' : '';
+			$fullbio = ($user['role'] == 'agency' || $profiles['id'] == $user['id']) ? '<a href="'.permalink($SETT['url'].'/index.php?a=enter&viewdata='.$profiles['id']).'" data-toggle="tooltip" data-placement="right" title="View user data" class="btn btn-info border border-white">View Full Bio</a>' : '';
 		}
 
 		// Show the Gallery link
-		$gallery = '<a href="'.permalink($CONF['url'].'/index.php?a=gallery&u='.$profiles['username']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['goto'].' '.$LANG['gallery'].'" class="btn btn-info border border-white">'.$LANG['gallery'].'</a>';
+		$gallery = '<a href="'.permalink($SETT['url'].'/index.php?a=gallery&u='.$profiles['username']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['goto'].' '.$LANG['gallery'].'" class="btn btn-info border border-white">'.$LANG['gallery'].'</a>';
 
 		// Timeline button
-		$timeline = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$profiles['username']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['timeline'].'" class="btn btn-info border border-white">'.$LANG['timeline'].'</a>';
+		$timeline = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$profiles['username']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['timeline'].'" class="btn btn-info border border-white">'.$LANG['timeline'].'</a>';
 
 		$related = '
             <div class="d-flex justify-content-center p-3 m-4 text-info font-weight-bold rounded border border-info bg-white">

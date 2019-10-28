@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $welcome, $admin, $marxTime;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $welcome, $admin, $marxTime;
 	
 	$PTMPL['page_title'] = $LANG['settings'];
 	if ($admin) {
@@ -312,7 +312,7 @@ function mainContent() {
 							$save_token .= $token['token']." \r\n";
 							unlink(__DIR__."/../uploads/sites/tokens.txt");
 							file_put_contents(__DIR__."/../uploads/sites/tokens.txt", $save_token . " \r\n", FILE_APPEND | LOCK_EX);
-							$PTMPL['save_link'] = '<a data-toggle="tooltip" title="Download Token File" data-placement="right" href="'.$CONF['url'].'/uploads/sites/tokens.txt" download><i class="fa fa-download fa-3x"></i></a>';
+							$PTMPL['save_link'] = '<a data-toggle="tooltip" title="Download Token File" data-placement="right" href="'.$SETT['url'].'/uploads/sites/tokens.txt" download><i class="fa fa-download fa-3x"></i></a>';
 						}
 					} 
 
@@ -515,14 +515,14 @@ function mainContent() {
 					$PTMPL['page_alias'] = stripslashes($manage_page['link']);
 					$PTMPL['page_content'] = stripslashes($manage_page['content']);
 					$PTMPL['button'] = '<button name="edit" type="submit" class="btn btn-info my-2 waves-effect" id="save">Save</button>';
-					$PTMPL['create_button'] = '<< <a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=settings&b=static').'">Create New Page</a> >>';
+					$PTMPL['create_button'] = '<< <a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=settings&b=static').'">Create New Page</a> >>';
 				} else {
 					$PTMPL['button'] = '<button name="save" type="submit" class="btn btn-info my-2 waves-effect" id="create">Create</button>';
 				}
 				$pages = '';
 				if ($get_pages) {
 					foreach($get_pages as $list => $key) { 
-						$pages .= '<div class="p-1">' .$key['title'].' <a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=settings&b=static&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a> <a class="px-2" href="'.permalink($CONF['url'].'/index.php?a=settings&b=static&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a><br></div>';
+						$pages .= '<div class="p-1">' .$key['title'].' <a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=settings&b=static&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a> <a class="px-2" href="'.permalink($SETT['url'].'/index.php?a=settings&b=static&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a><br></div>';
 					}					 
 				} else {
 					$pages = '<h5 class="text-warning text-center">No static pages to show</h5>';
@@ -647,7 +647,7 @@ function mainContent() {
 							$rave_api->order_ref 	= 'Promoted';
 							$response = $rave_api->promote_user(0);	
 							if ($response == 1) {
-								//header("Location: ".$CONF['url']."/index.php?a=settings&b=users&promote=".$_GET['promote']."&ret=true");
+								//header("Location: ".$SETT['url']."/index.php?a=settings&b=users&promote=".$_GET['promote']."&ret=true");
 							}	    		 
 				    	} else {
 				    		$PTMPL['promtion_form'] = infoMessage('Please enable premium accounts first');
@@ -701,7 +701,7 @@ function mainContent() {
 						$return = $gett->addContest($contest_id); 
 						$r = urlencode($return);
 						if($return) {
-							header("Location: ".$CONF['url']."/index.php?a=settings&b=contests&ret=true&resp=".$r);
+							header("Location: ".$SETT['url']."/index.php?a=settings&b=contests&ret=true&resp=".$r);
 						} 						
 					}				 
 				}
@@ -774,9 +774,9 @@ function mainContent() {
 						$return = $site_class->fetch_templates(1);
 
 						if($return == 1) {
-							header("Location: ".$CONF['url']."/index.php?a=settings&b=site_templates&ret=true");
+							header("Location: ".$SETT['url']."/index.php?a=settings&b=site_templates&ret=true");
 						} else {
-							header("Location: ".$CONF['url']."/index.php?a=settings&b=site_templates&ret=false");
+							header("Location: ".$SETT['url']."/index.php?a=settings&b=site_templates&ret=false");
 						}
 					}
 				}
@@ -822,9 +822,9 @@ function mainContent() {
 						$return = $site_class->list_languages(1);
 
 						if($return == 1) {
-							header("Location: ".$CONF['url']."/index.php?a=settings&b=languages&ret=true");
+							header("Location: ".$SETT['url']."/index.php?a=settings&b=languages&ret=true");
 						} else {
-							header("Location: ".$CONF['url']."/index.php?a=settings&b=languages&ret=false");
+							header("Location: ".$SETT['url']."/index.php?a=settings&b=languages&ret=false");
 						}
 					}
 				}
@@ -849,7 +849,7 @@ function mainContent() {
 						$userApp->password = hash('md5', $_POST['new_password']);
 						$ret = $userApp->site_admin(1);
 						if($ret == 1) {
-							header("Location: ".$CONF['url']."/index.php?a=settings&b=password&ret=true");
+							header("Location: ".$SETT['url']."/index.php?a=settings&b=password&ret=true");
 						}						 
 					}
 				}
@@ -880,7 +880,7 @@ function mainContent() {
 				if (isset($_GET['reply'])) {
 					$theme = new themer('static/support_form'); $support = '';
 					$PTMPL['create_button'] = '<button name="reply" type="submit" class="btn btn-info my-2 waves-effect" id="send">Reply</button>';
-					$PTMPL['create_button'] .= '<a href="'.permalink($CONF['url'].'/index.php?a=settings&b=tickets').'" class="btn btn-info my-2 waves-effect" id="ret">Return</a>';
+					$PTMPL['create_button'] .= '<a href="'.permalink($SETT['url'].'/index.php?a=settings&b=tickets').'" class="btn btn-info my-2 waves-effect" id="ret">Return</a>';
 		 
 					if (isset($_POST['reply'])) {
 						// Prepare for validation
@@ -955,7 +955,7 @@ function mainContent() {
 							    	<br><span class="teal-text p-0 m-0">'.$data['username'].'</span>
 							      	<br><small class="text-info">'.$mtime.'</small><br>
 							      	<small>Priority: '.$key['priority'].'</small><br>
-								    <a href="'.permalink($CONF['url'].'/index.php?a=settings&b=tickets&reply='.$key['id']).'&sender='.$key['user_id'].'">
+								    <a href="'.permalink($SETT['url'].'/index.php?a=settings&b=tickets&reply='.$key['id']).'&sender='.$key['user_id'].'">
 									    <div class="hoverable d-inline-block light-blue lighten-1 border border-primary rounded m-1 float-left white-text p-1 font-weight-normal">
 									   		Reply
 									    </div>
@@ -988,7 +988,7 @@ function mainContent() {
 		if(isset($_GET['logout'])) { 
 			unset($_SESSION['admin_username']);
 			unset($_SESSION['admin_password']);
-	        header('Location: '.permalink($CONF['url'].'/index.php?a=admin'));
+	        header('Location: '.permalink($SETT['url'].'/index.php?a=admin'));
 		}  
 		
 		$container = $theme->make();
@@ -999,7 +999,7 @@ function mainContent() {
 		$theme = new themer('admin/container');
 		return $theme->make();	
 	} else {
-		header('Location: '.permalink($CONF['url'].'/index.php?a=admin'));
+		header('Location: '.permalink($SETT['url'].'/index.php?a=admin'));
 	}
 }
 ?>

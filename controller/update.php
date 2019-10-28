@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 	$userApp = new userCallback;
 	$user_bank = $userApp->set_bank(0, $user['id']);
 	$sc = new siteClass;
@@ -33,7 +33,7 @@ function mainContent() {
 
 		$premium_tab = '';
 		$PTMPL_old = $PTMPL; $PTMPL = array();
-		$premium_link = '<a href="'.permalink($CONF['url']).'/index.php?a=premium">Click Here</a>';
+		$premium_link = '<a href="'.permalink($SETT['url']).'/index.php?a=premium">Click Here</a>';
 		if($check_premium) {
 			$theme = new themer('premium/success'); $premium_tab = '';
 
@@ -132,7 +132,7 @@ function mainContent() {
 		$PTMPL['routing'] = $user_bank['aba']; 		
 	} else { 
 		// If the session or cookies are not set, redirect to home-page
-		header("Location: ".$CONF['site_url']."/index.php?a=welcome"); 	
+		header("Location: ".$SETT['site_url']."/index.php?a=welcome"); 	
 	}
 
 $theme = new themer('account/update');

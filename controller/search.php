@@ -1,7 +1,7 @@
 <?php
  
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $userApp;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $userApp;
 	$social = new social;
 	$bars = new barMenus;
 	$side_bar = new sidebarClass;
@@ -87,7 +87,7 @@ function mainContent() {
 		    $nb = 0;
 		    $filt = isset($_GET['filters']) ? $_GET['filters'] : '';
 		    $quer = isset($_GET['query']) ? $_GET['query'] : ''; 
-		    $url = permalink($CONF['url'].'/index.php?a=search&filters='.$filt.'&query='.$quer);
+		    $url = permalink($SETT['url'].'/index.php?a=search&filters='.$filt.'&query='.$quer);
 		    $PTMPL['page_navigator'] = page_navigator($url, $startpage, $previouspage, $nextpage, $curpage, $endpage, 'offset');
 
 			$c_data = $u_data = [];
@@ -102,7 +102,7 @@ function mainContent() {
 						$main .= 
 						'<div class="col-md-12 col-lg-6 border-bottom">
 						  <div class="media mt-4 px-1 text-left">
-						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.$CONF['url'].'/uploads/faces/'.$u_data['photo'].'"
+						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.$SETT['url'].'/uploads/faces/'.$u_data['photo'].'"
 						          alt="'.$u_data['name'].'">
 						    <div class="media-body">
 						      <h5 class="font-weight-bold mt-0">
@@ -121,10 +121,10 @@ function mainContent() {
 						if (!$u_data) {
 							$u_data = $userApp->collectUserName(null, 0, $rs['share_id']);
 						}
-						$photo = isset($rs['post_photo']) ? $CONF['url'].'/uploads/gallery/'.$rs['post_photo'] : $CONF['url'].'/uploads/faces/'.$u_data['photo']; 
+						$photo = isset($rs['post_photo']) ? $SETT['url'].'/uploads/gallery/'.$rs['post_photo'] : $SETT['url'].'/uploads/faces/'.$u_data['photo']; 
 						$intro = myTruncate($rs['text'], 100, ' ');
 						$title = myTruncate($rs['text'], 25, ' '); 
-						$lnk = permalink($CONF['url'].'/index.php?a=timeline&u='.$u_data['username'].'&read='.$rs['pid']);
+						$lnk = permalink($SETT['url'].'/index.php?a=timeline&u='.$u_data['username'].'&read='.$rs['pid']);
 						$main .= 
 						'<div class="col-md-12 col-lg-6 border-bottom">
 						  <div class="media mt-4 px-1 text-left">
@@ -149,7 +149,7 @@ function mainContent() {
 						$main .= 
 						'<div class="col-md-12 col-lg-6 border-bottom">
 						  <div class="media mt-4 px-1 text-left">
-						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.$CONF['url'].'/uploads/cover/contest/'.$c_data['photo'].'"
+						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.$SETT['url'].'/uploads/cover/contest/'.$c_data['photo'].'"
 						          alt="'.$c_data['title'].'">
 						    <div class="media-body">
 						      <h5 class="font-weight-bold mt-0">
@@ -170,14 +170,14 @@ function mainContent() {
 		$PTMPL['cards'] = $main;
 
 		// Process the query
-		$PTMPL['action'] = permalink($CONF['url'].'/index.php?a=search&q=');
+		$PTMPL['action'] = permalink($SETT['url'].'/index.php?a=search&q=');
 
 		$PTMPL['seo_plugin'] = seo_plugin(0, 0, 0, $PTMPL['page_title'], $PTMPL['page_title']);
 
 		$theme = new themer('explore/search');
 		return $theme->make();
 	} else {
-		header('Location: '.permalink($CONF['url'].'/index.php?a=featured'));
+		header('Location: '.permalink($SETT['url'].'/index.php?a=featured'));
 	}
 }
 ?>

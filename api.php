@@ -40,9 +40,9 @@ if ($public) {
 				if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
 					$us->user_id = db_prepare_input($_GET['id']);
 					$_user = $us->userData(NULL, 1)[0];
-					$photo = $CONF['url'].'/uploads/faces/'.$_user['photo'];
-					$cover = $CONF['url'].'/uploads/cover/'.$_user['cover'];
-					$profile = permalink($CONF['url'].'/index.php?a=profile&u='.$_user['username']);
+					$photo = $SETT['url'].'/uploads/faces/'.$_user['photo'];
+					$cover = $SETT['url'].'/uploads/cover/'.$_user['cover'];
+					$profile = permalink($SETT['url'].'/index.php?a=profile&u='.$_user['username']);
 					$dataset = 
 						array('username' => $_user['username'], 'firstname' => $_user['fname'], 'lastname' => $_user['lname'],
 							'email' => $_user['email'], 'country' => $_user['country'], 'state' => $_user['state'],
@@ -64,8 +64,8 @@ if ($public) {
 				}
 				if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
 					$contest = $cd->getContest(0, db_prepare_input($_GET['id']));
-					$link = permalink($CONF['url'].'/index.php?a=contest&s='.$contest['safelink']);
-					$cover = $CONF['url'].'/uploads/cover/contest/'.$contest['cover'];
+					$link = permalink($SETT['url'].'/index.php?a=contest&s='.$contest['safelink']);
+					$cover = $SETT['url'].'/uploads/cover/contest/'.$contest['cover'];
 					$dataset = array('title' => $contest['title'], 'creator' => $contest['creator'], 'type' => $contest['type'], 
 						'eligibility' => $contest['eligibility'], 'phone' => $contest['phone'],'email' => $contest['email'],
 						'country' => $contest['country'], 'votes' => $contest['votes'], 'cover' => $contest['cover'],
@@ -76,7 +76,7 @@ if ($public) {
 					$error['error']['code'] = '800';
 				}
 			} elseif ($_GET['a'] == 'connect') {
-				$redi = 'connector&required=login_api&token='.$token.'&referrer='.urlencode(urlReferrer(permalink($CONF['url'].'/api.php?a='.$_GET['a'].'&client_id='.$api['client_id']), 0));		
+				$redi = 'connector&required=login_api&token='.$token.'&referrer='.urlencode(urlReferrer(permalink($SETT['url'].'/api.php?a='.$_GET['a'].'&client_id='.$api['client_id']), 0));		
 				$redirect_uri = isset($_GET['redirect_uri']) ? $_GET['redirect_uri'] : '';
 				if (filter_var($redirect_uri, FILTER_VALIDATE_URL)) {
 					if (!$user) {

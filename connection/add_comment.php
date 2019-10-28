@@ -47,8 +47,8 @@ $us->user_id = $receiver;
 $receiver_d = $us->userData(NULL, 1)[0];
 $receiver_data = $us->collectUserName(null, 0, $receiver_d['id']);
 
-$tlink = $CONF['url'].'/index.php?a=timeline&u='.$sender_d['username'].'&read='.$master.'#comment';
-$vlink = $CONF['url'].'/index.php?a=voting&id='.$master.'&user='.$receiver_d['username'];
+$tlink = $SETT['url'].'/index.php?a=timeline&u='.$sender_d['username'].'&read='.$master.'#comment';
+$vlink = $SETT['url'].'/index.php?a=voting&id='.$master.'&user='.$receiver_d['username'];
 $pass = fetch_api(2);
 
 // Set the template

@@ -1,13 +1,13 @@
 <?php
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 	$gett = new contestDelivery;
 	$userApp = new userCallback;
 	$save = new siteClass;
 
 	// If the user is not activated  
 	if($user && $user['status'] == 0) {  
-	    header('Location: '.permalink($CONF['url'].'/index.php?a=welcome'));
+	    header('Location: '.permalink($SETT['url'].'/index.php?a=welcome'));
 	}
 
 	// Apply Buttons
@@ -90,7 +90,7 @@ function mainContent() {
 			if ($user['id'] == $vrf['user_id']) { 
 				$response = $LANG['congratulations'];
 				$msg = easy_crypt($response);
-				header("Location: ".permalink($CONF['url'].'/index.php?a=enter&success='.$_GET['id'].'&ret='.$msg)); 
+				header("Location: ".permalink($SETT['url'].'/index.php?a=enter&success='.$_GET['id'].'&ret='.$msg)); 
 			}
 			// Fill the application form
 			$PTMPL['buttons_action'] = $buttons_apply;
@@ -244,7 +244,7 @@ function mainContent() {
 				//If the user has enough balance
 				$charge .= '<div class="border text-center m-1 rounded grey lighten-5 p-2">'
 				.sprintf($LANG['enter_warning'], $settings['pc_enter'], $settings['pc_symbol'], $LANG['passcredit']).'... 
-					<span> <a href="'.permalink($CONF['url'].'/index.php?a=enter&success='.$_GET['success']
+					<span> <a href="'.permalink($SETT['url'].'/index.php?a=enter&success='.$_GET['success']
 					.'&process=passcredit').'">'.$LANG['pay_with'].' '.$LANG['passcredit'].'</a></span></div>';		
 			} 			
 	        $PTMPL['enter_serial'] = ($limiter !== 0) ? $charge : '';
@@ -331,7 +331,7 @@ function mainContent() {
 	    $data = $gett->viewApplications(0, 0, $_GET['viewdata']);
 
 	    if ($data['user_id'] == $user['id']) {
-	    	$PTMPL['update'] = '<a href="'.permalink($CONF['url'].'/index.php?a=enter&update='.$user['id']).'" data-toggle="tooltip" data-placement="right" title="Update data" class="btn btn-info">Update Data</a>';
+	    	$PTMPL['update'] = '<a href="'.permalink($SETT['url'].'/index.php?a=enter&update='.$user['id']).'" data-toggle="tooltip" data-placement="right" title="Update data" class="btn btn-info">Update Data</a>';
 	    }
 	    	// If the user has filled the profile form
 	    if ($_GET['viewdata'] == $data['user_id']) {
@@ -375,8 +375,8 @@ function mainContent() {
 		    $PTMPL['moment'] = $data['moment'];   
 		    $PTMPL['traveled'] = $data['traveled'];   
 		    $PTMPL['statement'] = $data['statement'];   
-		    $PTMPL['headshot'] = $CONF['url'].'/uploads/contest/head/'.$data['headshot'];   
-		    $PTMPL['fullbody'] = $CONF['url'].'/uploads/contest/body/'.$data['fullbody'];   
+		    $PTMPL['headshot'] = $SETT['url'].'/uploads/contest/head/'.$data['headshot'];   
+		    $PTMPL['fullbody'] = $SETT['url'].'/uploads/contest/body/'.$data['fullbody'];   
 
 			$theme = new themer('enter/viewdata');
 			return $theme->make();
@@ -384,7 +384,7 @@ function mainContent() {
 			// If users form is empty show the correct error page
 	    } else {
 	    	if ($_GET['viewdata'] == $user['id']) { 
-	    		$url = permalink($CONF['url'].'/index.php?a=contest');
+	    		$url = permalink($SETT['url'].'/index.php?a=contest');
 	    		$PTMPL['to_update'] = sprintf($LANG['find_contest_url'], $url);
 	    	}
 		    $PTMPL['page_title'] = $LANG['no_data'];

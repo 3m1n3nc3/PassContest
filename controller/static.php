@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings; 
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings; 
 	// Whole function displays static pages
 	$site_class = new siteClass;
 	$bars = new barMenus;

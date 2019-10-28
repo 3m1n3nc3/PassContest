@@ -1,6 +1,6 @@
 <?php
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings; 
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings; 
 
 	// Whole function displays static pages
 	$site_class = new siteClass;
@@ -13,10 +13,10 @@ function mainContent() {
 	$PTMPL['adsbar'] = $bars->ads($settings['ads_off']);
 
   	// Rave payment info
-  	$PTMPL['trusted_badge'] = '<img height="auto" width="250px" src="'.$CONF['url'].'/'.$PTMPL['template_url'].'/img/fl_trusted.png">';
+  	$PTMPL['trusted_badge'] = '<img height="auto" width="250px" src="'.$SETT['url'].'/'.$PTMPL['template_url'].'/img/fl_trusted.png">';
 	
-  	$site_icon = $CONF['url']."/".$PTMPL['template_url']."/img/notification.png";
-  	$successful_url	= $CONF['url'].'/connection/raveAPI.php';
+  	$site_icon = $SETT['url']."/".$PTMPL['template_url']."/img/notification.png";
+  	$successful_url	= $SETT['url'].'/connection/raveAPI.php';
   	isset($_SESSION['txref']) ? $reference = $_SESSION['txref'] : $reference = '';
 
 	// Rave API Public key
@@ -241,7 +241,7 @@ function mainContent() {
 		}								        
 		return $theme->make();
 	} else {
-		header("Location: ".$CONF['url']);
+		header("Location: ".$SETT['url']);
 	}	 
 }
 ?>

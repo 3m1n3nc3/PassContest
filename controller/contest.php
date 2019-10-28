@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 	$gett = new contestDelivery;
 	$userApp = new userCallback;
 	$social = new social;
@@ -72,7 +72,7 @@ function mainContent() {
 
 		if (isset($contest_details) && $contest_details['creator'] == $user['username']) {
 			$PTMPL['top_title'] = $LANG['ongoing'];
-			$PTMPL['contest_edit'] = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&d=create&id='.$contest_details['id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['edit_contest'].'"><i class="fa fa-edit"></i>'.$LANG['edit_contest'].'</a>';
+			$PTMPL['contest_edit'] = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&d=create&id='.$contest_details['id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['edit_contest'].'"><i class="fa fa-edit"></i>'.$LANG['edit_contest'].'</a>';
 		} else {
 			$PTMPL['top_title'] = $LANG['my_own_contest'];
 		}
@@ -82,23 +82,23 @@ function mainContent() {
 				// If entry is open show the enter now button
 				if ($contest_details['entry']) {
 					if ($user['username']) {
-				 		$PTMPL['enter_btn'] = '<a href="'.permalink($CONF['url'].'/index.php?a=enter&id='.$contest_details['id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['enter'].'" class="btn btn-info border border-white btn-rounded btn-lg">'.$LANG['enter'].' <i class="fa fa-sign-in text-white"></i></a>';
+				 		$PTMPL['enter_btn'] = '<a href="'.permalink($SETT['url'].'/index.php?a=enter&id='.$contest_details['id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['enter'].'" class="btn btn-info border border-white btn-rounded btn-lg">'.$LANG['enter'].' <i class="fa fa-sign-in text-white"></i></a>';
 					} else {
-				 		$PTMPL['enter_btn'] = '<a href="'.permalink($CONF['url'].'/index.php?a=enter&id='.$contest_details['id'].'&required=login_enter&referrer='.urlencode(urlReferrer(permalink($CONF['url'].'/index.php?a=enter&id='.$contest_details['id']), 0))).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['enter'].'" class="btn btn-warning border border-white btn-rounded btn-lg">'.$LANG['enter'].' <i class="fa fa-sign-in text-white"></i></a>';
+				 		$PTMPL['enter_btn'] = '<a href="'.permalink($SETT['url'].'/index.php?a=enter&id='.$contest_details['id'].'&required=login_enter&referrer='.urlencode(urlReferrer(permalink($SETT['url'].'/index.php?a=enter&id='.$contest_details['id']), 0))).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['enter'].'" class="btn btn-warning border border-white btn-rounded btn-lg">'.$LANG['enter'].' <i class="fa fa-sign-in text-white"></i></a>';
 
 					}
 				} else {
 					$PTMPL['entry_closed'] = '<span class="d-flex justify-content-center border border-info rounded p-2 text-info z-depth-1 bg-white">'.$LANG['entry_closed'].'</span>';
 				}
 
-			 	$PTMPL['view_btn'] = '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$contest_details['id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['view_contest'].'" class="btn btn-success border border-white btn-rounded btn-lg">'.$LANG['view_contest'].' <i class="fa fa-thumbs-up text-white"></i></a>';				 
+			 	$PTMPL['view_btn'] = '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$contest_details['id']).'" data-toggle="tooltip" data-placement="right" title="'.$LANG['view_contest'].'" class="btn btn-success border border-white btn-rounded btn-lg">'.$LANG['view_contest'].' <i class="fa fa-thumbs-up text-white"></i></a>';				 
 			} else {
 					$PTMPL['entry_closed'] = '<span class="d-flex  justify-content-center border border-danger rounded p-2 text-danger z-depth-1 bg-white">'.$LANG['contest_blocked'].'</span>';
 			}
 
 		 	$PTMPL['details_cards'] = detailsCards();
 
-			$PTMPL['cover'] = $CONF['url'].'/uploads/cover/contest/'.$contest_details['cover'];
+			$PTMPL['cover'] = $SETT['url'].'/uploads/cover/contest/'.$contest_details['cover'];
 			$PTMPL['contest_title'] = stripslashes($contest_details['title']);
 			$PTMPL['contest_slug'] = stripslashes($contest_details['slogan']); 
 			$PTMPL['contest_intro'] = '<h4 class="black-text">'.stripslashes($contest_details['intro']).'</h4>';  
@@ -240,7 +240,7 @@ function mainContent() {
 
 			// if the logged in user did not create the contest, redirect to the 'contests created by you' page		
 		} else { 
-			header("Location: ".permalink($CONF['url'].'/index.php?a=contest&u='.$user['username']));
+			header("Location: ".permalink($SETT['url'].'/index.php?a=contest&u='.$user['username']));
 		}	
 	//If creating a new contest
 	} elseif (isset($_GET['d']) && $_GET['d'] == "create" && isset($_GET['id']) && $_GET['id'] == 'new') { 
@@ -249,7 +249,7 @@ function mainContent() {
 		$contest = $gett->getContest($user['username'], 0, 'id', 'ORDER BY `id` DESC LIMIT 0, 1')[0];
 		$contest_details = $gett->getContest($user['username'], 0);  
 
-		$PTMPL['new_location'] = permalink($CONF['url'].'/index.php?a=contest&u='.$user['username']);
+		$PTMPL['new_location'] = permalink($SETT['url'].'/index.php?a=contest&u='.$user['username']);
 
 		$create_btn = '<a id="save1" onclick="addContest()" class="btn btn-info btn-rounded my-2 waves-effect font-weight-bold">Create</a>';
 		// Check if premium is on
@@ -300,7 +300,7 @@ function mainContent() {
 
 			// if the logged in user did not create the contest, redirect to the 'contests created by you' page		
 		} else { 
-			header("Location: ".permalink($CONF['url'].'/index.php?a=contest&u='.$user['username']));
+			header("Location: ".permalink($SETT['url'].'/index.php?a=contest&u='.$user['username']));
 		}
 
 		// View all approved contestant to this contest
@@ -320,7 +320,7 @@ function mainContent() {
 
 			// if the logged in user did not create the contest, redirect to the 'contests created by you' page		
 		} else { 
-			header("Location: ".permalink($CONF['url'].'/index.php?a=contest&u='.$user['username']));
+			header("Location: ".permalink($SETT['url'].'/index.php?a=contest&u='.$user['username']));
 		}
 	} else { 
 

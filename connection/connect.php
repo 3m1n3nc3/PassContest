@@ -8,7 +8,7 @@ $header = 0;
 $message = ''; 
  
 if(isset($_GET['facebook']) && $settings['fb_appid']) { 
-	$fb->url = $CONF['url'];
+	$fb->url = $SETT['url'];
 	$fb->fb_appid = $settings['fb_appid'];
 	$fb->fb_secret = $settings['fb_secret'];
 	$fb->fbacc = $settings['fbacc'];
@@ -31,21 +31,21 @@ if(isset($_GET['facebook']) && $settings['fb_appid']) {
 			// Send the message
 			$save->user_id = $user['id'];
 			$save->reg = 1;
-			$save->mailerDaemon($CONF['email'], $email, $subject, $message);				 
+			$save->mailerDaemon($SETT['email'], $email, $subject, $message);				 
 		} elseif ($settings['activation'] == 'phone') {
 			$social->sendSMS($subject.'! '.$message, $phone);
 		} elseif($settings['email_welcome']) { 
 			// Send the message
 			$save->user_id = $user['id'];
 			$save->reg = 1;
-			$save->mailerDaemon($CONF['email'], $email, $subject, $message);
+			$save->mailerDaemon($SETT['email'], $email, $subject, $message);
 		}
 
 		if (isset($_SESSION['referrer'])) {
 			$header = urldecode(urlReferrer($_SESSION['referrer'], 1));
 			unset($_SESSION['referrer']);
 		} else {
-			$header = permalink($CONF['url'].'/index.php?a=account');
+			$header = permalink($SETT['url'].'/index.php?a=account');
 		} 	
 		header("Location: ".$header);	
 	}
@@ -83,7 +83,7 @@ if(isset($_POST['login'])) {
 			if ($_POST['referrer']) {
 				$header = urldecode(urlReferrer($_POST['referrer'], 1)).$client_id;
 			} else {
-				$header = permalink($CONF['url'].'/index.php?a=account');
+				$header = permalink($SETT['url'].'/index.php?a=account');
 			} 	
 			if (isset($_SESSION['referrer'])) {
 				unset($_SESSION['referrer']);
@@ -131,7 +131,7 @@ if(isset($_POST['signup'])) {
 		if ($_POST['referrer']) {
 			$header = urldecode(urlReferrer($_POST['referrer'], 1)).$client_id;
 		} else {
-			$header = permalink($CONF['url'].'/index.php?a=account');
+			$header = permalink($SETT['url'].'/index.php?a=account');
 		}
 		if (isset($_SESSION['referrer'])) {
 			unset($_SESSION['referrer']);

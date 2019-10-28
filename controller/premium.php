@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 
 	$userApp = new userCallback;
 	$rave_api = new raveAPI;
@@ -10,8 +10,8 @@ function mainContent() {
 
 	$bars = new barMenus;
 	$PTMPL['adsbar'] = $bars->ads($settings['ads_off'], 2); 
-	$site_icon = $CONF['url']."/".$PTMPL['template_url']."/img/notification.png"; 
-	$trusted_badge = '<img height="auto" width="300px" src="'.$CONF['url'].'/'.$PTMPL['template_url'].'/img/fl_trusted.png">'; 
+	$site_icon = $SETT['url']."/".$PTMPL['template_url']."/img/notification.png"; 
+	$trusted_badge = '<img height="auto" width="300px" src="'.$SETT['url'].'/'.$PTMPL['template_url'].'/img/fl_trusted.png">'; 
 
 	$check_premium = $userApp->premiumStatus(null, 2);
 	$ver_premium = $userApp->premiumStatus(null, 1);
@@ -29,7 +29,7 @@ function mainContent() {
 
 	$ravemode = ($settings['rave_mode'] ? 'api.ravepay.co' : 'ravesandboxapi.flutterwave.com'); // Check if sandbox is enabled
 	$currency_code 	= $settings['currency']; // Currency Code
-	$successful_url	= $CONF['url'].'/connection/raveAPI.php';
+	$successful_url	= $SETT['url'].'/connection/raveAPI.php';
 	isset($_SESSION['txref']) ? $reference = $_SESSION['txref'] : $reference = '';	
 
     if (!$check_premium && !$ver_premium) {
@@ -258,7 +258,7 @@ function mainContent() {
 			$PTMPL['div'] = '<div class="card pt-2 p-3">';
 			$PTMPL['div_'] = '</div>';
 
-			$premium_link = '<a href="'.permalink($CONF['url']).'/index.php?a=premium">Click Here</a>';
+			$premium_link = '<a href="'.permalink($SETT['url']).'/index.php?a=premium">Click Here</a>';
 			$premium_check = $userApp->premiumStatus(null, 2);
  
 			// If the proAccount was just created

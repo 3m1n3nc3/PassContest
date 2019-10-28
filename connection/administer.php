@@ -80,7 +80,7 @@ $nb = 0;
 
       if (!$premium_check) {
         $promote_link = '
-          <a class="px-2 float-right" href="'.permalink($CONF['url'].'/index.php?a=settings&b=users&promote='.$key['id']).'">Promote <i class="fa fa-check-circle text-success  "></i></a>';
+          <a class="px-2 float-right" href="'.permalink($SETT['url'].'/index.php?a=settings&b=users&promote='.$key['id']).'">Promote <i class="fa fa-check-circle text-success  "></i></a>';
       }
 
       if ($_POST['type'] == 1) {
@@ -92,7 +92,7 @@ $nb = 0;
           <tr>
             <th scope="row">'.$nb.'</th>
             <td>
-              <a href="'.permalink($CONF['url'].'/index.php?a=profile&user='.$key['id']).'">'.$fullname.'</a>
+              <a href="'.permalink($SETT['url'].'/index.php?a=profile&user='.$key['id']).'">'.$fullname.'</a>
             </td>
             <td>'.$key['city'].'</td>
             <td>'.$key['state'].'</td>
@@ -101,8 +101,8 @@ $nb = 0;
             <td>'.$sts.'</td>  
             <td>
               '.$promote_link.'
-              <a class="px-2 float-right" href="'.permalink($CONF['url'].'/index.php?a=settings&b=users&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a>
-              <a class="px-2 float-right" href="'.permalink($CONF['url'].'/index.php?a=settings&b=users&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a>
+              <a class="px-2 float-right" href="'.permalink($SETT['url'].'/index.php?a=settings&b=users&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a>
+              <a class="px-2 float-right" href="'.permalink($SETT['url'].'/index.php?a=settings&b=users&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a>
             </td>
           </tr> '; 
       } elseif ($_POST['type'] == 2) {
@@ -113,7 +113,7 @@ $nb = 0;
           <tr>
             <th scope="row">'.$nb.'</th>
             <td>
-              <a href="'.permalink($CONF['url'].'/index.php?a=profile&user='.$key['payer_id']).'" class="font-weight-bold text-info">'.$key['payer_firstname'].' '.$key['payer_lastname'].'</a>
+              <a href="'.permalink($SETT['url'].'/index.php?a=profile&user='.$key['payer_id']).'" class="font-weight-bold text-info">'.$key['payer_firstname'].' '.$key['payer_lastname'].'</a>
             </td>
             <td>'.$sts.'</td>
             <td>'.$key['payment_id'].'</td>
@@ -123,8 +123,8 @@ $nb = 0;
             <td>'.$key['trx_id'].'</td>
             <td>'.$key['currency'].'</td> 
             <td>
-              <a class="px-2 float-right" href="'.permalink($CONF['url'].'/index.php?a=settings&b=payments&edit='.$key['payer_id']).'">Edit <i class="fa fa-edit text-info"></i></a>
-              <a class="px-2 float-right" href="'.permalink($CONF['url'].'/index.php?a=settings&b=payments&delete='.$key['payer_id']).'">Delete <i class="fa fa-trash text-danger"></i></a>
+              <a class="px-2 float-right" href="'.permalink($SETT['url'].'/index.php?a=settings&b=payments&edit='.$key['payer_id']).'">Edit <i class="fa fa-edit text-info"></i></a>
+              <a class="px-2 float-right" href="'.permalink($SETT['url'].'/index.php?a=settings&b=payments&delete='.$key['payer_id']).'">Delete <i class="fa fa-trash text-danger"></i></a>
             </td>
           </tr> '; 
       } elseif ($_POST['type'] == 3) {
@@ -149,11 +149,11 @@ $nb = 0;
             <td>'.$key['account_number'].'</td>
             <td>'.$key['aba'].'</td>
             <td>
-              <a href="'.permalink($CONF['url'].'/index.php?a=settings&b=cashout&approve='.$key['user_id']).'">
+              <a href="'.permalink($SETT['url'].'/index.php?a=settings&b=cashout&approve='.$key['user_id']).'">
               <i class="fa fa-check-circle text-warning"></i> </a>
-              <a href="'.permalink($CONF['url'].'/index.php?a=settings&b=cashout&paid='.$key['user_id']).'"> 
+              <a href="'.permalink($SETT['url'].'/index.php?a=settings&b=cashout&paid='.$key['user_id']).'"> 
               <i class="fa fa-check-circle text-success"></i> </a>
-              <a href="'.permalink($CONF['url'].'/index.php?a=settings&b=cashout&decline='.$key['user_id']).'"> 
+              <a href="'.permalink($SETT['url'].'/index.php?a=settings&b=cashout&decline='.$key['user_id']).'"> 
               <i class="fa fa-times-circle text-danger"></i> </a>
             </td>
           </tr> '; 
@@ -166,18 +166,18 @@ $nb = 0;
           <tr>
             <th scope="row">'.$nb.'</th>
             <td>
-              <a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['id']).'">'.$key['title'].'</a>
+              <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'">'.$key['title'].'</a>
             </td>
             <td>
-              <a href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$key['creator']).'">'.$key['creator'].'</a>
+              <a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['creator']).'">'.$key['creator'].'</a>
             </td>
             <td>'.$key['country'].'</td>
             <td>'.$sts.'</td>
             <td>'.$ftd.'</td>
             <td>'.$rcmd.'</td> 
             <td>
-              <a class="px-1" href="'.permalink($CONF['url'].'/index.php?a=settings&b=contests&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a>
-              <a class="px-1" href="'.permalink($CONF['url'].'/index.php?a=settings&b=contests&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a>
+              <a class="px-1" href="'.permalink($SETT['url'].'/index.php?a=settings&b=contests&edit='.$key['id']).'">Edit <i class="fa fa-edit text-info"></i></a>
+              <a class="px-1" href="'.permalink($SETT['url'].'/index.php?a=settings&b=contests&delete='.$key['id']).'">Delete <i class="fa fa-trash text-danger"></i></a>
             </td>
           </tr> ';         
       }

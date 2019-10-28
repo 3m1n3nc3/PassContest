@@ -81,7 +81,7 @@ if (isset($msg) && $userVar['id'] == $_POST['id']) {
 	$act_lastname = '<a href="'.$act['profile'].'">'.$act['lastname'].'</a>'; 
 
 	// Prepare the message to send as email notification 
-	$contest = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$cc['id']).'">'.$cc['title'].'</a>';
+	$contest = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$cc['id']).'">'.$cc['title'].'</a>';
 	$params = 
 	    array($contest, ucfirst($userVar['username']), $userVar['password'], $userVar['fname'], $userVar['lname'], 
 	    	'Not Required', $userVar['email'], $act_username, $act_firstname, $act_lastname, $action, 'action_on'

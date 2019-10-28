@@ -1,7 +1,7 @@
 <?php
  
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $profiles, $marxTime, $premium_status, $userApp;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $profiles, $marxTime, $premium_status, $userApp;
 	$cd = new contestDelivery; 
 	$bars = new barMenus;
 	$side_bar = new sidebarClass;
@@ -41,7 +41,7 @@ function mainContent() {
 		$PTMPL['follows'] = $social->subscribers($user['id'], 0);
 
  
-		$img = $CONF['url'].'/uploads/gallery/'.$user['photo'];
+		$img = $SETT['url'].'/uploads/gallery/'.$user['photo'];
 		$PTMPL['seo_plugin'] = seo_plugin($img, $user['twitter'], $user['facebook'], $user['intro'], $page_title);
 
 	// Show 404 error	 

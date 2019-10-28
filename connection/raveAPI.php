@@ -1,17 +1,17 @@
 <?php
 require_once(__DIR__ .'/../includes/autoload.php');
-global $PTMPL, $LANG, $CONF, $DB, $user, $settings;
+global $PTMPL, $LANG, $SETT, $DB, $user, $settings;
 
 $ravemode = ($settings['rave_mode'] ? 'api.ravepay.co' : 'ravesandboxapi.flutterwave.com'); // Check if sandbox is enabled
 $public_key = $settings['rave_public_key']; // Rave API Public key
 $private_key = $settings['rave_private_key']; // Rave API Private key 
 
 if (isset($_SESSION['type']) && $_SESSION['type'] == 'credit') {
-    $url = $CONF['url'].'/index.php?a=credit&type=successful&%s';
-    $fail_url = $CONF['url'].'/index.php?a=credit&type=canceled&status=%s&message=%s';
+    $url = $SETT['url'].'/index.php?a=credit&type=successful&%s';
+    $fail_url = $SETT['url'].'/index.php?a=credit&type=canceled&status=%s&message=%s';
 } else {
-    $url = $CONF['url'].'/index.php?a=premium&type=successful&%s';
-    $fail_url = $CONF['url'].'/index.php?a=premium&type=canceled&status=%s&message=%s';    
+    $url = $SETT['url'].'/index.php?a=premium&type=successful&%s';
+    $fail_url = $SETT['url'].'/index.php?a=premium&type=canceled&status=%s&message=%s';    
 }
 
 (!isset($_SESSION)) ? session_start() : $echo = ''; 

@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings; 
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings; 
 	$PTMPL['page_title'] = $LANG['recovery_pass']; 
 
 	$recovery = new doRecovery;
@@ -19,7 +19,7 @@ function mainContent() {
 
 	$theme = new themer('recovery/recover'); $container = ''; 
 
-	$PTMPL['forgot_link'] = permalink($CONF['url'].'/index.php?a=recovery');
+	$PTMPL['forgot_link'] = permalink($SETT['url'].'/index.php?a=recovery');
 
 	if(isset($_POST['username']) && empty($_POST['username'])) {
 		$_SESSION['error'] = errorMessage($LANG['username_not_found']); 
@@ -43,7 +43,7 @@ function mainContent() {
 			$social->subject = $LANG['recovery_subject'];
 			$social->message = $message;
 		    $social->notifier(null, $uid, null, null, 1);
-			header("Location: ".permalink($CONF['url'].'/index.php?a=recovery&account='.$username.'&ready=1')); 		
+			header("Location: ".permalink($SETT['url'].'/index.php?a=recovery&account='.$username.'&ready=1')); 		
 		} 
 	} elseif (isset($_GET['ready'])) {
 		$theme = new themer('recovery/password'); $container = '';

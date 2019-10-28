@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $profiles, $marxTime, $premium_status, $userApp, $welcome;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $profiles, $marxTime, $premium_status, $userApp, $welcome;
 	$cd = new contestDelivery; 
 	$bars = new barMenus;
 	$side_bar = new sidebarClass;
@@ -44,9 +44,9 @@ function mainContent() {
 			}
 		}
 
-		$public_priv = permalink($CONF['url'].'/index.php?a=timeline&u='.$profiles['username'].'&privacy=public');
-		$follow_priv = permalink($CONF['url'].'/index.php?a=timeline&u='.$profiles['username'].'&privacy=followers');
-		$private_priv = permalink($CONF['url'].'/index.php?a=timeline&u='.$profiles['username'].'&privacy=private');
+		$public_priv = permalink($SETT['url'].'/index.php?a=timeline&u='.$profiles['username'].'&privacy=public');
+		$follow_priv = permalink($SETT['url'].'/index.php?a=timeline&u='.$profiles['username'].'&privacy=followers');
+		$private_priv = permalink($SETT['url'].'/index.php?a=timeline&u='.$profiles['username'].'&privacy=private');
 		$privacy_icon = isset($_GET['privacy']) && $_GET['privacy']=='followers' ? 'users' : (isset($_GET['privacy']) && $_GET['privacy']=='private' ? 'user' : 'globe');
 
 		// Set the privacy of the post - 0=private, 1=followers, 2=public
@@ -173,7 +173,7 @@ function mainContent() {
 
 	    	$post_content = $action->decodeMessage($post['text'], 1);
 
-			$PTMPL['seo_plugin'] = seo_plugin($post['post_photo'] ? $CONF['url'].'/uploads/gallery/'.$post['post_photo'] : $welcome['cover'], $profiles['twitter'], $profiles['facebook'], $post['text'], $page_title);
+			$PTMPL['seo_plugin'] = seo_plugin($post['post_photo'] ? $SETT['url'].'/uploads/gallery/'.$post['post_photo'] : $welcome['cover'], $profiles['twitter'], $profiles['facebook'], $post['text'], $page_title);
 
             // Check if you follow username
             $follower = $social->follow($post['user_id'], 1); 
@@ -191,7 +191,7 @@ function mainContent() {
                 $u = $userApp->collectUserName(null, 0, $post['user_id']);
                 $sharer = $s['user_id'] == $user['id'] ? 'You' : $s['fullname'];
                 $poster = $u['user_id'] == $user['id'] ? 'your' : $s['fullnamex'];
-                $post_link = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$u['username'].'&read='.$post['pid']).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
+                $post_link = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$u['username'].'&read='.$post['pid']).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
                 $author = sprintf($author_link, $s['profile'], $sharer).' '.lcfirst($LANG['shared']).' '.sprintf($author_link, $u['profile'], $poster).' '.$post_link;
                 $auto_photo = $s['photo'];
             } else {
@@ -209,12 +209,12 @@ function mainContent() {
 
             // Set the photo
             if ($profiles['photo']) {
-                $pphoto = $CONF['url'].'/uploads/faces/'.$auto_photo;
+                $pphoto = $SETT['url'].'/uploads/faces/'.$auto_photo;
             } else {
-                $pphoto = $CONF['url'].'/uploads/faces/default.jpg';
+                $pphoto = $SETT['url'].'/uploads/faces/default.jpg';
             } 
 
-            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.$CONF['url'].'/uploads/gallery/'.$post['post_photo'].'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : ''; 
+            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.$SETT['url'].'/uploads/gallery/'.$post['post_photo'].'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : ''; 
 
             if ($user['id'] == $post['user_id'] || $user['id'] == $post['share_id']) {
                 $delete = ' 
@@ -225,7 +225,7 @@ function mainContent() {
             }
             $stop_follow = $follower['follower_id']==$user['id'] ? '<a class="dropdown-item" onclick="relate('.$post['user_id'].', 1)">'.$LANG['stop_following'].'</a>' : '';
 
-            $user_profile = permalink($CONF['url'].'/index.php?a=profile&u='.$post['username']);
+            $user_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$post['username']);
 
             // privacy icon
             $privacy_icon = $post['privacy']=='1' ? 'users' : ($post['privacy']=='0' ? 'user' : 'globe');
@@ -253,8 +253,8 @@ function mainContent() {
                     $userApp->user_id = $key['user_id'];
                     $lk_user = $userApp->userData(NULL, 1)[0];
                     $pp = $lk_user['photo'] ? $lk_user['photo'] : 'default.jpg';
-                    $lk_profile = permalink($CONF['url'].'/index.php?a=profile&u='.$lk_user['username']);
-                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.$CONF['url'].'/uploads/faces/'.$pp.'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
+                    $lk_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$lk_user['username']);
+                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.$SETT['url'].'/uploads/faces/'.$pp.'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
                 }
             }
             $liker = count($all_likes)>0 ? $liking : '';
@@ -263,10 +263,10 @@ function mainContent() {
             $like_action = $liked['user_id'] == $user['id'] ? 3 : 2;  
 
             // Post comments link
-            $post_comments = permalink($CONF['url'].'/index.php?a=timeline&u='.$user['username'].'&read='.$post['pid']);
+            $post_comments = permalink($SETT['url'].'/index.php?a=timeline&u='.$user['username'].'&read='.$post['pid']);
 
             // Share post on timeline
-            $share_post = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$user['username'].'&share='.$post['pid']).'"  class="dropdown-item">'.$LANG['share_post'].'</a>';
+            $share_post = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$user['username'].'&share='.$post['pid']).'"  class="dropdown-item">'.$LANG['share_post'].'</a>';
 
             $cards = '<div id="set-messagez_'.$post['pid'].'"></div>
             <div class="col-lg-12" id="photo_'.$post['pid'].'"> 

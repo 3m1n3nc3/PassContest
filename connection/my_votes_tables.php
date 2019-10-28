@@ -47,7 +47,7 @@ $nb = 0;
                           <tr id="vote_'.$key['id'].'">
                             <th scope="row">'.$nb.'</th> 
                             <td>
-                              <a data-toggle="tooltip" data-placement="top" title="View Public Profile" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$data['username']).'">'.$fullname.'</a>
+                              <a data-toggle="tooltip" data-placement="top" title="View Public Profile" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$data['username']).'">'.$fullname.'</a>
                             </td>
                             <td>'.$contest_info['title'].'</td>
                             <td>'.$contest_data['votes'].'</td> 
@@ -55,7 +55,7 @@ $nb = 0;
                           </tr> '; 
     }
   } else {
-    $url = permalink($CONF['url'].'/index.php?a=contest');
+    $url = permalink($SETT['url'].'/index.php?a=contest');
     $no_content = 'You have not voted for anybody!<br> '.sprintf($LANG['click_here'], $url);
   } 
 

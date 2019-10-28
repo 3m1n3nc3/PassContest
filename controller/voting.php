@@ -1,7 +1,7 @@
 <?php
 
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $profiles;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $profiles;
 	$cd = new contestDelivery;
 	$social = new social;
 
@@ -12,7 +12,7 @@ function mainContent() {
 
 	// If the user is not activated  
 	if($user && $user['status'] == 0) {  
-	    header('Location: '.permalink($CONF['url'].'/index.php?a=welcome'));
+	    header('Location: '.permalink($SETT['url'].'/index.php?a=welcome'));
 	}
 	// show the facebook snd twitter buttons
 	if ($contest['require_social']) {
@@ -81,12 +81,12 @@ function mainContent() {
 	}
 
 	if (isset($data)) {
-		$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/'.$data['photo'];
+		$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/'.$data['photo'];
 		$intro = $data['intro'];
 		$facebook = $data['facebook'];
 		$twitter = $data['twitter'];
 	} else {
-		$PTMPL['pphoto'] = $CONF['url'].'/uploads/cover/contest/'.$contest['cover'];
+		$PTMPL['pphoto'] = $SETT['url'].'/uploads/cover/contest/'.$contest['cover'];
 		$intro = $contest['intro'];
 		$facebook = $contest['facebook'];
 		$twitter = $contest['twitter'];		

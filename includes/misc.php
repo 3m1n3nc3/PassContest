@@ -3,10 +3,10 @@ $settings = getSetting();
 $welcome = getSetting(1);
 
 // Store the theme path and theme name into the CONF and TMPL
-$PTMPL['template_path'] = $CONF['template_path'];
-$PTMPL['template_name'] = $CONF['template_name'] = $settings['template'];
-$PTMPL['template_url'] = $CONF['template_url'] = $CONF['template_path'].'/'.$CONF['template_name'];
-$PTMPL['full_template_url'] = $CONF['full_template_url'] = $CONF['url'].'/'.$PTMPL['template_url'];
+$PTMPL['template_path'] = $SETT['template_path'];
+$PTMPL['template_name'] = $SETT['template_name'] = $settings['template'];
+$PTMPL['template_url'] = $SETT['template_url'] = $SETT['template_path'].'/'.$SETT['template_name'];
+$PTMPL['full_template_url'] = $SETT['full_template_url'] = $SETT['url'].'/'.$PTMPL['template_url'];
 
 
 
@@ -54,13 +54,13 @@ fetch_api(1);
 // User[status] 2: Active
 if($user['status'] == 1) { 
     $userApp->logOut();
-    header('Location: '.permalink($CONF['url'].'/index.php?a=welcome'));
+    header('Location: '.permalink($SETT['url'].'/index.php?a=welcome'));
 }
 
 // Set the site's offline mode
 if (isset($_GET['a']) && $_GET['a'] !== 'offline' && $_GET['a'] !== 'admin' && !$admin_access) {
     if ($settings['mode'] == 'offline') { 
-        header("Location: ".permalink($CONF['url'].'/index.php?a=offline'));
+        header("Location: ".permalink($SETT['url'].'/index.php?a=offline'));
     }
 }
 

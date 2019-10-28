@@ -180,7 +180,7 @@ class userCallback {
 
 	function registrationCall($username, $email, $password, $phone=NULL) {
 		// Register usage
-		global $DB, $CONF, $LANG, $settings, $user;
+		global $DB, $SETT, $LANG, $settings, $user;
 		// Prevents bypassing the FILTER_VALIDATE_EMAIL
 		$email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
 
@@ -228,8 +228,8 @@ class userCallback {
 			} 
 
 			// Construct the email message
-			$key = '<a href="'.permalink($CONF['url'].'/index.php?a=welcome&activate='.$token.'&username='.$username)
-			.'">'.permalink($CONF['url'].'/index.php?a=welcome&activate='.$token.'&username='.$username).'</a>';
+			$key = '<a href="'.permalink($SETT['url'].'/index.php?a=welcome&activate='.$token.'&username='.$username)
+			.'">'.permalink($SETT['url'].'/index.php?a=welcome&activate='.$token.'&username='.$username).'</a>';
 			
 			$params = 
 				array(
@@ -243,7 +243,7 @@ class userCallback {
 				// Send the message
 				$save->user_id = $data['id'];
 				$save->reg = 1;
-    			$save->mailerDaemon($CONF['email'], $email, $subject, $message);				 
+    			$save->mailerDaemon($SETT['email'], $email, $subject, $message);				 
 			} elseif ($settings['activation'] == 'phone') {
 				$text = sprintf($LANG['short_activation_msg'], $key, $settings['site_name']);
 				$social->sendSMS($text, $phone);
@@ -251,7 +251,7 @@ class userCallback {
 				// Send the message
 				$save->user_id = $data['id'];
 				$save->reg = 1;
-    			$save->mailerDaemon($CONF['email'], $email, $subject, $message);
+    			$save->mailerDaemon($SETT['email'], $email, $subject, $message);
 			}
 		}
 		return ($process) ? $process : 0 ;
@@ -315,7 +315,7 @@ class userCallback {
 	}	
 
 	function account_activation($token, $username) {
-		global $CONF, $settings, $user, $LANG;
+		global $SETT, $settings, $user, $LANG;
 		if($token == 'resend') { 
 			// Check if a token has been sent before, and is not expired
 			$sql = sprintf("SELECT * FROM " . TABLE_USERS . " WHERE username = '%s' AND status = '0'", db_prepare_input($username));
@@ -328,14 +328,14 @@ class userCallback {
 				." WHERE `username` = '%s'", $token, $date, db_prepare_input($username));
 				$return = dbProcessor($sql, 0, 1);
 				if($settings['activation'] == 'email') {
-					$link = permalink($CONF['url'].'/index.php?a=welcome&activate='.$token.'&username='.$username);
+					$link = permalink($SETT['url'].'/index.php?a=welcome&activate='.$token.'&username='.$username);
 					$msg = sprintf($LANG['welcome_msg'], $username, $settings['site_name'], $link, $link);	
 					$subject = ucfirst(sprintf($LANG['activation_msg'], $username, $settings['site_name']));
 
 					$save = new siteClass;
 					$save->user_id = $data['id'];  
 					$save->reg = 1;
-	    			$save->mailerDaemon($CONF['email'], $data['email'], $subject, $msg);
+	    			$save->mailerDaemon($SETT['email'], $data['email'], $subject, $msg);
 	    			return successMessage($LANG['activation_sent']);
 				}				
 			} else {
@@ -412,7 +412,7 @@ class userCallback {
 	}
 
 	function set_bank($type, $uid) {
-		global $user, $settings, $LANG, $CONF;
+		global $user, $settings, $LANG, $SETT;
 		// type 0: fetch
 		// type 1: Save bank
 		// type 2: cashout
@@ -802,7 +802,7 @@ class userCallback {
 	}
 
 	function collectUserName($username = null, $st, $id = null) { 
-		global $CONF;
+		global $SETT;
 		// $st = user, 0: Get User details
 		// $st = contest, 1 :  Get Contest details
 		$type = $st == 1 ? 'contest' : 'user';  
@@ -820,13 +820,13 @@ class userCallback {
 			$location = profilesCountry($_user['username']);
 
 			// Set the profile link
-			$profile_link = permalink($CONF['url'].'/index.php?a=profile&u='.$_user['username']);
+			$profile_link = permalink($SETT['url'].'/index.php?a=profile&u='.$_user['username']);
 
 			// Timeline link
-			$timeline = permalink($CONF['url'].'/index.php?a=timeline&u='.$_user['username']);
+			$timeline = permalink($SETT['url'].'/index.php?a=timeline&u='.$_user['username']);
 
 			// Set message link
-			$message = permalink($CONF['url'].'/index.php?a=messenger&u='.$_user['username'].'&id='.$_user['id']);
+			$message = permalink($SETT['url'].'/index.php?a=messenger&u='.$_user['username'].'&id='.$_user['id']);
 
 			// Set the fullname with badge
 			$realname = realName($_user['username'], $_user['fname'], $_user['lname']).' '.$badge;
@@ -851,10 +851,10 @@ class userCallback {
 		} else {
 			$cd = new contestDelivery;
 			$contest = $cd->getContest(0, $id);
-			$contest_link = permalink($CONF['url'].'/index.php?a=contest&s='.$contest['safelink']);
-			$contest_id_link = permalink($CONF['url'].'/index.php?a=contest&id='.$contest['id']);
-			$voting_link = permalink($CONF['url'].'/index.php?a=voting&id='.$contest['id']);
-			$cover = $CONF['url'].'/uploads/cover/contest/'.$contest['cover'];
+			$contest_link = permalink($SETT['url'].'/index.php?a=contest&s='.$contest['safelink']);
+			$contest_id_link = permalink($SETT['url'].'/index.php?a=contest&id='.$contest['id']);
+			$voting_link = permalink($SETT['url'].'/index.php?a=voting&id='.$contest['id']);
+			$cover = $SETT['url'].'/uploads/cover/contest/'.$contest['cover'];
 			$result = 
 				array('title' => ucfirst($contest['title']), 'safelink' => $contest_link, 'voting' => $voting_link,
 					'id_link' => $contest_id_link, 'photo' => $contest['cover'], 'id' => $contest['id'],
@@ -865,7 +865,7 @@ class userCallback {
 	}
 
 	function premiumStatus($id = null, $type = null) {
-		global $DB, $LANG, $PTMPL, $CONF, $user, $contest_id, $settings;
+		global $DB, $LANG, $PTMPL, $SETT, $user, $contest_id, $settings;
 		// Type 0: Check whether a user is a premium user or not
 		// Type 1: Check if premium accounts are enabled, then check whether a user is a premium user or not
 		// Type 2: Return the results from last transaction 
@@ -897,7 +897,7 @@ class userCallback {
 	function premiumHistory($id = null, $type) { 
 		// Type 0: Return all transaction history
 		// Type 1: Return inactive transactions
-		global $LANG, $user, $PTMPL, $CONF;
+		global $LANG, $user, $PTMPL, $SETT;
 				
 		if($type) {
 			$x = ' AND `valid_till` < \''.date('Y-m-d H:i:s').'\'';
@@ -1082,7 +1082,7 @@ class facebook {
 						$header = urldecode(urlReferrer($_SESSION['referrer'], 1));
 						unset($_SESSION['referrer']);
 					} else {
-						$header = permalink($CONF['url'].'/index.php?a=account');
+						$header = permalink($SETT['url'].'/index.php?a=account');
 					} 	
 					header("Location: ".$header);
 				} else {
@@ -1211,7 +1211,7 @@ class doRecovery {
 
 class siteClass {
 	function site_settings($type) {
-		global $LANG, $user, $PTMPL, $CONF, $settings;
+		global $LANG, $user, $PTMPL, $SETT, $settings;
 
 		if ($type == 0) {
 			// Save Site settings
@@ -1261,7 +1261,7 @@ class siteClass {
 
 	function mailerDaemon($sender, $receiver, $subject, $message) {
 		// Load up the site settings
-		global $CONF, $settings, $user, $mail;
+		global $SETT, $settings, $user, $mail;
 
 		// show the message details if test_mode is on
 		$return_response = null;
@@ -1281,8 +1281,8 @@ class siteClass {
 
 	    // Send a test email message
 	    if (isset($this->test)) {
-	    	$sender = $CONF['email'];
-	    	$receiver = $CONF['email'];
+	    	$sender = $SETT['email'];
+	    	$receiver = $SETT['email'];
 	    	$subject = 'Test EMAIL Message from '.$settings['site_name'];
 	    	$message = 'Test EMAIL Message from '.$settings['site_name'];
 	    	$return_response = successMessage('Test Email Sent');
@@ -1365,7 +1365,7 @@ class siteClass {
 	}
 
 	function message_template($temp, $array) {
-	    global $LANG, $PTMPL, $CONF, $user, $settings, $EM; 
+	    global $LANG, $PTMPL, $SETT, $user, $settings, $EM; 
 	    $action = new actions;
 
 	    // $params = array('contest', 'username', 'password', 'firstname', 'lastname', 'key', 'email',
@@ -1586,25 +1586,25 @@ class siteClass {
 	* Manage the sites templating system
 	*/
 	function fetch_templates($type) {
-		global $CONF, $LANG;
+		global $SETT, $LANG;
 		
 		if ($type == 0) {
-			$templates = scandir('./'.$CONF['template_path'].'/');
+			$templates = scandir('./'.$SETT['template_path'].'/');
 
 			$sort = '';
 			foreach($templates as $template) {
-				if($template != '.' && $template != '..' && $template != 'index.html' && file_exists('./'.$CONF['template_path'].'/'.$template.'/property.php')) {
+				if($template != '.' && $template != '..' && $template != 'index.html' && file_exists('./'.$SETT['template_path'].'/'.$template.'/property.php')) {
 					$system_templates[] = $template;
-					include('./'.$CONF['template_path'].'/'.$template.'/property.php');
+					include('./'.$SETT['template_path'].'/'.$template.'/property.php');
 						
-					if($CONF['template_name'] == $template) {
+					if($SETT['template_name'] == $template) {
 						$state = '<a class="btn btn-primary btn-sm waves-effect active">Active</a>';
 					} else {
-						$state = '<a class="btn btn-primary btn-sm waves-effect" href="'.$CONF['url'].'/index.php?a=settings&b=site_templates&template='.$template.'">Activate</a>';
+						$state = '<a class="btn btn-primary btn-sm waves-effect" href="'.$SETT['url'].'/index.php?a=settings&b=site_templates&template='.$template.'">Activate</a>';
 					}
 					
-					if(file_exists('./'.$CONF['template_path'].'/'.$template.'/thumb.png')) {
-						$image = '<img src="'.$CONF['url'].'/'.$CONF['template_path'].'/'.$template.'/thumb.png" class="img-fluid rounded-circle" height="30%" width="30%"/>';
+					if(file_exists('./'.$SETT['template_path'].'/'.$template.'/thumb.png')) {
+						$image = '<img src="'.$SETT['url'].'/'.$SETT['template_path'].'/'.$template.'/thumb.png" class="img-fluid rounded-circle" height="30%" width="30%"/>';
 					}  else {
 						$image = '';
 					}
@@ -1657,7 +1657,7 @@ class siteClass {
 	* Upload images for site use
 	*/
 	function site_uploader($type) {
-		global $CONF;
+		global $SETT;
 	  	$errors= array();
 	  	$file_name = $_FILES['file']['name'];
 	  	$file_size = $_FILES['file']['size'];
@@ -1714,7 +1714,7 @@ class siteClass {
 		        return successMessage('Successfully updated');
 			}
 			if ($t == 1) {
-				$image->save(__DIR__."../../".$CONF['template_url']."/img/".$new_image);
+				$image->save(__DIR__."../../".$SETT['template_url']."/img/".$new_image);
 		        $sql = sprintf("UPDATE ".TABLE_WELCOME." SET `%s` = '%s'", $xy, $new_image);
 		        dbProcessor($sql, 0, 1);
 		        return successMessage('Successfully updated');
@@ -1755,7 +1755,7 @@ class siteClass {
 	* List all available languages
 	*/
 	function list_languages($type) {
-		global $CONF, $LANG, $settings;
+		global $SETT, $LANG, $settings;
 		
 		if ($type == 0) {
 			$languages = scandir('./languages/');
@@ -1776,7 +1776,7 @@ class siteClass {
 					if($settings['language'] == $language) {
 						$state = '<a class="btn btn-primary btn-sm waves-effect active">'.$default.'</a>';
 					} else {
-						$state = '<a class="btn btn-primary btn-sm waves-effect" href="'.$CONF['url'].'/index.php?a=settings&b=languages&language='.$language.'">'.$make.'</a>';
+						$state = '<a class="btn btn-primary btn-sm waves-effect" href="'.$SETT['url'].'/index.php?a=settings&b=languages&language='.$language.'">'.$make.'</a>';
 					}
 					
 					$sort .= '<div class="p-1">
@@ -1869,7 +1869,7 @@ class siteClass {
 		// type 0: Create referrals
 		// type 1: Fetch referrals
 		// type 2: Fetch referrer
-		global $CONF, $LANG, $settings, $user;
+		global $SETT, $LANG, $settings, $user;
 		$us = new userCallback;
 
 		// Fetch data for referrer and referred user
@@ -2066,14 +2066,14 @@ class actions {
 	 * Create click-able links from message
 	 */	
 	function decodeMessage($message, $x=0) { 
-		global $LANG, $CONF;
+		global $LANG, $SETT;
 
 		// Decode the links
 		$extractUrl = preg_replace_callback('/(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))/', "decodeLink", $message);
 		
 		$y = $x==1 ? 'warning' : 'info';
 		// Decode link from #hashtags and @mentions
-		$extractMessage = preg_replace(array('/(^|[^a-z0-9_\/])@([a-z0-9_]+)/i', '/(^|[^a-z0-9_\/])#(\w+)/u'), array('$1<a class="text-'.$y.'" href="'.permalink($CONF['url'].'/index.php?a=profile&u=$2').'" rel="loadpage">@$2</a>', '$1<a class="text-'.$y.'" href="'.permalink($CONF['url'].'/index.php?a=search&query='.urlencode('#').'$2').'" rel="loadpage">#$2</a>'), $extractUrl);
+		$extractMessage = preg_replace(array('/(^|[^a-z0-9_\/])@([a-z0-9_]+)/i', '/(^|[^a-z0-9_\/])#(\w+)/u'), array('$1<a class="text-'.$y.'" href="'.permalink($SETT['url'].'/index.php?a=profile&u=$2').'" rel="loadpage">@$2</a>', '$1<a class="text-'.$y.'" href="'.permalink($SETT['url'].'/index.php?a=search&query='.urlencode('#').'$2').'" rel="loadpage">#$2</a>'), $extractUrl);
 
 		return $extractMessage;
 	} 
@@ -2087,7 +2087,7 @@ class actions {
  */
 class social {
 	function timelines($this_id, $type, $fetch_users=false) {
-		global $CONF, $LANG, $settings, $user, $userApp;
+		global $SETT, $LANG, $settings, $user, $userApp;
 
 		$cu = $this_id ? $userApp->collectUserName(null, 0, $this_id) : '';
 
@@ -2149,19 +2149,19 @@ class social {
 	* Timeline info on the side bar
 	*/
 	function timeline_info($username, $user_id='') {
-		global $LANG, $user, $userApp, $CONF; 
+		global $LANG, $user, $userApp, $SETT; 
 		$data = $userApp->userData($username); 
 		$collect = $userApp->collectUserName(null, 0, $data['id']);
 
 		// Prepare the data
 		$name = realName($data['username'], $data['fname'], $data['lname']);
-		$user_profile = permalink($CONF['url'].'/index.php?a=profile&u='.$data['username']);
+		$user_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$data['username']);
 		$intro = rip_tags(stripslashes(myTruncate($data['intro'], 120)));
 		$intro = isset($intro) ? '<div class="h7 mt-3">'.$intro.'</div>' : '';
 
 		// Link to the follows page
-		$followers_link = permalink($CONF['url'].'/index.php?a=followers&followers='.$data['id']);
-		$following_link = permalink($CONF['url'].'/index.php?a=followers&following='.$data['id']);
+		$followers_link = permalink($SETT['url'].'/index.php?a=followers&followers='.$data['id']);
+		$following_link = permalink($SETT['url'].'/index.php?a=followers&following='.$data['id']);
 
 		// Fetch user relationships
 		$follower = $this->follow($data['id'], 1);
@@ -2188,7 +2188,7 @@ class social {
 				$onl = $this->online_state($_user['user_id']);   
 				$ftn .= ' 
 				<a href="'.$_user['profile'].'" data-toggle="tooltip" data-placement="bottom" title="@'.$_user['username'].'" class="follower_link">
-					<img class="followers-thumbs rounded" id="profile-image" src="'.$CONF['url'].'/uploads/faces/'.$_user['photo'].'" alt="'.$_user['username'].'">'.$onl['icon'].'
+					<img class="followers-thumbs rounded" id="profile-image" src="'.$SETT['url'].'/uploads/faces/'.$_user['photo'].'" alt="'.$_user['username'].'">'.$onl['icon'].'
 				</a>';
 			}
 		}
@@ -2201,7 +2201,7 @@ class social {
 				$onl = $this->online_state($_flwn['user_id']);   
 				$fntn .= ' 
 				<a href="'.$_flwn['profile'].'" data-toggle="tooltip" data-placement="bottom" title="@'.$_flwn['username'].'" class="following_link">
-					<img class="followers-thumbs rounded" id="profile-image" src="'.$CONF['url'].'/uploads/faces/'.$_flwn['photo'].'" alt="'.$_flwn['username'].'">'.$onl['icon'].'
+					<img class="followers-thumbs rounded" id="profile-image" src="'.$SETT['url'].'/uploads/faces/'.$_flwn['photo'].'" alt="'.$_flwn['username'].'">'.$onl['icon'].'
 				</a>';
 			}
 		}
@@ -2210,7 +2210,7 @@ class social {
 		$info = '
         <div class="card mb-2">
             <div class="card-body profile-card">
-                <img class="float-right rounded w-25" id="profile-image" src="'.$CONF['url'].'/uploads/faces/'.$data['photo'].'" alt="'.$data['username'].'">
+                <img class="float-right rounded w-25" id="profile-image" src="'.$SETT['url'].'/uploads/faces/'.$data['photo'].'" alt="'.$data['username'].'">
                 <div class="h5"><a href="'.$user_profile.'">@'.ucfirst($data['username']).'</a>'.$online['icon'].'</div>
                 <div class="h7 text-muted">'.$name.'</div>
                 '.$follow_link.'
@@ -2276,7 +2276,7 @@ class social {
 	* Fetch follows and followers
 	*/
 	function subscribers($user_id, $type=null, $string=null) {
-		global $CONF, $LANG, $user, $userApp, $marxTime;
+		global $SETT, $LANG, $user, $userApp, $marxTime;
 		$messaging = new messaging;
 		// Type 0: All Followers
 		// Type 1: Search Followers
@@ -2332,7 +2332,7 @@ class social {
 					  <div class="chat_list '.$active.'">
 					    <div class="chat_people">
 					      <div class="chat_img"> 
-					        <img class="rounded-circle" src="'.$CONF['url'].'/uploads/faces/'.$data['photo'].'" alt="sunil"> 
+					        <img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$data['photo'].'" alt="sunil"> 
 					      </div>
 					      <div class="chat_ib">
 					        <h5>'.$data['fullname'].' 
@@ -2447,7 +2447,7 @@ class social {
 		<div class="card news-card pass-info-card rounded"> 
 		  <div class="card-body pass-card-header heavy-rain-gradient">
 		    <div class="content light-blue-text"> 
-		      <img src="'.$CONF['url'].'/uploads/faces/'.$_user['photo'].'" class="rounded avatar-img z-depth-1-half" id="info-card-image">
+		      <img src="'.$SETT['url'].'/uploads/faces/'.$_user['photo'].'" class="rounded avatar-img z-depth-1-half" id="info-card-image">
 		      <a href="'.$_user['profile'].'">'.$_user['fullname'].'</a>
 		    </div>
 		  </div>  
@@ -2471,7 +2471,7 @@ class social {
 	* Follow cards shown on follow page
 	*/
 	function follow_cards($type, $user_id='') {
-		global $userApp, $CONF;
+		global $userApp, $SETT;
 		// type 0: followers
 		// type 1: following
 		global $LANG, $user, $userApp;
@@ -2509,7 +2509,7 @@ class social {
 				    </div>
 				  </div>  
 				  <a href="'.$_user['profile'].'">
-					<img class="card-img-top" id="follow-cards-image" src="'.$CONF['url'].'/uploads/faces/'.$_user['photo'].'" alt="'.$_user['username'].'">
+					<img class="card-img-top" id="follow-cards-image" src="'.$SETT['url'].'/uploads/faces/'.$_user['photo'].'" alt="'.$_user['username'].'">
 				  </a>
 				  
 				  <div class="card-body follow-cards-body"> 
@@ -2573,7 +2573,7 @@ class social {
 	*/
 	function notifier($sender, $receiver, $x, $master=0, $mail=0) {
 		//notif_array $type: 0,2 = User activity; 1,3 = Contest Activity; 4 = System Notifications
-		global $LANG, $CONF, $settings, $userApp;
+		global $LANG, $SETT, $settings, $userApp;
 		$noti = new msgNotif;
 		$site_class = new siteClass;
 
@@ -2607,7 +2607,7 @@ class social {
 		}
 
 		if ($x == 0) {
-			$post = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$s['username'].'&read='.$master).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
+			$post = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$s['username'].'&read='.$master).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
 			$message = sprintf($LANG['user_shared'], $sender_data['fullname'], $post);
 			$type = 0;
 			$mail = $settings['email_social'];
@@ -2616,7 +2616,7 @@ class social {
 			$type = 0;
 			$mail = $settings['email_social'];
 		} elseif ($x == 2) {
-			$post = '<a href="'.permalink($CONF['url'].'/index.php?a=timeline&u='.$s['username'].'&read='.$master).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
+			$post = '<a href="'.permalink($SETT['url'].'/index.php?a=timeline&u='.$s['username'].'&read='.$master).'" class="blue-grey-text">'.lcfirst($LANG['post']).'</a>';
 			$message = sprintf($LANG['user_likes'], $sender_data['fullname'], $post);
 			$type = 0;
 			$mail = $settings['email_social'];
@@ -2644,7 +2644,7 @@ class social {
 
 			// Determine the email content
 		    $site_class->user_id = $r['id']; 
-			$site_class->mailerDaemon($CONF['email'], $r['email'], $subject, $message); 
+			$site_class->mailerDaemon($SETT['email'], $r['email'], $subject, $message); 
 		}
 
 		// Check if SMS are allowed then send and SMS
@@ -2726,7 +2726,7 @@ class messaging {
 	* Display the messages
 	*/
 	function messenger($type, $user_id) {
-		global $CONF, $LANG, $user, $settings, $marxTime, $userApp;
+		global $SETT, $LANG, $user, $settings, $marxTime, $userApp;
 		// Type 0: all messages
 		// Type 1: Fetch just posted message
 		// Type 2: Fetch new message
@@ -2789,7 +2789,7 @@ class messaging {
 			    <div class="incoming_msg">
 			      <a href="'.$profile['profile'].'" data-toggle="tooltip" data-placement="bottom" title="@'.$profile['fullname'].'">
 			        <div class="incoming_msg_img"> 
-			      	  <img class="rounded-circle" src="'.$CONF['url'].'/uploads/faces/'.$cmsg['photo'].'" alt="'.$cmsg['username'].'"> 
+			      	  <img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$cmsg['photo'].'" alt="'.$cmsg['username'].'"> 
 			        </div>
 			      </a>
 			      <div class="received_msg">
@@ -2814,7 +2814,7 @@ class messaging {
 	* Display the messages and show send new message input
 	*/
 	function messenger_master($user_id, $user) {
-		global $CONF, $LANG, $userApp;
+		global $SETT, $LANG, $userApp;
 		$social = new social;
 		$act = new actions;
 
@@ -2852,7 +2852,7 @@ class messaging {
         </div>
         <div id="loader"></div>
         <div class="p-2 border-top border-light chat-profile">
-        	<img class="rounded" src="'.$CONF['url'].'/uploads/faces/'.$profile['photo'].'" alt="'.$profile['username'].'">
+        	<img class="rounded" src="'.$SETT['url'].'/uploads/faces/'.$profile['photo'].'" alt="'.$profile['username'].'">
         	'.$online['icon'].'
         	<a href="'.$profile['profile'].'" class="px-1">'.$profile['fullname'].'</a>
         	'.$follow.'
@@ -2983,7 +2983,7 @@ class msgNotif {
 
 	// View all notifications available to the current user level
 	function notification($type=null, $array=null){
-		global $DB, $USER, $CONF, $LANG, $user;
+		global $DB, $USER, $SETT, $LANG, $user;
 
 		// $notif_array = array(sender, type, receiver, content);
 		if (isset($this->limit)) {
@@ -3023,7 +3023,7 @@ class msgNotif {
 	function instantNotification($type = 0, $lim = null) {
 		// Type 0: Site Notifications, Type 1: message Notifications
 
-		global $DB, $USER, $CONF, $LANG, $user, $settings;
+		global $DB, $USER, $SETT, $LANG, $user, $settings;
 
 		$limit = ($lim) ? 'LIMIT 0, '.$lim : '';
 		if ($type == 0) {
@@ -3235,7 +3235,7 @@ class menuHandler {
 	 * Navigation bar user dropdown menu
 	 */  
 	function droplMenu(){
-		global $LANG, $PTMPL, $CONF, $user; 
+		global $LANG, $PTMPL, $SETT, $user; 
 		$userApp = new userCallback;
 		$premium_status = $userApp->premiumStatus(0, 1); 
 		if ($user !== FALSE) {
@@ -3253,7 +3253,7 @@ class menuHandler {
 				//print_r($links);
 				foreach ($links as $rs => $key) {
 					if($key) {
-						$PTMPL['droplinks'] .= $divider.'<a class="dropdown-item" href="'.permalink($CONF['url'].'/index.php?a='.$key[0]).'">'.$key[1].'</a>';
+						$PTMPL['droplinks'] .= $divider.'<a class="dropdown-item" href="'.permalink($SETT['url'].'/index.php?a='.$key[0]).'">'.$key[1].'</a>';
 					} 
 				}
 
@@ -3271,7 +3271,7 @@ class menuHandler {
 		// Request 2 = All notifications link
 		// Request 3 = Return notifications
 
-		global $LANG, $PTMPL, $CONF, $user, $settings;
+		global $LANG, $PTMPL, $SETT, $user, $settings;
 		$us = new userCallback;
 
 		$us->user_id = $user['id'];
@@ -3309,7 +3309,7 @@ class menuHandler {
 			}
 
 			// All notifications button
-			$all_btn = '<a class="text-center dropdown-item" href="'.permalink($CONF['url'].'/index.php?a=account&notifications').'">'.$LANG['view_all_pings'].'</a>';
+			$all_btn = '<a class="text-center dropdown-item" href="'.permalink($SETT['url'].'/index.php?a=account&notifications').'">'.$LANG['view_all_pings'].'</a>';
 
 				$notifications = $divider = '';
 				if ($notification) {
@@ -3329,7 +3329,7 @@ class menuHandler {
 						}
 						if($key) {
 							$notifications .= $divider.'  
-			                  <a class="dropdown-item waves-effect waves-light" href="'.permalink($CONF['url'].'/index.php?a=account&notifications='.$key['id']).'">
+			                  <a class="dropdown-item waves-effect waves-light" href="'.permalink($SETT['url'].'/index.php?a=account&notifications='.$key['id']).'">
 			                      <i class="fa fa-bullhorn mr-2" aria-hidden="true"></i>
 			                      <span>'.$LANG['new_ping'].'</span>
 			                      <div>'.$LANG['from'].' '.$sender.'</div>
@@ -3359,7 +3359,7 @@ class menuHandler {
 		// Request 2 = All notifications link
 		// Request 3 = Return notifications
 
-		global $LANG, $PTMPL, $CONF, $user, $settings;
+		global $LANG, $PTMPL, $SETT, $user, $settings;
 		$us = new userCallback;
 
 		$us->user_id = $user['id'];
@@ -3398,7 +3398,7 @@ class menuHandler {
 			}
 
 			// All notifications button
-			$all_btn = '<a class="text-center dropdown-item" href="'.permalink($CONF['url'].'/index.php?a=messenger').'">'.$LANG['view_all_message'].'</a>';
+			$all_btn = '<a class="text-center dropdown-item" href="'.permalink($SETT['url'].'/index.php?a=messenger').'">'.$LANG['view_all_message'].'</a>';
 
 				$notifications = $divider = '';
 				if ($notification) {
@@ -3415,7 +3415,7 @@ class menuHandler {
 						}
 						if($key) {
 							$notifications .= $divider.'  
-			                  <a class="dropdown-item waves-effect waves-light" href="'.permalink($CONF['url'].'/index.php?a=messenger&u='.$sd['username'].'&id='.$sd['user_id']).'">
+			                  <a class="dropdown-item waves-effect waves-light" href="'.permalink($SETT['url'].'/index.php?a=messenger&u='.$sd['username'].'&id='.$sd['user_id']).'">
 			                      <i class="fa fa-envelope mr-2" aria-hidden="true"></i>
 			                      <span>'.$LANG['new_message'].'</span>
 			                      <div>'.$LANG['from'].' '.$sender.'</div>
@@ -3441,7 +3441,7 @@ class menuHandler {
 	 * Show notifications in notifications page
 	 */   
 	function viewNotifications($request) {
-		global $LANG, $PTMPL, $CONF, $user, $settings;
+		global $LANG, $PTMPL, $SETT, $user, $settings;
 		// Request 1 = notifications count
 		// Request 2 = All notifications link
 		// Request 3 = Return notifications
@@ -3482,19 +3482,19 @@ class menuHandler {
 						if ($notfn['type'] == 0 || $notfn['type'] == 2) {
 							$sd = $us->collectUserName(0, 0, $notfn['sender']);
 							$sender = $sd['username'];
-							$img = $CONF['url'].'/uploads/faces/'.$sd['photo']; 
-							$url = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$sender).'">'.$sender.'</a>'; 
+							$img = $SETT['url'].'/uploads/faces/'.$sd['photo']; 
+							$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$sender).'">'.$sender.'</a>'; 
 						// Check if this notification was sent from contest activity
 						} elseif ($notfn['type'] == 1 || $notfn['type'] == 3) {
 							$sd = $us->collectUserName(0, 1, $notfn['sender']); 
 							$sender = $sd['title'];
-							$img = $CONF['url'].'/uploads/cover/contest/'.$sd['photo']; 
-							$url = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$notfn['sender']).'">'.$sender.'</a>'; 
+							$img = $SETT['url'].'/uploads/cover/contest/'.$sd['photo']; 
+							$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$notfn['sender']).'">'.$sender.'</a>'; 
 						// elseif this notification was sent from system activity
 						} elseif ($notfn['type'] == 4) {
 							$sender = $settings['site_name'];
-							$img = $CONF['url'].'/'.$PTMPL['template_url'].'/img/notification.png'; 
-							$url = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=featured').'">'.$sender.'</a>';
+							$img = $SETT['url'].'/'.$PTMPL['template_url'].'/img/notification.png'; 
+							$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=featured').'">'.$sender.'</a>';
 						}
 						// Set a different gradient for system notifications
 						$grnt = ($notfn['type'] == 'system') ? 'young-passion' : 'aqua';
@@ -3565,19 +3565,19 @@ class menuHandler {
 					if ($key['type'] == 0 || $key['type'] == 2) { 
 						$sd = $us->collectUserName(0, 0, $key['sender']);
 						$sender = $sd['username'];
-						$img = $CONF['url'].'/uploads/faces/'.$sd['photo']; 
-						$url = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$sender).'">'.$sender.'</a>'; 
+						$img = $SETT['url'].'/uploads/faces/'.$sd['photo']; 
+						$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$sender).'">'.$sender.'</a>'; 
 					// elseif this notification was sent from contest activity
 					} elseif ($key['type'] == 1 || $key['type'] == 3) {
 						$sd = $us->collectUserName(0, 1, $key['sender']); 
 						$sender = $sd['title'];
-						$img = $CONF['url'].'/uploads/cover/contest/'.$sd['photo']; 
-						$url = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=contest&id='.$key['sender']).'">'.$sender.'</a>'; 
+						$img = $SETT['url'].'/uploads/cover/contest/'.$sd['photo']; 
+						$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['sender']).'">'.$sender.'</a>'; 
 					// elseif this notification was sent from system activity
 					} elseif ($key['type'] == 4) {  
 						$sender = $settings['site_name'];
-						$img = $CONF['url'].'/'.$PTMPL['template_url'].'/img/notification.png'; 
-						$url = '<a class="text-white" href="'.permalink($CONF['url'].'/index.php?a=featured').'">'.$sender.'</a>';
+						$img = $SETT['url'].'/'.$PTMPL['template_url'].'/img/notification.png'; 
+						$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=featured').'">'.$sender.'</a>';
 					}
 					// Set a different gradient for system notifications
 					$grnt = ($key['type'] == 'system') ? 'young-passion' : 'aqua';
@@ -3621,7 +3621,7 @@ class menuHandler {
  	
  	// Side navigation contest management dropdown menu
 	function sideMenuContestUL(){
-		global $LANG, $PTMPL, $CONF, $settings;
+		global $LANG, $PTMPL, $SETT, $settings;
 		$user = $this->user; 
 
 		if ($user) {
@@ -3643,7 +3643,7 @@ class menuHandler {
 			//print_r($links);
 			foreach ($links as $rs => $key) {
 				if($key) {
-					$PTMPL['droplinks'] .= $divider.'<li><a class="waves-effect" href="'.permalink($CONF['url'].'/index.php?a='.$key[0]).'">'.$key[1].'</a></li>';
+					$PTMPL['droplinks'] .= $divider.'<li><a class="waves-effect" href="'.permalink($SETT['url'].'/index.php?a='.$key[0]).'">'.$key[1].'</a></li>';
 				} 
 			}
 			$dropmenu = $theme->make();	
@@ -3656,9 +3656,9 @@ class menuHandler {
 	 * Side navigation menu 
 	 */  
 	function menu($user) {
-		global $PTMPL, $LANG, $CONF, $DB, $settings;
+		global $PTMPL, $LANG, $SETT, $DB, $settings;
 		
-		$admin_url = (isset($_SESSION['admin']) ? '<li class="nav-item" title="'.$LANG['admin_panel'].'"><a href="'.$CONF['url'].'/index.php?a=admin"><i class="fa fa-gear"><i></a></li>' : '');
+		$admin_url = (isset($_SESSION['admin']) ? '<li class="nav-item" title="'.$LANG['admin_panel'].'"><a href="'.$SETT['url'].'/index.php?a=admin"><i class="fa fa-gear"><i></a></li>' : '');
 
 		if($user) {
 			$theme = new themer('user/menu'); $menus = '';
@@ -3668,14 +3668,14 @@ class menuHandler {
 			
 			$PTMPL['fullname'] = realName($user['username'], $user['fname'], $user['lname']);
 			if ($user['photo']) {
-				$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/'.$user['photo'];
+				$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/'.$user['photo'];
 			} else {
-				$PTMPL['pphoto'] = $CONF['url'].'/uploads/faces/default.jpg';
+				$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/default.jpg';
 			} 
 			$PTMPL['username'] = $user['username'];
-			$PTMPL['site_url'] = $CONF['url'];
-			$PTMPL['template_path'] = $CONF['template_path']; 
-			$PTMPL['template_name'] = $CONF['template_name']; 
+			$PTMPL['site_url'] = $SETT['url'];
+			$PTMPL['template_path'] = $SETT['template_path']; 
+			$PTMPL['template_name'] = $SETT['template_name']; 
 			
 			$PTMPL['admin_url'] = $admin_url; 
 			
@@ -3689,14 +3689,14 @@ class menuHandler {
 				foreach ($get_pages as $key) {
 					$list_pages .= '	
 	                <ul>
-	                  <li><a href="'.permalink($CONF['url'].'/index.php?a=documentation&read='
+	                  <li><a href="'.permalink($SETT['url'].'/index.php?a=documentation&read='
 	                  	.$key['link'])
 	                  .'" class="waves-effect ">'.$key['title'].'</a> </li> 
 	                </ul>';
 				}
 			}
 			$PTMPL['documentation'] = $list_pages;
-			$PTMPL['contact'] = '<a href="'.permalink($CONF['url'].'/index.php?a=documentation&support=review')
+			$PTMPL['contact'] = '<a href="'.permalink($SETT['url'].'/index.php?a=documentation&support=review')
 	                  .'" class="collapsible-header waves-effect"><i class="fa fa-envelope-o"></i>Contact and Support Tickets</a>';
 			$menus = $theme->make();
 			$PTMPL = $PTMPL_old; unset($PTMPL_old);
@@ -3709,7 +3709,7 @@ class barMenus {
 	// Status could be 'on' or 'off'
 
 	function ads($status, $unit=1, $x=0) {
-		global $PTMPL, $LANG, $CONF, $DB, $settings;
+		global $PTMPL, $LANG, $SETT, $DB, $settings;
 		
 		$theme = new themer('contest/menubars'); $menubars = '';
 		$random = rand(1, 10);
@@ -3762,7 +3762,7 @@ class sidebarClass {
 	 * Contest management menu 
 	 */    
 	function manageMenu($page = null) {
-		global $LANG, $PTMPL, $CONF, $user; 
+		global $LANG, $PTMPL, $SETT, $user; 
 
 		if (isset($_GET['d']) && $_GET['d'] == 'create' && $_GET['id'] == 'new') {
 			$manage = $_GET['id'];
@@ -3824,7 +3824,7 @@ class sidebarClass {
 					if($key) {
 						$PTMPL['manage_menu'] .= $divider.'
 							<div class="list-group"> 
-							  	<a href="'.permalink($CONF['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
+							  	<a href="'.permalink($SETT['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
 							</div>';
 					} 
 				}
@@ -3842,7 +3842,7 @@ class sidebarClass {
 	 * Show this menu if no contest is selected
 	 */    
 	function pre_manage_menu($page = null) { 
-		global $LANG, $PTMPL, $CONF, $user; 
+		global $LANG, $PTMPL, $SETT, $user; 
 
 		if (isset($_GET['contest']) && isset($_GET['u']) && $_GET['u'] !='') {
 			$pre_manage = $_GET['u'];
@@ -3882,7 +3882,7 @@ class sidebarClass {
 					if($key) {
 						$PTMPL['pre_manage_menu'] .= $divider.'
 							<div class="list-group"> 
-							  	<a href="'.permalink($CONF['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
+							  	<a href="'.permalink($SETT['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
 							</div>';
 					} 
 				}
@@ -3897,7 +3897,7 @@ class sidebarClass {
 
 	// Show this menu to regular users is selected
 	function user_navigation($page = null) { 
-		global $LANG, $PTMPL, $CONF, $user, $settings;  
+		global $LANG, $PTMPL, $SETT, $user, $settings;  
  
 		$gett = new contestDelivery; 
 
@@ -3916,7 +3916,7 @@ class sidebarClass {
 					if($key) {
 						$PTMPL['user_navigation_menu'] .= $divider.'
 							<div class="list-group"> 
-							  	<a href="'.permalink($CONF['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
+							  	<a href="'.permalink($SETT['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
 							</div>';
 					} 
 				}
@@ -3933,7 +3933,7 @@ class sidebarClass {
 	 * Show this menu to the administrator 
 	 */    
 	function admin_menu($page = null) { 
-		global $LANG, $PTMPL, $CONF, $user, $admin;  
+		global $LANG, $PTMPL, $SETT, $user, $admin;  
  
 		$gett = new contestDelivery; 
 		$uc = new userCallback;
@@ -3981,7 +3981,7 @@ class sidebarClass {
 				if($key) {
 					$PTMPL['admin_navigation_menu'] .= $divider.'
 					<div class="list-group"> 
-					  	<a href="'.permalink($CONF['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
+					  	<a href="'.permalink($SETT['url'].'/index.php?a='.$key[0]).'" class="list-group-item list-group-item-action '.$class.'">'.$key[1].'</a> 
 					</div>';
 				} 
 			}
@@ -3997,7 +3997,7 @@ class sidebarClass {
 class contestDelivery {
 
 	function validateContest($contest) {
-	    global $PTMPL, $LANG, $CONF, $DB, $settings;
+	    global $PTMPL, $LANG, $SETT, $DB, $settings;
 	    $sql = sprintf("SELECT * FROM " . TABLE_CONTEST . " WHERE 1 AND title = '%s'", mb_strtolower($contest));
 	    try {
 	        $stmt = $DB->prepare($sql); $stmt->execute(); $results = $stmt->fetchAll();
@@ -4025,7 +4025,7 @@ class contestDelivery {
 	// getContest(king, yahoo, 'safelink') or getContest(king, 55) 
 	//
 	function getContest($creator=NULL, $contest=NULL, $idby='id', $filter= '') {
-	    global $PTMPL, $LANG, $CONF, $DB, $settings;
+	    global $PTMPL, $LANG, $SETT, $DB, $settings;
 
 	    // Limit clause to enable pagination
 		if (isset($this->limit)) {
@@ -4067,7 +4067,7 @@ class contestDelivery {
 
 	// View all available contests with no restrictions, usefull in administration mode
 	function get_all_Contest($id=null) {
-	    global $PTMPL, $LANG, $CONF, $DB, $settings;
+	    global $PTMPL, $LANG, $SETT, $DB, $settings;
  		
 	    // Limit clause to enable pagination
 		if (isset($this->limit)) { 
@@ -4200,7 +4200,7 @@ class contestDelivery {
 	}
 
 	function getScheduleCategory($id, $type) {
-	    global $PTMPL, $LANG, $CONF, $DB, $settings;
+	    global $PTMPL, $LANG, $SETT, $DB, $settings;
  		if ($type == 0) {
  			 $sql = sprintf("SELECT * FROM " . TABLE_SCHEDULE . " WHERE contest = '%s'", $id);
  		} else {
@@ -4359,7 +4359,7 @@ class contestDelivery {
 
 	// Insert user into the contest
 	function enterContest($contest_id) {
-		global $DB, $CONF, $LANG, $user, $settings;
+		global $DB, $SETT, $LANG, $user, $settings;
  
 		$us = new userCallback;  
 		$save = new siteClass;
@@ -4381,7 +4381,7 @@ class contestDelivery {
 		$save->username = $c_creator['username'];
 		$save->firstname = $c_creator['fname'];
 		$save->lastname = $c_creator['lname'];
-		$contest = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&applications='.$cst['id']).'">'.$cst['title'].'</a>';
+		$contest = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&applications='.$cst['id']).'">'.$cst['title'].'</a>';
 
 		// Message template
 		$params = 
@@ -4455,7 +4455,7 @@ class contestDelivery {
 
 	// Load all posted comments
 	function timelineComments($user_id, $post_id, $type=null) { 
-		global $CONF, $LANG, $userApp, $marxTime, $user;
+		global $SETT, $LANG, $userApp, $marxTime, $user;
 
 		$action = new actions;
 
@@ -4467,7 +4467,7 @@ class contestDelivery {
 		$read_ = '';
 
 		// Sort the posts
-		$slink = !trueAjax() ? permalink($CONF['url'].'/index.php?a='.$_GET['a'].'&u='.$_GET['u'].'&read='.$_GET['read'].'&sort=%s#comment') : '';
+		$slink = !trueAjax() ? permalink($SETT['url'].'/index.php?a='.$_GET['a'].'&u='.$_GET['u'].'&read='.$_GET['read'].'&sort=%s#comment') : '';
 		if (isset($_GET['sort']) && $_GET['sort'] == 'newest') {
 			$sort = '<a href="'.sprintf($slink, 'oldest').'" class="dropdown-item">'.$LANG['sort_oldest'].' <i class="fa fa-sort-desc p-1"></i> </a>';
 		} else {
@@ -4504,7 +4504,7 @@ class contestDelivery {
 					    	<div class="p-1 px-4 reply-comment">
 				      			<div class="text-info mx-2">
 							      	<span class="commentors-avatar">
-							        	<img class="rounded-circle" src="'.$CONF['url'].'/uploads/faces/'.$u['photo'].'" alt="'.$u['username'].'_Photo">
+							        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$u['photo'].'" alt="'.$u['username'].'_Photo">
 							        </span>
 							        <span class="comment-user">
 							        	<p><a href="'.$us['profile'].'" class="blue-grey-text">'.$u['fullname'].'</a><p>
@@ -4540,7 +4540,7 @@ class contestDelivery {
 	                      '.$sort.'
 	                    </div>
 				      	<span class="commentors-avatar">
-				        	<img class="rounded-circle" src="'.$CONF['url'].'/uploads/faces/'.$us['photo'].'" alt="'.$us['username'].'_Photo">
+				        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$us['photo'].'" alt="'.$us['username'].'_Photo">
 				        </span>
 				        <span class="comment-user">	
 				        	<p><a href="'.$us['profile'].'" class="blue-grey-text">'.$us['fullname'].'</a></p>
@@ -4567,7 +4567,7 @@ class contestDelivery {
 		    	<div class="p-1 px-4 reply-comment">
 		  			<div class="text-info mx-2">
 				      	<span class="commentors-avatar">
-				        	<img class="rounded-circle" src="'.$CONF['url'].'/uploads/faces/'.$this->sender['photo'].'" alt="'.$this->sender['username'].'_Photo">
+				        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$this->sender['photo'].'" alt="'.$this->sender['username'].'_Photo">
 				        </span>
 				        <span class="comment-user">
 				        	<p><a href="'.$this->sender['profile'].'" class="blue-grey-text">'.$this->sender['fullname'].'</a><p>
@@ -4582,7 +4582,7 @@ class contestDelivery {
 				    <div class="m-2 flex">
 				      <div class="text-info mx-2">
 				      	<span class="commentors-avatar">
-				        	<img class="rounded-circle" src="'.$CONF['url'].'/uploads/faces/'.$this->sender['photo'].'" alt="'.$this->sender['username'].'_Photo">
+				        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$this->sender['photo'].'" alt="'.$this->sender['username'].'_Photo">
 				        </span>
 				        <span class="comment-user">	
 				        	<p><a href="'.$this->sender['profile'].'" class="blue-grey-text">'.$this->sender['fullname'].'</a></p>
@@ -4732,7 +4732,7 @@ class contestDelivery {
 
 	function myVotes() {
 		// Type = '2' : Fetch all votes from this voters
-	    global $PTMPL, $LANG, $CONF, $settings, $user;
+	    global $PTMPL, $LANG, $SETT, $settings, $user;
 
 	    // Limit clause to enable pagination
 		if (isset($this->limit)) {

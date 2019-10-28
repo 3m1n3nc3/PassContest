@@ -49,7 +49,7 @@ $nb = 0;
                           <tr id="user_'.$key['user_id'].'">
                             <th scope="row">'.$nb.'</th> 
                             <td>
-                              <a data-toggle="tooltip" data-placement="top" title="View Public Profile" href="'.permalink($CONF['url'].'/index.php?a=profile&u='.$data['username']).'">'.$fullname.'</a>
+                              <a data-toggle="tooltip" data-placement="top" title="View Public Profile" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$data['username']).'">'.$fullname.'</a>
                             </td>
                             <td>'.$data['city'].'</td>
                             <td>'.$data['state'].'</td>  
@@ -57,7 +57,7 @@ $nb = 0;
                             <td>'.$contest_data['votes'].'</td> 
                             <td>
                               <a id="delete-button" href="#" onclick="delete_the('.$key['user_id'].', 2)"><i class="fa fa-trash text-danger px-1"></i></a> 
-                              <a id="edit-button" href="'.permalink($CONF['url'].'/index.php?a=enter&manage='.$key['contest_id'].'&user='.$key['user_id']).'"><i class="fa fa-edit text-primary px-1"></i></a>
+                              <a id="edit-button" href="'.permalink($SETT['url'].'/index.php?a=enter&manage='.$key['contest_id'].'&user='.$key['user_id']).'"><i class="fa fa-edit text-primary px-1"></i></a>
                             </td>  
                           </tr> '; 
     }

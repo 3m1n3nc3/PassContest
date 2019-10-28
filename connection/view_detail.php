@@ -23,14 +23,14 @@ if ($_POST['view'] == 'contest') {
   // Get the contest cover or display the default photo
   if ($c_contest['cover']) {
     $from = $c_contest['country'];
-    $c_photo = $CONF['url'].'/uploads/cover/contest/'.$c_contest['cover'];
+    $c_photo = $SETT['url'].'/uploads/cover/contest/'.$c_contest['cover'];
   } else {
-    $c_photo = $CONF['url'].'/uploads/cover/contest/default.jpg';
+    $c_photo = $SETT['url'].'/uploads/cover/contest/default.jpg';
   }
   $get_user = $c_contest;
   $name = $c_contest['title'];
   $intro = $c_contest['intro']; 
-  $link = '<a href="'.permalink($CONF['url'].'/index.php?a=contest&s='.$c_contest['safelink']).'" class="text-left">Contest Details</a>';
+  $link = '<a href="'.permalink($SETT['url'].'/index.php?a=contest&s='.$c_contest['safelink']).'" class="text-left">Contest Details</a>';
   $sharer = '<a class="px-3 text-info" onclick="shareModal(1, '.$contest_id.')"><i class="fa fa-share"></i> '.$LANG['share'].'</a>';
 
   // Else show user details
@@ -38,9 +38,9 @@ if ($_POST['view'] == 'contest') {
 
   // Get the users photo or display the default photo
   if ($c_user['photo']) {
-    $c_photo = $CONF['url'].'/uploads/faces/'.$c_user['photo'];
+    $c_photo = $SETT['url'].'/uploads/faces/'.$c_user['photo'];
   } else {
-    $c_photo = $CONF['url'].'/uploads/faces/default.jpg';
+    $c_photo = $SETT['url'].'/uploads/faces/default.jpg';
   }
 
   if (count($contestant) > 0) {
@@ -52,7 +52,7 @@ if ($_POST['view'] == 'contest') {
   }  
   $from = 'From '.$get_user['city'].', '.$get_user['state'].', '.$get_user['country'].'.';
   $intro = $c_user['intro'];
-  $link = ($user['role'] == 'agency' || $user_id == $user['id']) ? '<a href="'.permalink($CONF['url'].'/index.php?a=enter&viewdata='.$user_id).'" class="text-left">View full bio</a>.' : '';
+  $link = ($user['role'] == 'agency' || $user_id == $user['id']) ? '<a href="'.permalink($SETT['url'].'/index.php?a=enter&viewdata='.$user_id).'" class="text-left">View full bio</a>.' : '';
   $sharer = '<a class="px-3 text-info" onclick="shareModal(2, '.$user_id.')"><i class="fa fa-share"></i> '.$LANG['share'].'</a>';
 
   // Get the users gallery images
@@ -60,7 +60,7 @@ if ($_POST['view'] == 'contest') {
 
   if ($photos_cards) {
     foreach ($photos_cards as $photo) {
-      $g_photo = $CONF['url'].'/uploads/gallery/'.$photo['photo'];
+      $g_photo = $SETT['url'].'/uploads/gallery/'.$photo['photo'];
       $gallery_photo .='
       <div class="carousel-item">
         <img class="d-block w-100" src="'.$g_photo.'" alt="'.$c_user['username'].' gallery photo '.$photo['id'].'">
@@ -77,7 +77,7 @@ if ($_POST['view'] == 'contest') {
     </a>'; 
 
   } else {
-    $gallery_photo = $CONF['url'].'/uploads/faces/default.jpg';
+    $gallery_photo = $SETT['url'].'/uploads/faces/default.jpg';
   }
 
 }

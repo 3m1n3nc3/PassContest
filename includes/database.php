@@ -9,7 +9,7 @@
 
 	//connect with the server
 	try {
-	    $DB = new PDO($CONF['dbdriver'] . ':host=' . $CONF['dbhost'] . ';dbname=' . $CONF['dbname'], $CONF['dbuser'], $CONF['dbpass'], $dboptions);
+	    $DB = new PDO($SETT['dbdriver'] . ':host=' . $SETT['dbhost'] . ';dbname=' . $SETT['dbname'], $SETT['dbuser'], $SETT['dbpass'], $dboptions);
 	} catch (Exception $ex) {
 	    echo $ex->getMessage();
 	    die;

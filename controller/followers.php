@@ -1,7 +1,7 @@
 <?php
  
 function mainContent() {
-	global $PTMPL, $LANG, $CONF, $DB, $user, $settings, $profiles, $marxTime, $premium_status, $userApp;
+	global $PTMPL, $LANG, $SETT, $DB, $user, $settings, $profiles, $marxTime, $premium_status, $userApp;
 	$cd = new contestDelivery; 
 	$bars = new barMenus;
 	$side_bar = new sidebarClass;
@@ -57,7 +57,7 @@ function mainContent() {
  		}		
 
 		$img = $userApp->user_gallery($profiles['id'], 1)[0]['photo'];
-		$img = $CONF['url'].'/uploads/gallery/'.$img;
+		$img = $SETT['url'].'/uploads/gallery/'.$img;
 		$PTMPL['seo_plugin'] = seo_plugin($img, $profiles['twitter'], $profiles['facebook'], $profiles['intro'], $page_title);
  
 	// Show 404 error	 

@@ -85,7 +85,7 @@ if (isset($_POST['contest_id'])) {
 	$act_firstname = '<a href="'.$act['profile'].'">'.$act['firstname'].'</a>';
 	$act_lastname = '<a href="'.$act['profile'].'">'.$act['lastname'].'</a>'; 
 
-	$contest = '<a href="'.permalink($CONF['url'].'/index.php?a=voting&id='.$cst['id']).'&user='.$receiver['username'].'">'.$cst['title'].'</a>';
+	$contest = '<a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$cst['id']).'&user='.$receiver['username'].'">'.$cst['title'].'</a>';
 	$params = 
 	    array($contest, ucfirst($receiver['username']), 'Password', $receiver['fname'], $receiver['lname'], 
 	    	'Not Required', $receiver['email'], $act_username, $act_firstname, $act_lastname, $LANG['voted'], 'action_on'
