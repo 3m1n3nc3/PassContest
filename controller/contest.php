@@ -124,7 +124,7 @@ function mainContent() {
 		$contest_details = $gett->getContest($user['username'], $_GET['id']);
 		$PTMPL['contest_id'] = $contest_details['id'];
 		$PTMPL['title'] = stripslashes($contest_details['title']);
-		$PTMPL['cover'] = $contest_details['cover'];
+		$PTMPL['cover'] = getImage($contest_details['cover'], 2);
 		$PTMPL['type'] = $contest_details['type'];
 		$PTMPL['slogan'] = stripslashes($contest_details['slogan']);
 		$PTMPL['facebook'] = $contest_details['facebook'];
@@ -218,7 +218,7 @@ function mainContent() {
 
 			$PTMPL['get_schedule'] = scheduleList();
 			$PTMPL['title'] = stripslashes($contest_details['title']);
-			$PTMPL['cover'] = $contest_details['cover'];
+			$PTMPL['cover'] = getImage($contest_details['cover'], 2);
 			$PTMPL['type'] = $contest_details['type'];
 			$PTMPL['slogan'] = stripslashes($contest_details['slogan']);
 			$PTMPL['facebook'] = $contest_details['facebook'];

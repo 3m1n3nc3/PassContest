@@ -76,12 +76,12 @@ function mainContent() {
     $PTMPL['carousel_three_desc'] = $welcome['carousel_three_desc'];
 
     // Images
-    $PTMPL['cover'] = $welcome['cover'];
-    $PTMPL['slide_1'] = $welcome['slide_1']; 
-    $PTMPL['slide_2'] = $welcome['slide_2']; 
-    $PTMPL['slide_3'] = $welcome['slide_3']; 
+    $PTMPL['cover'] = getImage($welcome['cover']);
+    $PTMPL['slide_1'] = getImage($welcome['slide_1']); 
+    $PTMPL['slide_2'] = getImage($welcome['slide_2']); 
+    $PTMPL['slide_3'] = getImage($welcome['slide_3']); 
     $rand = rand(1,3);
-    $PTMPL['randomize'] = $welcome['slide_'.$rand]; 
+    $PTMPL['randomize'] = getImage($welcome['slide_'.$rand]); 
 
 	$carousel = $theme->make();	
 	$PTMPL['carousel'] = $carousel;

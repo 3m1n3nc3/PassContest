@@ -27,6 +27,11 @@ $PTMPL['country'] = $user['country'];
 $PTMPL['countries'] = set_local(1, $user['country']); 
 $PTMPL['favicon'] = $welcome['favicon']; 
 
+// Slideshow Images
+$PTMPL['slide_1'] = getImage($welcome['slide_1']); 
+$PTMPL['slide_2'] = getImage($welcome['slide_2']); 
+$PTMPL['slide_3'] = getImage($welcome['slide_3']); 
+
 // Link to read the documentation
 $PTMPL['docs_link'] = permalink($SETT['url'].'/index.php?a=documentation');
 
