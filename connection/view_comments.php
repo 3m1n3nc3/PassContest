@@ -33,7 +33,7 @@ if ($comments) {
 
             	$userApp->user_id = $rs['writer_id'];
 				$replyer = $userApp->userData(NULL, 1)[0];
-				$r_photo = $SETT['url'].'/uploads/faces/'.$replyer['photo'];
+				$r_photo = getImage($replyer['photo'], 1);
 				$real_replyer_name = realName($replyer['username'], $replyer['fname'], $replyer['lname']);
 				$repurl = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$replyer['username']).'">'.$real_replyer_name.'</a>';
 
@@ -55,7 +55,7 @@ if ($comments) {
 
 		$userApp->user_id = $key['writer_id'];
 		$writer = $userApp->userData(NULL, 1)[0];
-		$w_photo = $SETT['url'].'/uploads/faces/'.$writer['photo'];
+		$w_photo = getImage($writer['photo'], 1);
 		$real_writer_name = realName($writer['username'], $writer['fname'], $writer['lname']); 
 		$comurl = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$writer['username']).'">'.$real_writer_name.'</a>';
 		 $d=strtotime($key['date']);

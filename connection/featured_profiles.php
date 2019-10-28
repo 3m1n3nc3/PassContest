@@ -43,11 +43,6 @@ if ($results) {
     } else {
         $c = 'danger-color';
         $d = 'Voter';
-    }
-    if ($key['photo'] == '') {
-      $photo = 'default.jpg';
-    } else {
-      $photo = $key['photo'];
     } 
     
     $user_data = $userApp->collectUserName($key['username'], 0);
@@ -59,7 +54,7 @@ if ($results) {
           <div class="card m-1 aqua-gradient h-100">
 
             <div class="view overlay"> 
-              <img class="card-img-top" src="'.$SETT['url'].'/uploads/faces/'.$photo.'" alt="'.$key['username'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%; object-fit: cover;" id="photo_'.$key['id'].'">
+              <img class="card-img-top" src="'.getImage($key['photo'], 1).'" alt="'.$key['username'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%; object-fit: cover;" id="photo_'.$key['id'].'">
               <a onclick="profileModal('.$key['id'].', '.$key['id'].', 0)">
                 <div class="mask flex-center rgba-blue-light">
                   <p class="white-text">Quick Preview</p> 

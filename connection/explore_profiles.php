@@ -39,11 +39,6 @@ if ($results) {
     } else {
         $c = 'badge-warning';
         $d = 'Voter';
-    }
-    if ($key['photo'] == '') {
-      $photo = 'default.jpg';
-    } else {
-      $photo = $key['photo'];
     } 
 
     $user_data = $userApp->collectUserName($key['username'], 0);
@@ -52,22 +47,20 @@ if ($results) {
     echo '
     <div class="col-md-4 mt-2">
       <div class="card m-1 aqua-gradient">
-
-        <div class="view overlay h-100"> 
-          <img class="card-img-top" src="'.$SETT['url'].'/uploads/faces/'.$photo.'" alt="'.$key['username'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
+        <div class="view overlay h-100">
+          <img class="card-img-top" src="'.getImage($key['photo'], 1).'" alt="'.$key['username'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
           <a onclick="profileModal('.$key['id'].', '.$key['id'].', 0)">
             <div class="mask rgba-white-light flex-center font-weight-bold">Quick Preview</div>
           </a>
         </div>
-
         <div class="card-body">
-          <a onclick="shareModal(2, '.$key['id'].')" class="activator waves-effect waves-light mr-2"><i class="fa fa-share-alt"></i></a> 
-          <a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['username']).'" class="black-text text-left" id="profile-url'.$key['id'].'"><h4>'.$fullname.' <i class="fa fa-angle-double-right"></i></h4></a> 
+          <a onclick="shareModal(2, '.$key['id'].')" class="activator waves-effect waves-light mr-2"><i class="fa fa-share-alt"></i></a>
+          <a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['username']).'" class="black-text text-left" id="profile-url'.$key['id'].'"><h4>'.$fullname.' <i class="fa fa-angle-double-right"></i></h4></a>
         </div>
-        <div class="card-footer cloudy-knoxville-gradient"> 
-            <span class="badge badge-pill '.$c.'">'.$d.'</span></div>
-      </div>                
-    </div>';
+        <div class="card-footer cloudy-knoxville-gradient">
+          <span class="badge badge-pill '.$c.'">'.$d.'</span></div>
+        </div>
+      </div>';
   }
     echo '</div> '; 
 } else {

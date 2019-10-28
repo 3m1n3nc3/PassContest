@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ .'/../includes/autoload.php');
 
+$msg = '';
+
 // fetch user data
 $userApp->user_id = isset($_GET['id']) ? $_GET['id'] : $user['id'];
 $data = $userApp->userData(NULL, 1)[0]; 
@@ -37,66 +39,71 @@ if (!empty($_FILES)) {
   }
   
   if($file_size > 5097152){
-     $errors[].='Image is larger than 10 MB';
+    $errors[].='Image is larger than 10 MB';
   }
 
   // Crop and compress the image
   if (in_array($file_ext,$expensions) && empty($errors)==true) {            
-        // Create a new ImageResize object
-      $image = new \Gumlet\ImageResize($file_tmp);
+      // Create a new ImageResize object
+    $image = new \Gumlet\ImageResize($file_tmp);
 
-      if ($_GET['d'] == 'headshot') {
-        // Manipulate it
-        $image->crop(2000, 3000);   
-        $upload_dir = 'contest/head';     
-        $imgexist = $getcont["headshot"]; 
-        $t=2;
-      } elseif ($_GET['d'] == 'fullshot') {
-        // Manipulate it
-        $image->crop(2000, 3000);    
-        $upload_dir = 'contest/body';    
-        $imgexist = $getcont["fullbody"]; 
-        $t=3;
-      } elseif ($_GET['d'] == 'gallery') {
-        // Manipulate it 
-        $userApp->description = $_POST['desc'];
-        $image->resizeToHeight(800);  
-        $upload_dir = 'gallery';     
-        $imgexist = null; 
-        $t=5;    
-      }
+    $upload_dir = 'photos/';   
+    if ($_GET['d'] == 'headshot') {
+      // Manipulate it
+      $image->crop(2000, 3000);     
+      $imgexist = $getcont["headshot"]; 
+      $t=1;
+    } elseif ($_GET['d'] == 'fullshot') {
+      // Manipulate it
+      $image->crop(2000, 3000);     
+      $imgexist = $getcont["fullbody"]; 
+      $t=1;
+    } elseif ($_GET['d'] == 'gallery') {
+      // Manipulate it 
+      $userApp->description = $_POST['desc'];
+      $image->resizeToHeight(800);    
+      $imgexist = null; 
+      $t=1;    
+    }
 
-      // Set the user id
-      $d_id = $data['id'];
+    // Set the user id
+    $d_id = $data['id'];
 
-      // Check the upload type and set limit
-      $count = $userApp->user_gallery($d_id, 0)[0]['count'];
+    // Check the upload type and set limit
+    $count = $userApp->user_gallery($d_id, 0)[0]['count'];
 
-      // Save the new image to the upload directory
-      if ($_GET['d'] == 'gallery') {
-        $count<5 ? $image->save('../uploads/'.$upload_dir.'/'.$new_image) : infoMessage($LANG['upload_limit']);
+    // Save the new image to the upload directory
+    if ($_GET['d'] == 'gallery') {
+      $count<5 ? $image->save($SETT['working_dir'].'/uploads/'.$upload_dir.$new_image) : $errors[] .= messageNotice($LANG['upload_limit']);
+    } else {
+      // delete the old image
+      deleteFiles($imgexist, $t); 
+
+      // And upload a new one
+      if (is_writable($SETT['working_dir'].'/uploads/'.$upload_dir)) {
+        $image->save($SETT['working_dir'].'/uploads/'.$upload_dir.$new_image);
       } else {
-        $image->save('../uploads/'.$upload_dir.'/'.$new_image);
+        $msg .= messageNotice($SETT['working_dir'].'/uploads/'.$upload_dir.' is not writable', 3);
       }
-
-      // delete the old image if not gallery
-      if (isset($imgexist)) {
-        deleteImages($imgexist, $t);
-      }
-      
-      $userApp->photo = $new_image; 
-      $msg = $userApp->updatePhoto($d_id, $t);       
+    }
+    
+    $userApp->photo = $new_image; 
+    $msg .= $userApp->updatePhoto($d_id, $t);       
           
-    } else {                                  
-        $msg = errorMessage($errors[0]);    
-    } 																			
+  } else {                                  
+    $msg =. messageNotice($errors[0], 3);    
+  } 			 
+  if (!empty($errors)) {
+    $msg .= messageNotice($errors[0], 3);  
+  }
+
 	//End of Crop or resample uploaded image -- 
 	//===============================================================================	
   if ($_GET['d'] == 'gallery') {
     if (empty($errors) && strtolower($msg) == 'saved') {
-      $msg = 'success';
+      $msg .= 'success';
     } else {
-      $msg = $msg;
+      $msg .= $msg;
     }
     if (isset($_GET['ref']) && isset($_GET['create'])) {
       $header = permalink($SETT['url'].'/index.php?a='.$_GET['ref'].'&create='.$_GET['create'].'&photo='.$_GET['photo'].'&msg='.urlencode($msg).'#gallery');
@@ -121,41 +128,45 @@ if (!empty($_FILES)) {
   if (isset($_GET['d'])) { 
     if ($_GET['d'] == 'profile') {
       // Upload the profile photo
-      $upload_dir = 'faces';
+      $upload_dir = 'photos/';
       $imgexist = $data["photo"]; 
       $t=1;      
 
     } elseif ($_GET['d'] == 'cover') {
       // Upload the profile photo
-      $upload_dir = 'cover';
+      $upload_dir = 'covers/';
       $imgexist = $data["cover"]; 
-      $t=0;     
+      $t=2;     
 
     } elseif ($_GET['d'] == 'contest') {
       // Upload the contest Cover  
-      $upload_dir = 'cover/contest';    
+      $upload_dir = 'covers/';    
       $imgexist = $_GET["cover"]; 
-      $t=4;    
+      $t=2;    
     }
   }
 
   // Save the new image to the upload directory  
-  file_put_contents('../uploads/'.$upload_dir.'/'.$new_image, $image); 
+  if (is_writable($SETT['working_dir'].'/uploads/'.$upload_dir)) {
+    file_put_contents($SETT['working_dir'].'/uploads/'.$upload_dir.$new_image, $image); 
+  } else {
+    $msg .= messageNotice($SETT['working_dir'].'/uploads/'.$upload_dir.' is not writable', 3);
+  }
 
 
   $d_id = $data['id'];
 
-  // delete the old image if not gallery
+  // delete the old image
   if (isset($imgexist)) {
-    deleteImages($imgexist, $t);
+    deleteFiles($imgexist, $t);
   }
 
   // Link image to DB
   $userApp->photo = $new_image; 
-  $msg = $userApp->updatePhoto($d_id, $t); 
+  $msg .= $userApp->updatePhoto($d_id, $t); 
   echo $msg; 
 } elseif (empty($ajax_image_)) {
-  echo $msg = infoMessage('Please choose a valid image file');
+  echo messageNotice('Please choose a valid image file');
 }
 
 

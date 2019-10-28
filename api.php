@@ -40,8 +40,8 @@ if ($public) {
 				if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
 					$us->user_id = db_prepare_input($_GET['id']);
 					$_user = $us->userData(NULL, 1)[0];
-					$photo = $SETT['url'].'/uploads/faces/'.$_user['photo'];
-					$cover = $SETT['url'].'/uploads/cover/'.$_user['cover'];
+					$photo = getImage($_user['photo'], 1); 
+					$cover = getImage($_user['cover'], 2); 
 					$profile = permalink($SETT['url'].'/index.php?a=profile&u='.$_user['username']);
 					$dataset = 
 						array('username' => $_user['username'], 'firstname' => $_user['fname'], 'lastname' => $_user['lname'],
@@ -65,7 +65,7 @@ if ($public) {
 				if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
 					$contest = $cd->getContest(0, db_prepare_input($_GET['id']));
 					$link = permalink($SETT['url'].'/index.php?a=contest&s='.$contest['safelink']);
-					$cover = $SETT['url'].'/uploads/cover/contest/'.$contest['cover'];
+					$cover = getImage($contest['cover'], 2);
 					$dataset = array('title' => $contest['title'], 'creator' => $contest['creator'], 'type' => $contest['type'], 
 						'eligibility' => $contest['eligibility'], 'phone' => $contest['phone'],'email' => $contest['email'],
 						'country' => $contest['country'], 'votes' => $contest['votes'], 'cover' => $contest['cover'],

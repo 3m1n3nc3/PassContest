@@ -102,7 +102,7 @@ function mainContent() {
 						$main .= 
 						'<div class="col-md-12 col-lg-6 border-bottom">
 						  <div class="media mt-4 px-1 text-left">
-						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.$SETT['url'].'/uploads/faces/'.$u_data['photo'].'"
+						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.getImage($u_data['photo'], 1).'"
 						          alt="'.$u_data['name'].'">
 						    <div class="media-body">
 						      <h5 class="font-weight-bold mt-0">
@@ -121,7 +121,7 @@ function mainContent() {
 						if (!$u_data) {
 							$u_data = $userApp->collectUserName(null, 0, $rs['share_id']);
 						}
-						$photo = isset($rs['post_photo']) ? $SETT['url'].'/uploads/gallery/'.$rs['post_photo'] : $SETT['url'].'/uploads/faces/'.$u_data['photo']; 
+						$photo = isset($rs['post_photo']) ? getImage($rs['post_photo'], 1) : getImage($u_data['photo'], 1); 
 						$intro = myTruncate($rs['text'], 100, ' ');
 						$title = myTruncate($rs['text'], 25, ' '); 
 						$lnk = permalink($SETT['url'].'/index.php?a=timeline&u='.$u_data['username'].'&read='.$rs['pid']);
@@ -149,7 +149,7 @@ function mainContent() {
 						$main .= 
 						'<div class="col-md-12 col-lg-6 border-bottom">
 						  <div class="media mt-4 px-1 text-left">
-						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.$SETT['url'].'/uploads/cover/contest/'.$c_data['photo'].'"
+						    <img class="no-borders card-img-100 d-flex z-depth-1 mr-3" src="'.getImage($c_data['photo'], 1).'"
 						          alt="'.$c_data['title'].'">
 						    <div class="media-body">
 						      <h5 class="font-weight-bold mt-0">

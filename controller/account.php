@@ -40,11 +40,8 @@ function mainContent() {
 		$PTMPL['introname'] = realName($user['username'], $user['fname'], $user['lname']);
 		$PTMPL['introShort'] = completeIntro($user['city'], $user['state'], $user['country'], $user['lovesto']);
 
-		if ($user['photo']) {
-			$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/'.$user['photo'];
-		} else {
-			$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/default.jpg';
-		}
+		$PTMPL['pphoto'] = getImage($user['photo'], 1); 
+		$PTMPL['cphoto'] = getImage($user['cover'], 2); 
 
 		if ($user['profession']) {
 			$PTMPL['prof'] = $user['profession'];
@@ -62,13 +59,8 @@ function mainContent() {
 			$PTMPL['intro'] = '<h4 class="black-text">'.$user['intro'].'</h4>';
 		} else {
 			$PTMPL['intro'] = '<h4 class="black-text">'.$LANG['no_intro'].'</h4>';
-		} 
-
-		if ($user['cover']) {
-			$PTMPL['cphoto'] = $SETT['url'].'/uploads/cover/'.$user['cover'];
-		} else {
-			$PTMPL['cphoto'] = $SETT['url'].'/uploads/cover/default.jpg';
-		}
+		}  
+		
 		$PTMPL['extra_data'] = extra_userData($user['username']);
 		// Show all notifications
 		if (isset($_GET['notifications'])) {

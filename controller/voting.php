@@ -81,12 +81,12 @@ function mainContent() {
 	}
 
 	if (isset($data)) {
-		$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/'.$data['photo'];
+		$PTMPL['pphoto'] = getImage($data['photo'], 1);
 		$intro = $data['intro'];
 		$facebook = $data['facebook'];
 		$twitter = $data['twitter'];
 	} else {
-		$PTMPL['pphoto'] = $SETT['url'].'/uploads/cover/contest/'.$contest['cover'];
+		$PTMPL['pphoto'] = getImage($contest['cover'], 2);
 		$intro = $contest['intro'];
 		$facebook = $contest['facebook'];
 		$twitter = $contest['twitter'];		

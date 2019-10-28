@@ -40,13 +40,13 @@ if(isset($_POST['type']) && $_POST['type'] == 0) { /*Delete the schedule*/
 } elseif(isset($_POST['type']) && $_POST['type'] == 7) { /*Delete the Gallery Photo*/
 	$sql = sprintf("DELETE FROM " . TABLE_GALLERY . " WHERE `id` = '%s'", $_POST['id']); 
 	$img = $userApp->user_gallery($user['id'], 2, $_POST['id'])[0];
-	deleteImages($img['photo'], 5);
+	deleteFiles($img['photo'], 1);
 	$response = '<div class="p-3">'.successMessage($LANG['photo_deleted']).'</div>'; 	
 
 } elseif(isset($_POST['type']) && $_POST['type'] == 8) { /*Delete the Timline post*/
 	$sql = sprintf("DELETE FROM " . TABLE_TIMELINE . " WHERE `pid` = '%s'", $_POST['id']); 
 	$img = $social->timelines($_POST['id'], 1);
-	$img['post_photo'] ? deleteImages($img['post_photo'], 5) : '';
+	$img['post_photo'] ? deleteFiles($img['post_photo'], 1) : '';
 	$response = '<div class="p-3">'.successMessage($LANG['photo_deleted']).'</div>'; 	
 
 } elseif(isset($_POST['type']) && $_POST['type'] == 9) { /*Delete the comment*/

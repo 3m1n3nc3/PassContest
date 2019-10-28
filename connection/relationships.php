@@ -84,7 +84,7 @@ if ($_POST['action'] == 'follow' || $_POST['action'] == 'unfollow') {
 			$photo = '
 			<a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$u['username']).'">
 				<div class="chip">
-				  <img src="'.$SETT['url'].'/uploads/faces/'.$u['photo'].'" alt="'.$u['username'].'"> '.$fullname.'
+				  <img src="'.getImage($u['photo'], 1).'" alt="'.$u['username'].'"> '.$fullname.'
 				</div>
 			</a>';
 

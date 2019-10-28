@@ -85,7 +85,7 @@ function mainContent() {
 			      // Create a new ImageResize object
 			      $image = new \Gumlet\ImageResize($file_tmp);	
 			      $image->resizeToHeight(800);
-			      $image->save('uploads/gallery/'.$new_image);			
+			      $image->save('uploads/photos/'.$new_image);			
 				}			
 				$new_image = $new_image;
 			} else {
@@ -173,7 +173,7 @@ function mainContent() {
 
 	    	$post_content = $action->decodeMessage($post['text'], 1);
 
-			$PTMPL['seo_plugin'] = seo_plugin($post['post_photo'] ? $SETT['url'].'/uploads/gallery/'.$post['post_photo'] : $welcome['cover'], $profiles['twitter'], $profiles['facebook'], $post['text'], $page_title);
+			$PTMPL['seo_plugin'] = seo_plugin($post['post_photo'] ? getImage($post['post_photo'], 1) : $welcome['cover'], $profiles['twitter'], $profiles['facebook'], $post['text'], $page_title);
 
             // Check if you follow username
             $follower = $social->follow($post['user_id'], 1); 
@@ -208,13 +208,9 @@ function mainContent() {
             $PTMPL['page_title'] = myTruncate($post['text'], 35);
 
             // Set the photo
-            if ($profiles['photo']) {
-                $pphoto = $SETT['url'].'/uploads/faces/'.$auto_photo;
-            } else {
-                $pphoto = $SETT['url'].'/uploads/faces/default.jpg';
-            } 
+            $pphoto = getImage($auto_photo, 1);
 
-            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.$SETT['url'].'/uploads/gallery/'.$post['post_photo'].'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : ''; 
+            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.getImage($post['post_photo'], 1).'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : ''; 
 
             if ($user['id'] == $post['user_id'] || $user['id'] == $post['share_id']) {
                 $delete = ' 
@@ -254,7 +250,7 @@ function mainContent() {
                     $lk_user = $userApp->userData(NULL, 1)[0];
                     $pp = $lk_user['photo'] ? $lk_user['photo'] : 'default.jpg';
                     $lk_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$lk_user['username']);
-                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.$SETT['url'].'/uploads/faces/'.$pp.'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
+                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.getImage($pp, 1).'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
                 }
             }
             $liker = count($all_likes)>0 ? $liking : '';

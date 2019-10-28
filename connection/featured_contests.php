@@ -59,43 +59,36 @@ if ($c_results) {
 
     // If voting is on
     $cv = ($key['allow_vote']) ? 'Voting is on' : 'Voting is closed';
-    $cvc = ($key['allow_vote']) ? 'success-color' : 'danger-color';
+    $cvc = ($key['allow_vote']) ? 'success-color' : 'danger-color'; 
 
-    // Covers
-    if ($key['cover'] == '') {
-      $photo = 'default.jpg';
-    } else {
-      $photo = $key['cover'];
-    }
     $intro = myTruncate($key['intro'], 300, ' ');
+    
     echo '
-      <div class="col-12 mt-3">
-        <div class="card mb-1 h-75">
-          <div class="view overlay"> 
-            <img class="card-img-top" src="'.$SETT['url'].'/uploads/cover/contest/'.$photo.'" alt="'.$key['title'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
-            <a onclick="profileModal('.$key['id'].', '.$key['id'].', 2)">
-              <div class="mask flex-center rgba-blue-light">
-                <p class="white-text">Quick Preview</p> 
-              </div>
-            </a>
-          </div>
-
-          <div class="card-body aqua-gradient">
-            <a onclick="shareModal(1, '.$key['id'].')" class="activator waves-effect waves-light mr-2"><i class="fa fa-share-alt"></i></a> 
-            <a href="'.permalink($SETT['url'].'/index.php?a=contest&s='.$key['safelink']).'" class="black-text" id="contest-url'.$key['id'].'"><h4>'.$key['title'].' <i class="fa fa-angle-double-right"></i></h4></a>
-          </div>
-          <div class="card-body bg-white text-justify">
-            '.$intro.'
-          </div> 
-
-          <div class="card-footer cloudy-knoxville-gradient"> 
-            <div class="chip '.$c.' white-text lighten-2">'.$d.'</div> 
-            <div class="chip '.$ccc.' white-text lighten-2">'.$cc.' Contestants</div> 
-            <div class="chip '.$cec.' white-text lighten-2">'.$ce.'</div> 
-            <div class="chip '.$cvc.' white-text lighten-2">'.$cv.'</div>  
-          </div>
-        </div>                
-      </div>  
+    <div class="col-12 mt-3">
+      <div class="card mb-1 h-75">
+        <div class="view overlay">
+          <img class="card-img-top" src="'.getImage($key['cover'], 2).'" alt="'.$key['title'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%;   object-fit: cover;" id="photo_'.$key['id'].'">
+          <a onclick="profileModal('.$key['id'].', '.$key['id'].', 2)">
+            <div class="mask flex-center rgba-blue-light">
+              <p class="white-text">Quick Preview</p>
+            </div>
+          </a>
+        </div>
+        <div class="card-body aqua-gradient">
+          <a onclick="shareModal(1, '.$key['id'].')" class="activator waves-effect waves-light mr-2"><i class="fa fa-share-alt"></i></a>
+          <a href="'.permalink($SETT['url'].'/index.php?a=contest&s='.$key['safelink']).'" class="black-text" id="contest-url'.$key['id'].'"><h4>'.$key['title'].' <i class="fa fa-angle-double-right"></i></h4></a>
+        </div>
+        <div class="card-body bg-white text-justify">
+          '.$intro.'
+        </div>
+        <div class="card-footer cloudy-knoxville-gradient">
+          <div class="chip '.$c.' white-text lighten-2">'.$d.'</div>
+          <div class="chip '.$ccc.' white-text lighten-2">'.$cc.' Contestants</div>
+          <div class="chip '.$cec.' white-text lighten-2">'.$ce.'</div>
+          <div class="chip '.$cvc.' white-text lighten-2">'.$cv.'</div>
+        </div>
+      </div>
+    </div>
     ';
   }
 } else {

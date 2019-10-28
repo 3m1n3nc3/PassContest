@@ -310,9 +310,9 @@ function mainContent() {
 
 						foreach ($get_cards as $token) {
 							$save_token .= $token['token']." \r\n";
-							unlink(__DIR__."/../uploads/sites/tokens.txt");
-							file_put_contents(__DIR__."/../uploads/sites/tokens.txt", $save_token . " \r\n", FILE_APPEND | LOCK_EX);
-							$PTMPL['save_link'] = '<a data-toggle="tooltip" title="Download Token File" data-placement="right" href="'.$SETT['url'].'/uploads/sites/tokens.txt" download><i class="fa fa-download fa-3x"></i></a>';
+							unlink(__DIR__."/../uploads/tokens.txt");
+							file_put_contents(__DIR__."/../uploads/tokens.txt", $save_token . " \r\n", FILE_APPEND | LOCK_EX);
+							$PTMPL['save_link'] = '<a data-toggle="tooltip" title="Download Token File" data-placement="right" href="'.$SETT['url'].'/uploads/tokens.txt" download><i class="fa fa-download fa-3x"></i></a>';
 						}
 					} 
 

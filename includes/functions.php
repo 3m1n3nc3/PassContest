@@ -47,6 +47,38 @@ function infoMessage($str) {
     return $string;
 }
 
+function messageNotice($str, $type = null, $size = '3', $iS = '2') {
+    switch ($type) {
+        case 1:
+            $alert = 'success';
+            $i = 'check-circle';
+            break;
+
+        case 2:
+            $alert = 'warning';
+            $i = 'question-circle';
+            break;
+
+        case 3:
+            $alert = 'danger';
+            $i = 'times-circle';
+            break;
+
+        default:
+            $alert = 'info';
+            $i = 'exclamation-circle';
+            break;
+    }
+    $string = '
+    <div class="p-2 mx-1 alert alert-' . $alert . '"> 
+        <div class="d-flex">
+            <i class="pr-4 fa fa-'.$iS.'x fa-'.$i.'"></i>
+            <div class="flex-grow-1"><h'.$size.' class="text-center font-weight-bolder" style="margin-bottom: 0px;">' . $str . '</h'.$size.'></div>
+        </div>
+    </div>';
+    return $string;
+}
+
 //Encryption function
 function easy_crypt($string, $type = 0) {
     if ($type == 0) {
@@ -92,35 +124,52 @@ function fetch($uri) {
         $response = file_get_contents($uri);
     }
     return $response;
-}
+} 
 
-function deleteImages($images, $type) {
-    // Type 0: Delete covers
-    // Type 1: Delete profile
-    // Type 2: Delete headshot
-    // Type 3: Delete bodyshot
-    // Type 4: Delete contest cover
-    // Type 5: Delete gallery photo
+/**
+ * [deleteFile description]
+ * @param  variable $name is the full qualified name including extension of the file to be deleted
+ * @param  variable $type describes what is to be deleted; 0 or null for audio, 1 for photo, 2 for other files
+ * @param  [variable $fb is used as fallback when an ajax xhr request type is not possible for a ajax request
+ * @return integer       1 if successful of 0 if failed
+ */
+function deleteFiles($name, $type = null, $fb = null) {
+    global $SETT;
+    // Type 0: Delete site image
+    // Type 1: Delete photos
+    // Type 2: Delete covers
     
-    if($type == 0) {
-        $path = 'cover';
+    if($type == 2) {
+        $path = 'covers/';
     } elseif($type == 1) {
-        $path = 'faces';
-    } elseif($type == 2) {
-        $path = 'contest/head';
-    } elseif($type == 3) {
-        $path = 'contest/body';
-    } elseif($type == 4) {
-        $path = 'cover/contest';
-    } elseif($type == 5) {
-        $path = 'gallery';
-    }
-    if ($images !== 'default.jpg') {
-        if(file_exists('../uploads/'.$path.'/'.$images)) {
-            unlink('../uploads/'.$path.'/'.$images); 
+        $path = 'photos/';
+    } else {
+        $dir = $SETT['working_dir'].'/'.$SETT['template_url'].'/img/'; 
+    } 
+
+    if ($type == 0) {
+        $file = $dir.$name;
+        $fallback = $file;
+    } else {
+        $fallback = $SETT['working_dir'] . '/uploads/' . $path . $name; 
+
+        if ($framework->trueAjax() || $fb) {
+            $file =  $SETT['working_dir'].'/uploads/' . $path . $name;
+        } else {
+            $file =  getcwd() . '/uploads/' . $path . $name;
         }
     }
-    return 1; 
+
+    if ($name !== 'default.jpg') {
+        if (file_exists($file) && is_file($file)) {  
+            clearstatcache();
+            return unlink($file);
+        } elseif (file_exists($fallback) && is_file($fallback)) { 
+            clearstatcache();
+            return unlink($fallback);  
+        } 
+    }
+    return 0;
 }
 
 function contestTypes($value) { 
@@ -238,7 +287,7 @@ function contestCards(){
 
                         <!-- Card image -->
                         <div class="view overlay">
-                          <img class="card-img-top" src="'.$PTMPL['site_url'].'/uploads/cover/contest/'.$key['cover'].'" alt="'.$key['title'].'" style="display: block; object-position: 50% 50%; width: 100%; height: 25vh;   object-fit: cover;" id="photo_'.$key['id'].'">
+                          <img class="card-img-top" src="'.getImage($key['cover'], 2).'" alt="'.$key['title'].'" style="display: block; object-position: 50% 50%; width: 100%; height: 25vh;   object-fit: cover;" id="photo_'.$key['id'].'">
                           <a  onclick="profileModal('.$key['id'].', '.$key['id'].', 2)">
                             <div class="mask rgba-white-slight"></div>
                           </a>
@@ -811,7 +860,7 @@ function votingCards(){
                 $vote_btn = $vote_button;
             }
 
-            $c_photo = ($c_user['photo']) ? $SETT['url'].'/uploads/faces/'.$c_user['photo'] : $SETT['url'].'/uploads/faces/default.jpg';
+            $c_photo = getImage($c_user['photo'], 1);
             isset($key['votes']) && $key['votes']>0?$vote_count = $key['votes']:$vote_count = '0'; 
             $d=strtotime($key["date"]);
             $date = date("M d - h:i A", $d);
@@ -955,7 +1004,7 @@ function vote_user_card(){
         $vote_btn = $vote_button;
     }
 
-    $c_photo = ($c_user['photo']) ? $SETT['url'].'/uploads/faces/'.$c_user['photo'] : $SETT['url'].'/uploads/faces/default.jpg';
+    $c_photo = getImage($c_user['photo'], 1);
     isset($contest['votes']) && $contest['votes']>0?$vote_count = $contest['votes']:$vote_count = '0'; 
     $d=strtotime($contest["date"]);
     $date = date("M d - h:i A", $d);
@@ -1128,7 +1177,7 @@ function recomended_users() {
             $contest = $cd->getContest(0, $key['contest_id']);
             $photo = ($data['photo']) ? $data['photo'] : 'default.jpg';
             $recommend .= '
-                <img src="'.$SETT['url'].'/uploads/faces/'.$photo.'" class="rounded mr-2 float-left" height="50px" width="50px" alt="avatar">
+                <img src="'.getImage($photo, 1).'" class="rounded mr-2 float-left" height="50px" width="50px" alt="avatar">
                   <a href="'.permalink($SETT['url'].'/index.php?a=voting&id='.$contest['id'].'&user='.$data['username']).'" class="black-text font-weight-bold text-left" id="profile-url'.$data['id'].'"><p class="font-weight-bold">'.$key['name'].'
                     <br><span class="card-text">'.$contest['title'].'</span>
                   </p></a><hr>';
@@ -1181,7 +1230,7 @@ function recomended_contests() {
   
             $photo = ($key['cover']) ? 'cover/contest/'.$key['cover'] : 'faces/default.jpg';
             $recommend .= '
-                <img src="'.$SETT['url'].'/uploads/'.$photo.'" class="rounded mr-2 float-left" height="50px" width="auto" alt="avatar">
+                <img src="'.getImage($photo, 1).'" class="rounded mr-2 float-left" height="50px" width="auto" alt="avatar">
                   <a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'" class="black-text font-weight-bold text-left" id="contest-url'.$key['id'].'"><p class="font-weight-bold">'.$key['title'].'
                     <br><span class="card-text">'.$LANG['managed_by'].' '.ucfirst($key['creator']).'</span>
                   </p></a><hr>';
@@ -1230,7 +1279,7 @@ function feature_section($type, $id, $xy=0) {
 
     if ($type == 0) {
         $data = $userApp->collectUserName(null, 0, $id);
-        $image = $SETT['url'].'/uploads/cover/'.$data['cover'];
+        $image = getImage($data['cover'], 2);
         $title = $data['fullname'];
         $featured = $LANG['featured'].' '.$LANG['profile'];
         $detail = myTruncate($data['intro'], 300, ' ');
@@ -1238,7 +1287,7 @@ function feature_section($type, $id, $xy=0) {
         $link_2 = sprintf($link, $data['timeline'], 'success', 'Timeline', 'list-alt'); 
     } else {
         $data = $userApp->collectUserName(null, 1, $id);
-        $image = $data['cover'];
+        $image = getImage($data['cover'], 2);
         $title = $data['title'];
         $featured = $LANG['featured'].' '.$LANG['contest'];
         $detail = myTruncate($data['mainintro'], 120, ' ');
@@ -1295,7 +1344,7 @@ function home_featured($type=0, $xy=0) {
             if($i == 4) break;
             $title = $key['title'];
             $intro = myTruncate($key['intro'], 100, ' ');
-            $image = $SETT['url'].'/uploads/cover/contest/'.$key['cover'];
+            $image = getImage($key['cover'], 2);
 
             $featured_contest .=
               '<a href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['id']).'">
@@ -1328,7 +1377,7 @@ function home_featured($type=0, $xy=0) {
             if($i == 4) break;
             $name = $key['fname'].' '.$key['lname'];
             $intro = myTruncate($key['intro'], 100, ' ');
-            $image = $SETT['url'].'/uploads/faces/'.$key['photo'];
+            $image = getImage($key['photo'], 1); 
 
             $featured_users .=
               '<a href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$key['username']).'">
@@ -1473,7 +1522,7 @@ function gallery_chips($user_id) {
             // Show the image
             $chip .= '
               <div class="chip chip-lg info-color white-text" id="chip_'.$rs['id'].'">
-                <img src="'.$SETT['url'].'/uploads/gallery/'.$rs['photo'].'" alt="'.$LANG['gallery_chip'].' '.$rs['id'].'">
+                <img src="'.getImage($rs['photo'], 1).'" alt="'.$LANG['gallery_chip'].' '.$rs['id'].'">
                 '.$delete.'
                 '.$LANG['gallery_chip'].' '.$i.'
               </div>';            
@@ -1492,11 +1541,7 @@ function gallery_cards() {
     $badge = ($premium_status) ? badge(0, $premium_status['plan'], 2) : '';
     $fullname = realName($profiles['username'], $profiles['fname'], $profiles['lname']).' '.$badge;
 
-    if ($profiles['photo']) {
-        $pphoto = $SETT['url'].'/uploads/faces/'.$profiles['photo'];
-    } else {
-        $pphoto = $SETT['url'].'/uploads/faces/default.jpg';
-    }
+    $pphoto = getImage($profiles['photo'], 1);
 
     // Set the users location
     if ($profiles['state'] && $profiles['country']) {
@@ -1544,67 +1589,66 @@ function gallery_cards() {
                 }
             } 
 
-            $photos .=
-            '<span id="set-message_'.$image['id'].'"></span>
+            $photos .= '
+            <span id="set-message_'.$image['id'].'"></span>
             <div class="col-md-6 mb-3" id="photo_'.$image['id'].'">
                 <div class="border z-depth-1">
-                  <img src="'.$SETT['url'].'/uploads/gallery/'.$image['photo'].'" class="img-fluid"
+                    <img src="'.getImage($image['photo'], 1).'" class="img-fluid"
                     alt="Gallery image">
                     '.$delete.'
-                  '.$desc.'
+                    '.$desc.'
                 </div>
-            </div>';  
+            </div>';
 
             $cards .= '
             <div class="col-lg-12" id="photo_'.$image['id'].'">
-              <div class="cardbox shadow-md bg-light">
-             
-                <div class="cardbox-heading">
-                   
-                  <div class="dropdown float-right">
-                   <button class="btn btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <em class="fa fa-ellipsis-h"></em>
-                   </button>
-                   <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                    '.$delete.'
-                    '.$vote_button.' 
-                   </div>
-                  </div> 
-                  <div class="media m-0">
-                   <div class="d-flex mr-3">
-                    <a href="'.$user_profile.'"><img class="img-fluid rounded-circle" src="'.$pphoto.'" alt="User"></a>
-                   </div>
-                   <div class="media-body">
-                    <p class="m-0"><a href="'.$user_profile.'" class="blue-grey-text">'.$fullname.'</a></p>
-                    '.$location.'
-                    <small><span><i class="fa fa-clock-o"></i> '.$marxTime->timeAgo(strtotime($image['date'])).'</span></small>
-                   </div>
-                  </div> 
-                </div> 
-              
-                <div class="cardbox-item d-flex justify-content-center">
-                  <img class="img-fluid" src="'.$SETT['url'].'/uploads/gallery/'.$image['photo'].'" alt="Image">
-                </div> 
-                '.$desc.'  
-                
-              </div> 
-
-            </div>';                          
+                <div class="cardbox shadow-md bg-light">
+                    
+                    <div class="cardbox-heading">
+                        
+                        <div class="dropdown float-right">
+                            <button class="btn btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
+                            <em class="fa fa-ellipsis-h"></em>
+                            </button>
+                            <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                '.$delete.'
+                                '.$vote_button.'
+                            </div>
+                        </div>
+                        <div class="media m-0">
+                            <div class="d-flex mr-3">
+                                <a href="'.$user_profile.'"><img class="img-fluid rounded-circle" src="'.$pphoto.'" alt="User"></a>
+                            </div>
+                            <div class="media-body">
+                                <p class="m-0"><a href="'.$user_profile.'" class="blue-grey-text">'.$fullname.'</a></p>
+                                '.$location.'
+                                <small><span><i class="fa fa-clock-o"></i> '.$marxTime->timeAgo(strtotime($image['date'])).'</span></small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cardbox-item d-flex justify-content-center">
+                        <img class="img-fluid" src="'.getImage($image['photo'], 1).'" alt="Image">
+                    </div>
+                    '.$desc.'
+                    
+                </div>
+            </div>';
         }
         $photo_rows = $cards;
     } else {
-           $photo_rows = '
-            <div class="col-lg-12" id="photo">
-              <div class="cardbox shadow-md bg-light">
-             
+       $photo_rows = '
+        <div class="col-lg-12" id="photo">
+            <div class="cardbox shadow-md bg-light">
+                
                 <div class="cardbox-heading">
-                    '.$fullname.$LANG['no_photos'].' 
+                    '.$fullname.$LANG['no_photos'].'
                 </div>
                 <div class="cardbox-item">
-                  <img class="img-fluid" src="'.$SETT['url'].'/uploads/faces/default.jpg" alt="Image"> 
-                </div> 
-              </div>
-            </div>';       
+                    <img class="img-fluid" src="'.getImage('default.jpg', 1).'" alt="Image">
+                </div>
+            </div>
+        </div>';
     }
 
     return $photo_rows;    
@@ -1692,13 +1736,9 @@ function timeline_cards() {
             }
             
             // Set the photo
-            if ($post['photo']) {
-                $pphoto = $SETT['url'].'/uploads/faces/'.$auto_photo;
-            } else {
-                $pphoto = $SETT['url'].'/uploads/faces/default.jpg';
-            }
+            $pphoto = getImage($auto_photo, 1);
 
-            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.$SETT['url'].'/uploads/gallery/'.$post['post_photo'].'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : '';  
+            $post_photo = $post['post_photo'] ? '<img class="img-fluid" src="'.getImage($post['post_photo'], 1).'" alt="post_photo" id="post_photo_'.$post['pid'].'">' : '';  
 
             if ($user['id'] == $post['user_id'] || $user['id'] == $post['share_id']) {
                 $delete = ' 
@@ -1736,7 +1776,7 @@ function timeline_cards() {
                     $lk_user = $userApp->userData(NULL, 1)[0];
                     $pp = $lk_user['photo'] ? $lk_user['photo'] : 'default.jpg';
                     $lk_profile = permalink($SETT['url'].'/index.php?a=profile&u='.$lk_user['username']);
-                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.$SETT['url'].'/uploads/faces/'.$pp.'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
+                    $liking .= '<li><a href="'.$lk_profile.'"><img src="'.getImage($pp, 1).'" class="img-fluid rounded-circle" alt="User'.$lk_user['username'].'"></a></li>';
                 }
             }
             $liker = count($all_likes)>0 ? $liking : '';
@@ -1859,8 +1899,8 @@ function profile_header($id, $page=0) {
 
     // Fetch users data
     $_data = $userApp->collectUserName(null, 0, $id);
-    $cover = $SETT['url'].'/uploads/cover/'.$_data['cover'];
-    $photo = $SETT['url'].'/uploads/faces/'.$_data['photo'];
+    $cover = getImage($_data['cover'], 2);
+    $photo = getImage($_data['photo'], 1); 
 
     $timeline = permalink($SETT['url'].'/index.php?a=timeline&u='.$_data['username']);
     $gallery = permalink($SETT['url'].'/index.php?a=gallery&u='.$_data['username']);
@@ -2382,12 +2422,12 @@ function getImage($image, $type = null) {
     if ($type == 1) {
       // Uploaded profile images
       $dir_url = $SETT['url'] . '/uploads/faces/';
-      $_dir = $SETT['working_dir'].'/uploads/faces/';
+      $_dir = $SETT['working_dir'].'/uploads/photos/';
       $c = 1;
     } elseif ($type == 2) {
       // Uploaded cover images
-      $dir_url = $SETT['url'] . '/uploads/cover/';
-      $_dir = $SETT['working_dir'].'/uploads/cover/';
+      $dir_url = $SETT['url'] . '/uploads/covers/';
+      $_dir = $SETT['working_dir'].'/uploads/covers/';
       $c = 1;
     } else {
       // Site specific images

@@ -730,8 +730,8 @@ class userCallback {
 		$this->user_id = $id;
 		$user = $this->userData(0, 1)[0];
 		// Then delete all related images from storage
-		($user['cover']) ? deleteImages($user["cover"], 0) : ''; 
-		($user['photo']) ? deleteImages($user["photo"], 1) : '' ;
+		($user['cover']) ? deleteFiles($user["cover"], 2) : ''; 
+		($user['photo']) ? deleteFiles($user["photo"], 1) : '' ;
 	
 		// Fetch and delete users contests	
 		$gett = new contestDelivery;
@@ -854,7 +854,7 @@ class userCallback {
 			$contest_link = permalink($SETT['url'].'/index.php?a=contest&s='.$contest['safelink']);
 			$contest_id_link = permalink($SETT['url'].'/index.php?a=contest&id='.$contest['id']);
 			$voting_link = permalink($SETT['url'].'/index.php?a=voting&id='.$contest['id']);
-			$cover = $SETT['url'].'/uploads/cover/contest/'.$contest['cover'];
+			$cover = getImage($contest['cover'], 2);
 			$result = 
 				array('title' => ucfirst($contest['title']), 'safelink' => $contest_link, 'voting' => $voting_link,
 					'id_link' => $contest_id_link, 'photo' => $contest['cover'], 'id' => $contest['id'],
@@ -1010,6 +1010,8 @@ class facebook {
 	}
 
 	function fetch_picture($access_token) {
+		global $SETT;
+
 		// Build the Graph URL
 		$uri = "https://graph.facebook.com/me/picture?width=500&height=500&access_token=".$access_token;
 		
@@ -1018,8 +1020,8 @@ class facebook {
 		
 		// Generate the file name 
 		$new_image = mt_rand().'_'.mt_rand().'_'.mt_rand().'_n.jpg';
-		$file_path = __DIR__ .'/../uploads/faces/';
-		$cover_path = __DIR__ .'/../uploads/cover/';
+		$file_path = $SETT['working_dir'].'/uploads/photos/';
+		$cover_path = $SETT['working_dir'].'/uploads/covers/';
 		
 		// Save the picture
 		$rw = fopen($file_path.$new_image, 'wb');
@@ -1658,6 +1660,7 @@ class siteClass {
 	*/
 	function site_uploader($type) {
 		global $SETT;
+
 	  	$errors= array();
 	  	$file_name = $_FILES['file']['name'];
 	  	$file_size = $_FILES['file']['size'];
@@ -1708,13 +1711,13 @@ class siteClass {
 			  	// Upload The site Slides
 			  	$new_image = 'slide-'.$slide.'.'.$file_ext; 
 		        $image->crop(1450, 750);
-		        $image->save(__DIR__."../../uploads/sites/slides/".$new_image);
 		        $sql = sprintf("UPDATE ".TABLE_WELCOME." SET `slide_%s` = '%s'", $slide, $new_image);
 		        dbProcessor($sql, 0, 1);
 		        return successMessage('Successfully updated');
 			}
+			 
+			$image->save($SETT['working_dir'].'/'.$SETT['template_url']."/img/".$new_image);
 			if ($t == 1) {
-				$image->save(__DIR__."../../".$SETT['template_url']."/img/".$new_image);
 		        $sql = sprintf("UPDATE ".TABLE_WELCOME." SET `%s` = '%s'", $xy, $new_image);
 		        dbProcessor($sql, 0, 1);
 		        return successMessage('Successfully updated');
@@ -2188,7 +2191,7 @@ class social {
 				$onl = $this->online_state($_user['user_id']);   
 				$ftn .= ' 
 				<a href="'.$_user['profile'].'" data-toggle="tooltip" data-placement="bottom" title="@'.$_user['username'].'" class="follower_link">
-					<img class="followers-thumbs rounded" id="profile-image" src="'.$SETT['url'].'/uploads/faces/'.$_user['photo'].'" alt="'.$_user['username'].'">'.$onl['icon'].'
+					<img class="followers-thumbs rounded" id="profile-image" src="'.getImage($_user['photo'], 1).'" alt="'.$_user['username'].'">'.$onl['icon'].'
 				</a>';
 			}
 		}
@@ -2201,7 +2204,7 @@ class social {
 				$onl = $this->online_state($_flwn['user_id']);   
 				$fntn .= ' 
 				<a href="'.$_flwn['profile'].'" data-toggle="tooltip" data-placement="bottom" title="@'.$_flwn['username'].'" class="following_link">
-					<img class="followers-thumbs rounded" id="profile-image" src="'.$SETT['url'].'/uploads/faces/'.$_flwn['photo'].'" alt="'.$_flwn['username'].'">'.$onl['icon'].'
+					<img class="followers-thumbs rounded" id="profile-image" src="'.getImage($_flwn['photo'], 1).'" alt="'.$_flwn['username'].'">'.$onl['icon'].'
 				</a>';
 			}
 		}
@@ -2210,7 +2213,7 @@ class social {
 		$info = '
         <div class="card mb-2">
             <div class="card-body profile-card">
-                <img class="float-right rounded w-25" id="profile-image" src="'.$SETT['url'].'/uploads/faces/'.$data['photo'].'" alt="'.$data['username'].'">
+                <img class="float-right rounded w-25" id="profile-image" src="'.getImage($data['photo'], 1).'" alt="'.$data['username'].'">
                 <div class="h5"><a href="'.$user_profile.'">@'.ucfirst($data['username']).'</a>'.$online['icon'].'</div>
                 <div class="h7 text-muted">'.$name.'</div>
                 '.$follow_link.'
@@ -2332,7 +2335,7 @@ class social {
 					  <div class="chat_list '.$active.'">
 					    <div class="chat_people">
 					      <div class="chat_img"> 
-					        <img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$data['photo'].'" alt="sunil"> 
+					        <img class="rounded-circle" src="'.getImage($data['photo'], 1).'" alt="sunil"> 
 					      </div>
 					      <div class="chat_ib">
 					        <h5>'.$data['fullname'].' 
@@ -2447,7 +2450,7 @@ class social {
 		<div class="card news-card pass-info-card rounded"> 
 		  <div class="card-body pass-card-header heavy-rain-gradient">
 		    <div class="content light-blue-text"> 
-		      <img src="'.$SETT['url'].'/uploads/faces/'.$_user['photo'].'" class="rounded avatar-img z-depth-1-half" id="info-card-image">
+		      <img src="'.getImage($_user['photo'], 1).'" class="rounded avatar-img z-depth-1-half" id="info-card-image">
 		      <a href="'.$_user['profile'].'">'.$_user['fullname'].'</a>
 		    </div>
 		  </div>  
@@ -2509,7 +2512,7 @@ class social {
 				    </div>
 				  </div>  
 				  <a href="'.$_user['profile'].'">
-					<img class="card-img-top" id="follow-cards-image" src="'.$SETT['url'].'/uploads/faces/'.$_user['photo'].'" alt="'.$_user['username'].'">
+					<img class="card-img-top" id="follow-cards-image" src="'.getImage($_user['photo'], 1).'" alt="'.$_user['username'].'">
 				  </a>
 				  
 				  <div class="card-body follow-cards-body"> 
@@ -2789,7 +2792,7 @@ class messaging {
 			    <div class="incoming_msg">
 			      <a href="'.$profile['profile'].'" data-toggle="tooltip" data-placement="bottom" title="@'.$profile['fullname'].'">
 			        <div class="incoming_msg_img"> 
-			      	  <img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$cmsg['photo'].'" alt="'.$cmsg['username'].'"> 
+			      	  <img class="rounded-circle" src="'.getImage($cmsg['photo'], 1).'" alt="'.$cmsg['username'].'"> 
 			        </div>
 			      </a>
 			      <div class="received_msg">
@@ -2852,7 +2855,7 @@ class messaging {
         </div>
         <div id="loader"></div>
         <div class="p-2 border-top border-light chat-profile">
-        	<img class="rounded" src="'.$SETT['url'].'/uploads/faces/'.$profile['photo'].'" alt="'.$profile['username'].'">
+        	<img class="rounded" src="'.getImage($profile['photo'], 1).'" alt="'.$profile['username'].'">
         	'.$online['icon'].'
         	<a href="'.$profile['profile'].'" class="px-1">'.$profile['fullname'].'</a>
         	'.$follow.'
@@ -3482,13 +3485,13 @@ class menuHandler {
 						if ($notfn['type'] == 0 || $notfn['type'] == 2) {
 							$sd = $us->collectUserName(0, 0, $notfn['sender']);
 							$sender = $sd['username'];
-							$img = $SETT['url'].'/uploads/faces/'.$sd['photo']; 
+							$img = getImage($sd['photo'], 1); 
 							$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$sender).'">'.$sender.'</a>'; 
 						// Check if this notification was sent from contest activity
 						} elseif ($notfn['type'] == 1 || $notfn['type'] == 3) {
 							$sd = $us->collectUserName(0, 1, $notfn['sender']); 
 							$sender = $sd['title'];
-							$img = $SETT['url'].'/uploads/cover/contest/'.$sd['photo']; 
+							$img = getImage($sd['photo'], 2); 
 							$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$notfn['sender']).'">'.$sender.'</a>'; 
 						// elseif this notification was sent from system activity
 						} elseif ($notfn['type'] == 4) {
@@ -3565,13 +3568,13 @@ class menuHandler {
 					if ($key['type'] == 0 || $key['type'] == 2) { 
 						$sd = $us->collectUserName(0, 0, $key['sender']);
 						$sender = $sd['username'];
-						$img = $SETT['url'].'/uploads/faces/'.$sd['photo']; 
+						$img = getImage($sd['photo'], 1); 
 						$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=profile&u='.$sender).'">'.$sender.'</a>'; 
 					// elseif this notification was sent from contest activity
 					} elseif ($key['type'] == 1 || $key['type'] == 3) {
 						$sd = $us->collectUserName(0, 1, $key['sender']); 
 						$sender = $sd['title'];
-						$img = $SETT['url'].'/uploads/cover/contest/'.$sd['photo']; 
+						$img = getImage($sd['photo'], 2); 
 						$url = '<a class="text-white" href="'.permalink($SETT['url'].'/index.php?a=contest&id='.$key['sender']).'">'.$sender.'</a>'; 
 					// elseif this notification was sent from system activity
 					} elseif ($key['type'] == 4) {  
@@ -3667,11 +3670,8 @@ class menuHandler {
 			$PTMPL['menuUldrop'] = $this->sideMenuContestUL();
 			
 			$PTMPL['fullname'] = realName($user['username'], $user['fname'], $user['lname']);
-			if ($user['photo']) {
-				$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/'.$user['photo'];
-			} else {
-				$PTMPL['pphoto'] = $SETT['url'].'/uploads/faces/default.jpg';
-			} 
+			$PTMPL['pphoto'] = getImage($user['photo'], 1);
+ 
 			$PTMPL['username'] = $user['username'];
 			$PTMPL['site_url'] = $SETT['url'];
 			$PTMPL['template_path'] = $SETT['template_path']; 
@@ -4504,7 +4504,7 @@ class contestDelivery {
 					    	<div class="p-1 px-4 reply-comment">
 				      			<div class="text-info mx-2">
 							      	<span class="commentors-avatar">
-							        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$u['photo'].'" alt="'.$u['username'].'_Photo">
+							        	<img class="rounded-circle" src="'.getImage($u['photo'], 1).'" alt="'.$u['username'].'_Photo">
 							        </span>
 							        <span class="comment-user">
 							        	<p><a href="'.$us['profile'].'" class="blue-grey-text">'.$u['fullname'].'</a><p>
@@ -4540,7 +4540,7 @@ class contestDelivery {
 	                      '.$sort.'
 	                    </div>
 				      	<span class="commentors-avatar">
-				        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$us['photo'].'" alt="'.$us['username'].'_Photo">
+				        	<img class="rounded-circle" src="'.getImage($us['photo'], 1).'" alt="'.$us['username'].'_Photo">
 				        </span>
 				        <span class="comment-user">	
 				        	<p><a href="'.$us['profile'].'" class="blue-grey-text">'.$us['fullname'].'</a></p>
@@ -4567,7 +4567,7 @@ class contestDelivery {
 		    	<div class="p-1 px-4 reply-comment">
 		  			<div class="text-info mx-2">
 				      	<span class="commentors-avatar">
-				        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$this->sender['photo'].'" alt="'.$this->sender['username'].'_Photo">
+				        	<img class="rounded-circle" src="'.getImage($this->sender['photo'], 1).'" alt="'.$this->sender['username'].'_Photo">
 				        </span>
 				        <span class="comment-user">
 				        	<p><a href="'.$this->sender['profile'].'" class="blue-grey-text">'.$this->sender['fullname'].'</a><p>
@@ -4582,7 +4582,7 @@ class contestDelivery {
 				    <div class="m-2 flex">
 				      <div class="text-info mx-2">
 				      	<span class="commentors-avatar">
-				        	<img class="rounded-circle" src="'.$SETT['url'].'/uploads/faces/'.$this->sender['photo'].'" alt="'.$this->sender['username'].'_Photo">
+				        	<img class="rounded-circle" src="'.getImage($this->sender['photo'], 1).'" alt="'.$this->sender['username'].'_Photo">
 				        </span>
 				        <span class="comment-user">	
 				        	<p><a href="'.$this->sender['profile'].'" class="blue-grey-text">'.$this->sender['fullname'].'</a></p>
@@ -4824,7 +4824,7 @@ class contestDelivery {
 		// First get the contest details	 
 		$contest = $this->getContest(0, $id);
 		// Then delete all related images from storage
-		($contest['cover']) ? deleteImages($contest["cover"], 4) : '';  
+		($contest['cover']) ? deleteFiles($contest["cover"], 2) : '';  
 
 		$sql = sprintf("DELETE FROM " . TABLE_CATEGORY . " WHERE `contest` = '%s'", $id);
 		dbProcessor($sql, 0); 

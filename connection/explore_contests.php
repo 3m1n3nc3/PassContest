@@ -40,19 +40,13 @@ if ($c_results) {
         }
     } else {
         $d = 'Inactive'; $c = 'badge-danger';
-    }
-
-    if ($key['cover'] == '') {
-      $photo = 'default.jpg';
-    } else {
-      $photo = $key['cover'];
-    }
+    } 
 
     $echo .= ' 
       <div class="col-md-4 mt-2">
         <div class="card mb-1 aqua-gradient h-100">
           <div class="view overlay">
-            <img class="card-img-top" src="'.$SETT['url'].'/uploads/cover/contest/'.$photo.'" alt="'.$key['title'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%; object-fit: cover;" id="photo_'.$key['id'].'">
+            <img class="card-img-top" src="'.getImage($key['cover'], 2).'" alt="'.$key['title'].'"  style="display: block; object-position: 50% 50%; width: 100%; height: 100%; object-fit: cover;" id="photo_'.$key['id'].'">
             <a onclick="profileModal('.$key['id'].', '.$key['id'].', 2)">
               <div class="mask rgba-white-light flex-center font-weight-bold">Quick Preview</div>
             </a>

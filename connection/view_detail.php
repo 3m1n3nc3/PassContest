@@ -21,12 +21,7 @@ if ($_POST['view'] == 'contest') {
   $c_contest = $gett->getContest(null, $contest_id);
 
   // Get the contest cover or display the default photo
-  if ($c_contest['cover']) {
-    $from = $c_contest['country'];
-    $c_photo = $SETT['url'].'/uploads/cover/contest/'.$c_contest['cover'];
-  } else {
-    $c_photo = $SETT['url'].'/uploads/cover/contest/default.jpg';
-  }
+  $c_photo = getImage($c_contest['cover'], 2); 
   $get_user = $c_contest;
   $name = $c_contest['title'];
   $intro = $c_contest['intro']; 
@@ -37,11 +32,7 @@ if ($_POST['view'] == 'contest') {
 } else {
 
   // Get the users photo or display the default photo
-  if ($c_user['photo']) {
-    $c_photo = $SETT['url'].'/uploads/faces/'.$c_user['photo'];
-  } else {
-    $c_photo = $SETT['url'].'/uploads/faces/default.jpg';
-  }
+  $c_photo = getImage($c_user['photo'], 1); 
 
   if (count($contestant) > 0) {
     $get_user = $gett->getUsersCurrent(1)[0];
@@ -60,24 +51,24 @@ if ($_POST['view'] == 'contest') {
 
   if ($photos_cards) {
     foreach ($photos_cards as $photo) {
-      $g_photo = $SETT['url'].'/uploads/gallery/'.$photo['photo'];
+      $g_photo = getImage($photo, 1);
       $gallery_photo .='
       <div class="carousel-item">
         <img class="d-block w-100" src="'.$g_photo.'" alt="'.$c_user['username'].' gallery photo '.$photo['id'].'">
       </div>';   
     }
     $navi = '
-     <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">Previous</span>
     </a>
     <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
-    </a>'; 
+    </a>';
 
   } else {
-    $gallery_photo = $SETT['url'].'/uploads/faces/default.jpg';
+    $gallery_photo = '';
   }
 
 }
@@ -95,7 +86,6 @@ $details = '
             <img class="d-block w-100" src="'.$c_photo.'" alt="'.$c_user['username'].'\'s '.$LANG['profile'].' photo">
           </div> 
           '.$gallery_photo.'
-
         </div>
         '.$navi.'
       </div> 

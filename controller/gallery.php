@@ -71,7 +71,7 @@ function mainContent() {
 		$PTMPL['gallery_cards'] = gallery_cards(); 	
 
 		$img = $userApp->user_gallery($profiles['id'], 1)[0]['photo'];
-		$img = $SETT['url'].'/uploads/gallery/'.$img;
+		$img = getImage($img, 1);
 		$PTMPL['seo_plugin'] = seo_plugin($img, $profiles['twitter'], $profiles['facebook'], $profiles['intro'], $page_title);
 	// Show 404 errow	 
 	} else {

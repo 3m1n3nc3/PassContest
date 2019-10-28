@@ -375,8 +375,8 @@ function mainContent() {
 		    $PTMPL['moment'] = $data['moment'];   
 		    $PTMPL['traveled'] = $data['traveled'];   
 		    $PTMPL['statement'] = $data['statement'];   
-		    $PTMPL['headshot'] = $SETT['url'].'/uploads/contest/head/'.$data['headshot'];   
-		    $PTMPL['fullbody'] = $SETT['url'].'/uploads/contest/body/'.$data['fullbody'];   
+		    $PTMPL['headshot'] = getImage($data['headshot'], 1);  
+		    $PTMPL['fullbody'] = getImage($data['fullbody'], 1);  
 
 			$theme = new themer('enter/viewdata');
 			return $theme->make();

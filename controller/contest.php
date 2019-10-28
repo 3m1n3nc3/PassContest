@@ -98,7 +98,7 @@ function mainContent() {
 
 		 	$PTMPL['details_cards'] = detailsCards();
 
-			$PTMPL['cover'] = $SETT['url'].'/uploads/cover/contest/'.$contest_details['cover'];
+			$PTMPL['cover'] = getImage($contest_details['cover'], 2);
 			$PTMPL['contest_title'] = stripslashes($contest_details['title']);
 			$PTMPL['contest_slug'] = stripslashes($contest_details['slogan']); 
 			$PTMPL['contest_intro'] = '<h4 class="black-text">'.stripslashes($contest_details['intro']).'</h4>';  

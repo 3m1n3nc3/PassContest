@@ -41,7 +41,7 @@ function mainContent() {
 		$PTMPL['follows'] = $social->subscribers($user['id'], 0);
 
  
-		$img = $SETT['url'].'/uploads/gallery/'.$user['photo'];
+		$img = getImage($user['photo'], 1); 
 		$PTMPL['seo_plugin'] = seo_plugin($img, $user['twitter'], $user['facebook'], $user['intro'], $page_title);
 
 	// Show 404 error	 
