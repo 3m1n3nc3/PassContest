@@ -128,7 +128,7 @@ if(isset($_POST['signup'])) {
 		$phone = $phone_var ? filter_var($dbphone, FILTER_SANITIZE_NUMBER_INT) : NULL;
         $userApp->registrationCall($dbusername, $dbemail, $dbpassword, $phone);
         $message = messageNotice($LANG['signup_success'], 1); 
-		if ($_POST['referrer']) {
+		if (isset($_POST['referrer'])) {
 			$header = urldecode(urlReferrer($_POST['referrer'], 1)).$client_id;
 		} else {
 			$header = permalink($SETT['url'].'/index.php?a=account');
