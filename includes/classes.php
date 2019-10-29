@@ -189,7 +189,7 @@ class userCallback {
 		$status = ($settings['activation'] == 'none') ? 2 : 0;
 		$sql = sprintf("INSERT INTO " . TABLE_USERS . " (`email`, `username`, `password`, `phone`, `token`, `creator`, `claimed`, `status`) VALUES 
 	        ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $email, $username, $password, $phone, $token, 0, 1, $status);
-		$response = dbProcessor($sql, 0, 1);
+		$response = 1;//dbProcessor($sql, 0, 1);
 		
 		if ($response == 1) {
 			$_SESSION['username'] = $_POST['username'];

@@ -64,13 +64,13 @@ if(isset($_POST['login'])) {
 	$verify_username = filter_var($dbusername, FILTER_VALIDATE_EMAIL) && $dbusername == $check_user['email'] ? true : ($dbusername == $check_user['username'] ? true : false);
 	// Log-in usage
 	if ($dbusername == '' || $dbpassword == '') {
-     	$message = errorMessage($LANG['not_empty']);  
+     	$message = messageNotice($LANG['not_empty']);  
     } elseif (!$verify_username) {
-	    $message = errorMessage($LANG['user_unrecognized']); 
+	    $message = messageNotice($LANG['user_unrecognized']); 
 	} elseif ($check_user['claimed'] !== '1') {
-	    $message = infoMessage($LANG['not_claimed']);   
+	    $message = messageNotice($LANG['not_claimed']);   
 	} elseif ($dbpassword !==$check_user['password']) {
-	    $message = errorMessage($LANG['invalid_password']); 
+	    $message = messageNotice($LANG['invalid_password'], 3); 
 	} else {
 		$userApp->username = $_POST['username'];
 		$userApp->password = $_POST['password'];
@@ -79,7 +79,7 @@ if(isset($_POST['login'])) {
 		}  $auth = true;
 		$auth = $userApp->authenticateUser();
 		if ($auth) {
-			$message = successMessage($LANG['login_success']); 
+			$message = messageNotice($LANG['login_success'], 1); 
 			if ($_POST['referrer']) {
 				$header = urldecode(urlReferrer($_POST['referrer'], 1)).$client_id;
 			} else {
@@ -107,27 +107,27 @@ if(isset($_POST['signup'])) {
 	$PTMPL['postemail'] = $_POST['email']; 
 
 	if ($inv_only && $dbtoken == '' || $dbusername == '' || $dbemail == '' || $dbpassword == '') {
-     	$message = errorMessage($LANG['not_empty']);  
+     	$message = messageNotice($LANG['not_empty'], 3);  
     } elseif ($dbusername == $userApp->userData($dbusername)['username']) { 
-        $message = infoMessage($LANG['username_taken']); 
+        $message = messageNotice($LANG['username_taken']); 
     } elseif ($dbemail == $userApp->checkEmail($dbemail)) {
-        $message = infoMessage($LANG['email_used']);     
+        $message = messageNotice($LANG['email_used']);     
     } elseif (!filter_var($dbemail, FILTER_VALIDATE_EMAIL)) {
-    	 $message = errorMessage($LANG['invalid_email']);   
+    	 $message = messageNotice($LANG['invalid_email'], 3);   
     } elseif (mb_strlen($dbpassword)<6) {
-    	 $message = errorMessage($LANG['password_short']);   
+    	 $message = messageNotice($LANG['password_short'], 3);   
     } elseif ($userApp->captchaVal($dbrecaptcha) == false) {
-    	 $message = errorMessage($LANG['fail_recaptcha']);   
+    	 $message = messageNotice($LANG['fail_recaptcha'], 3);   
     } elseif ($userApp->use_invite($dbtoken) == false) {
-		$message = errorMessage($LANG['gift_card_registered']); 
+		$message = messageNotice($LANG['gift_card_registered'], 3); 
 	} elseif ($userApp->phoneVal($dbphone) == false) {
-		$message = errorMessage($LANG['invalid_phone_number']);
+		$message = messageNotice($LANG['invalid_phone_number'], 3);
 	} elseif ($userApp->phoneVal($dbphone, 1) == false) {
-		$message = infoMessage($LANG['phone_number_taken']);
+		$message = messageNotice($LANG['phone_number_taken']); 
 	} else { 
 		$phone = $phone_var ? filter_var($dbphone, FILTER_SANITIZE_NUMBER_INT) : NULL;
         $userApp->registrationCall($dbusername, $dbemail, $dbpassword, $phone);
-        $message = successMessage($LANG['signup_success']); 
+        $message = messageNotice($LANG['signup_success'], 1); 
 		if ($_POST['referrer']) {
 			$header = urldecode(urlReferrer($_POST['referrer'], 1)).$client_id;
 		} else {
